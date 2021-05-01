@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://www.freecodecamp.org/news/systems-design-for-interviews/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>System Design Interview Questions – Concepts You Should Know</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="./System Design Interview Questions – Concepts You Should Know_files/prism.min.css">
+    <link rel="stylesheet" type="text/css" href="./System Design Interview Questions – Concepts You Should Know_files/prism-unescaped-markup.css">
+
+    <link href="./System Design Interview Questions – Concepts You Should Know_files/css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./System Design Interview Questions – Concepts You Should Know_files/screen.css">
+    <link rel="stylesheet" type="text/css" href="./System Design Interview Questions – Concepts You Should Know_files/algolia-search.css">
+
+    <script type="text/javascript" async="" src="./System Design Interview Questions – Concepts You Should Know_files/analytics.js.download"></script><script async="" src="./System Design Interview Questions – Concepts You Should Know_files/gtm.js.download"></script><script src="./System Design Interview Questions – Concepts You Should Know_files/algoliasearch.min.js.download"></script><style></style>
+    <script src="./System Design Interview Questions – Concepts You Should Know_files/autocomplete.min.js.download"></script>
+
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/main.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/footer.js.download"></script>
+
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/main.js(1).download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/footer.js(1).download"></script>
+
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/main.js(2).download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/footer.js(2).download"></script>
+
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/setup-locale.js.download"></script>
+
+
+    <script src="./System Design Interview Questions – Concepts You Should Know_files/dayjs.min.js.download"></script>
+    <script src="./System Design Interview Questions – Concepts You Should Know_files/localizedFormat.min.js.download"></script>
+    <script src="./System Design Interview Questions – Concepts You Should Know_files/relativeTime.min.js.download"></script>
+
+    <script src="./System Design Interview Questions – Concepts You Should Know_files/zh-cn.min.js.download"></script>
+
+
+    <link rel="icon" href="https://www.freecodecamp.org/news/favicon.png" type="image/png">
+    <link rel="canonical" href="https://www.freecodecamp.org/news/systems-design-for-interviews/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="https://www.freecodecamp.org/news/systems-design-for-interviews/amp/">
+    
+    <meta property="og:site_name" content="freeCodeCamp.org">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="System Design Interview Questions – Concepts You Should Know">
+    <meta property="og:description" content="You may have heard the terms &quot;Architecture&quot; or &quot;System Design.&quot; These come up a lot during developer job interviews – especially at big tech companies. This in-depth guide will help prepare you for the System Design interview, by teaching you basic software architecture concepts. This is not an exhaustive treatment, since">
+    <meta property="og:url" content="https://www.freecodecamp.org/news/systems-design-for-interviews/">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=2000">
+    <meta property="article:published_time" content="2020-04-01T15:21:00.000Z">
+    <meta property="article:modified_time" content="2021-04-19T16:59:23.000Z">
+    <meta property="article:tag" content="Interviews">
+    <meta property="article:tag" content="Systems Engineering">
+    <meta property="article:tag" content="coding interview">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/freecodecamp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="System Design Interview Questions – Concepts You Should Know">
+    <meta name="twitter:description" content="You may have heard the terms &quot;Architecture&quot; or &quot;System Design.&quot; These come up a lot during developer job interviews – especially at big tech companies. This in-depth guide will help prepare you for the System Design interview, by teaching you basic software architecture concepts. This is not an exhaustive treatment, since">
+    <meta name="twitter:url" content="https://www.freecodecamp.org/news/systems-design-for-interviews/">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=2000">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Zubin Pratap">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Interviews, Systems Engineering, coding interview">
+    <meta name="twitter:site" content="@freecodecamp">
+    <meta name="twitter:creator" content="@zubinpratap">
+    <meta property="og:image:width" content="2000">
+    <meta property="og:image:height" content="1333">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "freeCodeCamp.org",
+        "url": "https://www.freecodecamp.org/news/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.freecodecamp.org/news/content/images/2019/11/fcc_primary_large_24X210.svg",
+            "width": 210,
+            "height": 24
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Zubin Pratap",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.freecodecamp.org/news/content/images/2019/06/WhatsApp-Image-2018-03-22-at-13.36.56.jpeg",
+            "width": 706,
+            "height": 1024
+        },
+        "url": "https://www.freecodecamp.org/news/author/zubin/",
+        "sameAs": [
+            "https://linkedin.com/in/zubinpratap",
+            "https://twitter.com/zubinpratap"
+        ]
+    },
+    "headline": "System Design Interview Questions – Concepts You Should Know",
+    "url": "https://www.freecodecamp.org/news/systems-design-for-interviews/",
+    "datePublished": "2020-04-01T15:21:00.000Z",
+    "dateModified": "2021-04-19T16:59:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&ixlib=rb-1.2.1&q=80&w=2000",
+        "width": 2000,
+        "height": 1333
+    },
+    "keywords": "Interviews, Systems Engineering, coding interview",
+    "description": "You may have heard the terms &quot;Architecture&quot; or &quot;System Design.&quot; These come up a\nlot during developer job interviews – especially at big tech companies.\n\nThis in-depth guide will help prepare you for the System Design interview, by\nteaching you basic software architecture concepts.\n\nThis is not an exhaustive treatment, since System Design is a vast topic. But if\nyou&#x27;re a junior or mid-level developer, this should give you a strong\nfoundation.\n\nFrom there, you can dig deeper with other resources. ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.freecodecamp.org/news/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.39">
+    <link rel="alternate" type="application/rss+xml" title="freeCodeCamp.org" href="https://www.freecodecamp.org/news/rss/">
+    <!-- This is related to https://webmonetization.org/ -->
+<meta name="monetization" content="$ilp.uphold.com/LJmbPn7WD4JB">
+<!-- GAP -->
+
+
+<!-- Google Tag Manager -->
+<script>
+  // Set up dataLayer with data if provided
+  window.dataLayer = window.dataLayer || [{ gaPropertyId: 'UA-55446531-20' }];
+
+  // Initialized GTM via gtag
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-55446531-20');
+
+  // Configure and initialize GTM
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl+'&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer', 'GTM-5D6RKKP');
+</script>
+<!-- End Google Tag Manager -->
+
+
+<meta name="google-site-verification" content="b4tITLzEeeZGEpvD4mGNf3khKM4fvqejQaz9SYBQP8E">
+
+<script async="" src="./System Design Interview Questions – Concepts You Should Know_files/adblocker-chromeglobalinjectjs.js.download"></script><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+
+<body class="post-template tag-interviews tag-systems-engineering tag-coding-interview" data-new-gr-c-s-check-loaded="14.1006.0" data-gr-ext-installed="">
+
+    <div class="site-wrapper">
+        <nav class="site-nav nav-padding">
+    <div class="site-nav-left">
+        <form id="search-form" onsubmit="submitSearch()">
+  <div role="search" class="searchbox__wrapper">
+    <input type="search" placeholder="Search 6,000+ tutorials" id="search-input" class="aa-input" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style=""><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Lato, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+    <button type="submit" title="Submit your search query." class="ais-SearchBox-submit">
+      <svg class="ais-SearchBox-submitIcon" xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 40 40">
+        <path d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"></path>
+      </svg>
+    </button>
+    <div id="dropdown-container"><span class="algolia-autocomplete" style="position: absolute; z-index: 100; display: none; direction: ltr;"><span class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0" style="display: block; left: 0px; right: auto;"><div class="aa-dataset-1"></div></span></span></div>
+  </div>
+</form>
+
+<script>
+  const client = algoliasearch('QMJYL5WYTI', '89770b24481654192d7a5c402c6ad9a0');
+  const index = client.initIndex(main['algolia-index-name']);
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  const hitsToRender = (screenWidth >= 767 && screenHeight >= 768) ? 8 : 5;
+  const searchForm = document.getElementById('search-form');
+  const input = document.getElementById('search-input');
+  const dropdownContainer = document.getElementById('dropdown-container');
+  let searchQuery, hitSelected, hits;
+
+  input.addEventListener('input', e => {
+    searchQuery = e.target.value;
+  });
+
+  // Prevent form from being submitted with magnifying
+  // glass or enter when there is no query or hits
+  searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    submitSearch();
+  });
+
+  const search = autocomplete('#search-input', { 
+      hint: false,
+      keyboardShortcuts: ['s', 191],
+      openOnFocus: true,
+      appendTo: dropdownContainer,
+      debug: true // allow tabbing through results
+    }, [
+    {
+      source: autocomplete.sources.hits(index, { hitsPerPage: hitsToRender }),
+      debounce: 250,
+      templates: {
+        suggestion: (suggestion, result) => {
+          hits = true;
+          return `
+            <a href="${suggestion.url}">
+              <div class="algolia-result">
+                <span>${suggestion._highlightResult.title.value}</span>
+              </div>
+            </a>
+          `;
+        },
+        empty: (options) => {
+          hits = false;
+          return `
+            <div class="aa-suggestion footer-suggestion no-hits-footer">
+              <div class="algolia-result">
+                <span>
+                  No tutorials found
+                </span>
+              </div>
+            </div>
+          `;
+        },
+        footer: (query, result) => {
+          if (!query.isEmpty) {
+            return `
+              <div class="aa-suggestion footer-suggestion">
+                <a id="algolia-footer-selector" href="https://www.freecodecamp.org/news/search?query=${searchQuery}">
+                  <div class="algolia-result algolia-footer">
+                    <span>See all results for ${searchQuery}</span>
+                  </div>
+                </a>
+              </div>
+            `;
+          }
+        }
+      }
+    }
+  ]).on('autocomplete:selected', (event, suggestion, dataset, context) => {
+    // If article is selected, set to URL of the article. 
+    // If footer is selected, set to search results path
+    hitSelected = suggestion ? suggestion.url : `https://www.freecodecamp.org/news/search?query=${searchQuery}`;
+
+    // Let browser handle click, and do not go to selection on tab key press
+    if (context.selectionMethod === 'click' || context.selectionMethod === 'tabKey') {
+      return;
+    }
+
+    // Go to selected article or footer path
+    if (hits) {
+      window.location.assign(hitSelected);
+    }
+  });
+
+  // Go to highlighted hit or search for current query
+  // when magnifying glass or enter is pressed
+  function submitSearch() {
+    hitSelected = document.getElementsByClassName('aa-cursor')[0];
+
+    if (hitSelected && searchQuery) {
+      const articleUrl = hitSelected.querySelector('a').href;
+      window.location.assign(articleUrl);
+    } else if (!hitSelected && searchQuery && hits) {
+      window.location.assign(`https://www.freecodecamp.org/news/search?query=${searchQuery}`);
+    }
+  }
+
+  // close dropbar when clicking off 
+  document.addEventListener('click', e => {
+    if (e.target !== input) {
+      search.autocomplete.close();
+    }
+  });
+</script>
+    </div>
+    <div class="site-nav-middle">
+        <a class="site-nav-logo" href="https://www.freecodecamp.org/news"><img src="./System Design Interview Questions – Concepts You Should Know_files/fcc_primary_large_24X210.svg" alt="freeCodeCamp.org"></a>
+    </div>
+    <div class="site-nav-right">
+        <div class="nav-group">
+            <a class="nav-forum" id="nav-forum" rel="noopener noreferrer" target="_blank" href="https://forum.freecodecamp.org/">Forum</a>
+
+            <a class="toggle-button-nav" id="nav-donate" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/donate/">
+                Donate
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+
+        <a class="banner" id="banner" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/">
+    <p>
+        Learn to code — <span>free 3,000-hour curriculum</span>
+    </p>
+</a>
+
+
+        <div id="error-message"></div>
+
+        
+
+
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post tag-interviews tag-systems-engineering tag-coding-interview ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="April 1, 2020">April 1, 2020</time>
+                    <span class="date-divider">/</span>
+                    <a href="https://www.freecodecamp.org/news/tag/interviews/">
+                        #Interviews
+                    </a>
+                </section>
+                <h1 class="post-full-title">System Design Interview Questions – Concepts You Should Know</h1>
+            </header>
+
+            <div class="post-full-author-header">
+
+
+                
+<section class="author-card">
+    <img class="author-profile-image" src="./System Design Interview Questions – Concepts You Should Know_files/WhatsApp-Image-2018-03-22-at-13.36.56.jpeg" alt="Zubin Pratap">
+    <section class="author-card-content author-card-content-no-bio">
+        <h4 class="author-card-name"><a href="https://www.freecodecamp.org/news/author/zubin/">Zubin Pratap</a></h4>
+    </section>
+</section>
+
+
+            </div>
+
+            <figure class="post-full-image">
+                <img srcset="https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=2000 300w,
+                            https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=2000 600w,
+                            https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=2000 1000w,
+                            https://images.unsplash.com/photo-1573497491208-6b1acb260507?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MXwxMTc3M3wwfDF8c2VhcmNofDF8fGludGVydmlld3xlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=2000 2000w" sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 700px,
+                            1400px" src="./System Design Interview Questions – Concepts You Should Know_files/photo-1573497491208-6b1acb260507" alt="System Design Interview Questions – Concepts You Should Know" onerror="this.style.display=&#39;none&#39;">
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>You may have heard the terms "Architecture" or "System Design." These come up a lot during developer job interviews – especially at big tech companies.</p><p>This in-depth guide will help prepare you for the System Design interview, by teaching you basic software architecture concepts.</p><p>This is not an exhaustive treatment, since System Design is a vast topic. But if you're a junior or mid-level developer, this should give you a strong foundation.</p><p>From there, you can dig deeper with other resources. I've listed some of my favourite resources at the very bottom of this article. &nbsp;</p><p>I've broken this guide into bite-sized chunks by topic and so I recommend you bookmark it. I've found <a href="https://www.freecodecamp.org/news/use-spaced-repetition-with-anki-to-learn-to-code-faster-7c334d448c3c/">spaced learning and repetition</a> to be incredibly valuable tools to learn and retain information. And I've designed this guide to be chunked down into pieces that are easy to do spaced repetition with.</p><ol><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-1-networks-and-protocols">Section 1: Networks &amp; Protocols (IP, DNS, HTTP, TCP etc)</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-2-storage-latency-throughput">Section 2: Storage, Latency &amp; Throughput</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-3-system-availability">Section 3: Availability</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-4-caching">Section 4: Caching</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-5-proxies">Section 5: Proxies</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-6-load-balancing">Section 6: Load Balancing</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-7-consistent-hashing">Section 7: Consistent Hashing</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-8-databases">Section 8: Databases</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-9-leader-election">Section 9: Leader Election</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-10-polling-streaming-sockets">Section 10: Polling, Streaming, Sockets</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-11-endpoint-protection">Section 11: Endpoint Protection</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-12-messaging-pub-sub">Section 12: Messages &amp; Pub-Sub</a></li><li><a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-13-smaller-essentials">Section 13: Smaller Essentials</a></li></ol><p>Let's get started!</p><h2 id="section-1-networks-and-protocols">Section 1: Networks and Protocols</h2><p>"Protocols" is a fancy word that has a meaning in English totally independent of computer science. It means a system of rules and regulations that govern something. A kind of "official procedure" or "official way something must be done".</p><p>For people to connect to machines and code that communicate with each other, they need a network over which such communication can take place. But the communication also needs some rules, structure, and agreed-upon procedures. </p><p>Thus, network protocols are protocols that govern how machines and software communicate over a given network. An example of a network is our beloved world wide web.</p><p>You may have heard of the most common network protocols of the internet era - things like HTTP, TCP/IP etc. Let's break them down into basics. </p><h3 id="ip-internet-protocol">IP - <a href="https://en.wikipedia.org/wiki/Internet_Protocol">Internet Protocol</a></h3><p>Think of this as the fundamental layer of protocols. It is the basic protocol that instructs us on how almost all communication across internet networks must be implemented. </p><p>Messages over IP are often communicated in "packets", which are small bundles of information (2^16 bytes). Each packet has an <a href="https://en.wikipedia.org/wiki/IPv4#Packet_structure">essential structure</a> made up of two components: the Header and the Data. </p><p>The header contains "meta" data about the packet and its data. This metadata includes information such as the IP address of the source (where the packet comes from) and the destination IP address (destination of the packet). Clearly, this is fundamental to being able to send information from one point to another - you need the "from" and "to" addresses. &nbsp;</p><p>And an <a href="https://en.wikipedia.org/wiki/IP_address">IP Address</a> is a numeric label assigned to each device connected to a <a href="https://en.wikipedia.org/wiki/Computer_network">computer network</a> that uses the Internet Protocol for communication. There are public and private IP addresses, and there are currently two versions. The new version is called IPv6 and is increasingly being adopted because IPv4 is running out of numerical addresses. </p><p>The other protocols we will consider in this post are built on top of IP, &nbsp;just like your favorite software language has libraries and frameworks built on top of it. &nbsp;</p><h3 id="tcp-transmission-control-protocol">TCP - <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">Transmission Control Protocol</a></h3><p>TCP is a utility built on top of IP. As you may know from reading my posts, I firmly believe you need to understand <em>why</em> something was invented in order to truly understand <em>what</em> it does. </p><p>TCP was created to solve a problem with IP. Data over IP is typically sent in multiple packets because each packet is fairly small (2^16 bytes). Multiple packets can result in (A) lost or dropped packets and (B) disordered packets, thus corrupting the transmitted data. &nbsp;TCP solves both of these by guaranteeing <em>transmission</em> of packets in an <em>ordered</em> way. &nbsp;</p><p>Being built on top of IP, the packet has a header called the TCP header in addition to the IP header. This TCP header contains information about the ordering of packets, and the number of packets and so on. This ensures that the data is reliably received at the other end. It is generally referred to as TCP/IP because it is built on top of IP.</p><p>TCP needs to establish a connection between source and destination before it transmits the packets, and it does this via a "handshake". This connection itself is established using packets where the source informs the destination that it wants to open a connection, and the destination says OK, and then a connection is opened. </p><p>This, in effect, is what happens when a server "listens" at a port - just before it starts to listen there is a handshake, and then the connection is opened (listening starts). Similarly, one sends the other a message that it is about to close the connection, and that ends the connection. &nbsp;</p><h3 id="http-hyper-text-transfer-protocol">HTTP - <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">Hyper Text Transfer Protocol</a></h3><p>HTTP is a protocol that is an abstraction built on top of TCP/IP. It introduces a very important pattern called the request-response pattern, specifically for client-server interactions. &nbsp;</p><p>A client is simply a machine or system that requests information, and a server is the machine or system that responds with information. A browser is a client, and a web-server is a server. &nbsp;When a server requests data from another server then the first server is also a client, and the second server is the server (I know, tautologies).</p><p>So this request-response cycle has its own rules under HTTP and this standardizes how information is transmitted across the internet. &nbsp;</p><p>At this level of abstraction we typically don't need to worry too much about IP and TCP. However, in HTTP, requests and responses have headers and bodies too, and these contain data that can be set by the developer.</p><p>HTTP requests and responses can be thought of as messages with key-value pairs, very similar to objects in JavaScript and dictionaries in Python, but not the same. </p><p>Below is an illustration of the content, and key-value pairs in HTTP request and response messages.</p><figure class="kg-card kg-image-card kg-width-wide kg-card-hascaption"><img src="./System Design Interview Questions – Concepts You Should Know_files/image-44.png" class="kg-image" alt=""><figcaption>source: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages">https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages</a></figcaption></figure><p>HTTP also comes with some "verbs" or "methods" which are commands that give you an idea of what sort of operation is intended to be performed. For example, the common HTTP methods are "GET", "POST", "PUT", "DELETE" and "PATCH", but there are more. In the above picture, look for the HTTP verb in the start line.</p><h2 id="section-2-storage-latency-throughput">Section 2: Storage, Latency &amp; Throughput</h2><h3 id="storage">Storage</h3><p>Storage is about holding information. Any app, system, or service that you program will need to store and retrieve data, and those are the two fundamental purposes of storage. </p><p>But it's not just about storing data – it's also about fetching it. We use a database to achieve this. A database is a software layer that helps us store and retrieve data.</p><p>These two primary types of operations, storing and retrieving, are also variously called 'set, get', 'store, fetch', 'write, read' and so on. To interact with storage, you will need to go through the database, which acts as an intermediary for you to conduct these fundamental operations.</p><p>The word "storage" can sometimes fool us into thinking about it in physical terms. If I "store" my bike in the shed, I can expect it to be there when I next open the shed. </p><p>But that doesn't always happen in the computing world. Storage can broadly be of two types: "Memory" storage and "Disk" storage. &nbsp;</p><p>Of these two, the disk storage tends to be the more robust and "permanent" (not truly permanent, so we often use the word "persistent" storage instead). Disk storage is persistent storage. This means that when you save something to Disk, and turn the power off, or restart your server, that data will "persist". It won't be lost. </p><p>However, if you leave data in "Memory" then that usually gets wiped away when you shut down or restart, or otherwise lose power. &nbsp;<br><br>The computer you use everyday has both these storage types. Your hard disk is <br>"persistent" Disk storage, and your RAM is transient Memory storage. </p><p>On servers, if the data you're keeping track of is only useful during a session of that server, then it makes sense to keep it in Memory. This is much faster and less expensive than writing things to a persistent database. </p><p>For example, a single session may mean when a user is logged in and using your site. After they log out, you may not need to hold on to bits of data that you collected during the session. </p><p>But whatever you do want to hold on to (like shopping cart history) you will put in persistent Disk storage. That way you can access that data the next time the user logs in, and they will have a seamless experience.</p><p>Ok, so this seems quite simple and basic, and it's meant to be. This is a primer. Storage can get very complex. If you take a look at the range of storage products and solutions your head will spin. </p><p>This is because different use-cases require different types of storage. They key to choosing the right storage types for your system depends on a lot of factors and the needs of your application, and how users interact with it. Other factors include: </p><ul><li>the shape (structure) of your data, or </li><li>what sort of availability it needs (what level of downtime is OK for your storage), or</li><li>scalability (how fast do you need to read and write data, and will these reads and writes happen concurrently (simultaneously) or sequentially) etc, or</li><li>consistency - if you protect against downtime using distributed storage, then how consistent is the data across your stores?</li></ul><p>These questions and the conclusions require you to consider your trade-offs carefully. Is consistency more important than speed? Do you need the database to service millions of operations per minute or only for nightly updates? &nbsp;I will be dealing with these concepts in sections later, so don't worry if you've no idea what they are.</p><h3 id="latency">Latency</h3><p>"Latency" and "Throughput" are terms you're going to hear a lot of as you start to get more experienced with designing systems to support the front end of your application. &nbsp;They are very fundamental to the experience and performance of your application and the system as a whole. &nbsp;There is often a tendency to use these terms in a broader sense than intended, or out of context, but let's fix that.</p><p><strong>Latency</strong> is simply the measure of a duration. What duration? The duration for an action to complete something or produce a result. For example: for data to move from one place in the system to another. &nbsp;You may think of it as a lag, or just simply the time taken to complete an operation. </p><p>The most commonly understood latency is the "round trip" network request - how long does it take for your front end website (client) to send a query to your server, and get a response back from the server. &nbsp;</p><p>When you're loading a site, you want this to be as fast and as smooth as possible. &nbsp;In other words you want <em>low</em> latency. &nbsp;Fast lookups means low latency. &nbsp;So finding a value in an array of elements is slower (higher latency, because you need to iterate over each element in the array to find the one you want) than finding a value in a hash-table (lower latency, because you simply look up the data in "constant" time , by using the key. No iteration needed.). &nbsp;</p><p>Similarly, reading from memory is much faster than reading from a disk (read more <a href="https://stackoverflow.com/questions/1371400/how-much-faster-is-the-memory-usually-than-the-disk">here</a><em>). </em>But both have latency, and your needs will determine which type of storage you pick for which data.</p><p>In that sense, latency is the inverse of speed. You want higher speeds, and you want lower latency. &nbsp;Speed (especially on network calls like via HTTP) is determined also by the distance. So, <a href="https://wondernetwork.com/pings/London">latency from London to another city</a>, will be impacted by the distance from London.</p><p>As you can imagine, you want to design a system to avoid pinging distant servers, but then storing things in memory may not be feasible for your system. These are the tradeoffs that make system design complex, challenging and extremely interesting! </p><p>For example, websites that show news articles may prefer uptime and availability over loading speed, whereas online multiplayer games may require availability <em>and</em> super low latency. &nbsp;These requirements will determine the design and investment in infrastructure to support the system's special requirements.</p><h3 id="throughput">Throughput</h3><p>This can be understood as the maximum capacity of a machine or system. &nbsp;It's often used in factories to calculate how much work an assembly line can do in an hour or a day, or some other unit of time measurement. </p><p>For example an assembly line can assemble 20 cars per hour, which is its throughput. In computing it would be the amount of data that can be passed around in a unit of time. &nbsp;So a 512 Mbps internet connection is a measure of throughput - 512 Mb (megabits) per second. </p><p>Now imagine freeCodeCamp's web-server. &nbsp;If it receives 1 million requests per second, and can serve only 800,000 requests, then its throughput is 800,000 per second. You may end up measuring the throughput in terms of bits instead of requests, so it would be N bits per second. </p><p>In this example, there is a <em>bottleneck</em> because the server cannot handle more than N bits a second, but the requests are more than that. &nbsp;A bottleneck is therefore the constraint on a system. &nbsp;A system is only as fast as its <em>slowest bottleneck. &nbsp;</em> </p><p>If one server can handle 100 bits per second, and another can handle 120 bits per second and a third can handle only 50, then the overall system will be operating at 50bps because that is the constraint - it holds up the speed of the other servers in a given system. </p><p>So increasing throughput anywhere other than the bottleneck may be a waste - you may want to just increase <em>throughput</em> at the <em>lowest bottleneck</em> first. &nbsp;</p><p>You can increase throughput by buying more hardware (horizontal scaling) or increasing the capacity and performance of your existing hardware (vertical scaling) or a few other ways. </p><p>Increasing throughput may sometimes be a short term solution, and so a good systems designer will think through the best ways to scale the throughput of a given system including by splitting up requests (or any other form of "load"), and distributing them across other resources etc. The key point to remember is what throughput is, what a constraint or bottleneck is, and how it impacts a system. </p><p>Fixing latency and throughput are not isolated, universal solutions by themselves, nor are they correlated to each other. They have impacts and considerations across the system, so it's important to understand the system as a whole, and the nature of the demands that will be placed on the system over time.</p><h2 id="section-3-system-availability">Section 3: System Availability</h2><p>Software engineers aim to build systems that are reliable. &nbsp;A reliable system is one that consistently satisfies a user's needs, whenever that user seeks to have that need satisfied. &nbsp;A key component of that reliability is Availability.</p><p>It's helpful to think of availability as the resiliency of a system. &nbsp;If a system is robust enough to handle failures in the network, database, servers etc, then it can generally be considered to be a fault-tolerant system - which makes it an available system. &nbsp;</p><p>Of course, a system is a sum of its parts in many senses, and each part needs to be<a href="https://en.wikipedia.org/wiki/High_availability"> highly available</a> if availability is relevant to the end user experience of the site or app. </p><h3 id="quantifying-availability">Quantifying Availability</h3><p>To quantify the availability of a system, we calculate the percentage of time that the system's primary functionality and operations are available (the uptime) in a given window of time. </p><p>The most business-critical systems would need to have a near-perfect availability. Systems that support highly variable demands and loads with sharp peaks and troughs may be able to get away with slightly lower availability during off-peak times. </p><p>It all depends on the use and nature of the system. But in general, even things that have low, but consistent demands or an implied guarantee that the system is "on-demand" would need to have high availability. </p><p>Think of a site where you backup your pictures. &nbsp;You don't always need to access and retrieve data from this - it's mainly for you to store things in. &nbsp;You would still expect it to always be available any time you login to download even just a single picture. &nbsp; </p><p>A different kind of availability can be understood in the context of the massive e-commerce shopping days like Black Friday or Cyber Monday sales. &nbsp;On these particular days demand will skyrocket and millions will try to access the deals simultaneously. &nbsp;That would require an extremely reliable and high-availability system design to support those loads. </p><p>A commercial reason for high availability is simply that any downtime on the site will result in the site losing money. &nbsp;Also, it could be really bad for reputation, for example, where the service is a service used by <em>other </em>businesses to offer services. &nbsp;If AWS S3 goes down, a lot of companies will suffer, including Netflix, and that is <em>not good</em>.</p><p>So uptimes are extremely important for success. &nbsp;It is worth remembering that commercial availability numbers &nbsp;are calculated based on &nbsp;annual availability, so a downtime of 0.1% (i.e. availability of 99.9%) is <a href="https://en.wikipedia.org/wiki/High_availability">8.77 hours a year</a>!</p><p>Hence, uptimes are extremely high sounding. &nbsp;It is common to see things like 99.99% uptime (52.6 minutes of downtime per year). &nbsp; Which is why it is now common to refer to uptimes in terms of "nines" - <a href="https://en.wikipedia.org/wiki/High_availability#%22Nines%22">the number of nines</a> in the uptime assurance. &nbsp;</p><p>In today's world that is unacceptable for large-scale or mission critical services. &nbsp;Which is why these days "five nines" is considered the ideal availability standard because that translates to a little over 5 minutes of downtime <em>per year</em>.</p><h3 id="slas">SLAs</h3><p>In order to make online services competitive and meet the market's expectations, online service providers typically offer Service Level Agreements/Assurances. &nbsp;These are a set of guaranteed service level metrics. &nbsp;99.999% uptime is one such metric and is often offered as part of premium subscriptions. </p><p>In the case of database and cloud service providers this can be offered even on the trial or free tiers if a customer's core use for that product justifies the expectation of such a metric. </p><p>In many cases failing to meet the SLA will give the customer a right to credits or some other form of compensation for the provider's failure to meet that assurance. &nbsp;Here, by way of example, is <a href="https://cloud.google.com/maps-platform/terms/sla">Google's SLA for the Maps API.</a></p><p>SLAs are therefore a critical part of the overall commercial and technical consideration when designing a system. It is especially important to consider whether availability is in fact a key requirement for a part of a system, and which parts require high availability.</p><h3 id="designing-ha">Designing HA</h3><p>When designing a high availability (HA) system, then, you need to reduce or eliminate "single points of failure". &nbsp;A single point of failure is an element in the system that is the <em>sole</em> element that can produce that undesirable loss of availability. </p><p>You eliminate single points of failure by designing 'redundancy' into the system. Redundancy is basically making 1 or more alternatives (i.e. backups) to the element that is critical for high availability. &nbsp;</p><p>So if your app needs users to be authenticated to use it, and there is only one authentication service and back end, and that fails, then, because that is the single point of failure, your system is no longer usable. &nbsp;By having two or more services that can handle authentication, you have added redundancy and eliminated (or reduced) single points of failure.</p><p>Therefore, you need to understand and de-compose your system into all its parts. Map out which ones are likely to cause single points of failure, which ones are not tolerant of such failure, and which parts can tolerate them. Because engineering HA requires tradeoffs and some of these tradeoffs may be expensive in terms of time, money and resources.</p><h2 id="section-4-caching">Section 4: Caching</h2><p>Caching! This is a very fundamental and easy-to-understand technique to speed up performance in a system. &nbsp;Thus caching helps to reduce <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#storage-latency-throughput">"latency"</a> in a system. </p><p>In our daily lives, we use caching as a matter of common-sense (most of the time...). If we live next door to a supermarket, we still want to buy and store some basics in our fridge and our food cupboard. &nbsp;This is caching. &nbsp;We could always step out, go next door, and buy these things every time we want food – but if its in the pantry or fridge, we reduce the time it takes to make our food. &nbsp;That's caching.</p><h3 id="common-scenarios-for-caching">Common Scenarios for Caching</h3><p>Similarly, in software terms, if we end up relying on certain pieces of data often, we may want to cache that data so that our app performs faster. </p><p>This is often true when it's faster to retrieve data from Memory rather than <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#storage-latency-throughput">disk</a> because of the latency in making network requests. In fact many websites are cached (especially if content doesn't change frequently) in <a href="https://www.cloudflare.com/learning/cdn/what-is-caching/">CDNs</a> so that it can be served to the end user much faster, and it reduces load on the backend servers. &nbsp;</p><p>Another context in which caching helps could be where your backend has to do some computationally intensive and time consuming work. Caching previous results that converts your lookup time from a linear O(N) time to constant O(1) time could be very advantageous.</p><p>Likewise, if your server has to make multiple network requests and API calls in order to compose the data that gets sent back to the requester, then caching data could reduce the number of network calls, and thus the latency.</p><p>If your system has a client (front end), and a server and databases (backend) then caching can be inserted on the client (e.g. browser storage), between the client and the server (e.g. CDNs), or on the server itself. This would reduce over-the-network calls to the database. &nbsp;</p><p>So caching can occur at multiple points or levels in the system, including at the hardware (CPU) level.</p><h3 id="handling-stale-data">Handling Stale Data</h3><p>You may have noticed that the above examples are implicitly handy for "read" operations. &nbsp;Write operations are not that different, in main principles, with the following added considerations:</p><ul><li>write operations require keeping the cache and your database in sync</li><li>this may increase complexity because there are more operations to perform, and new considerations around handling un-synced or "stale" data need to be carefully analyzed</li><li>new design principles may need to be implemented to handle that syncing - should it be done synchronously, or asynchronously? If async, then at what intervals? Where does data get served from in the mean time? How often does the cache need to be refreshed, etc...</li><li>data "eviction" or turnover and refreshes of data, to keep cached data fresh and up-to-date. These include techniques like <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Last_in_first_out_(LIFO)_or_First_in_last_out_(FILO)">LIFO</a>, <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#First_in_first_out_(FIFO)">FIFO</a>, <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)">LRU</a> and <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU)">LFU</a>.</li></ul><p>So let's end with some high-level, and non-binding conclusions. Generally, caching works best when used to store static or infrequently changing data, and when the sources of change are likely to be single operations rather than user-generated operations. &nbsp;</p><p>Where consistency and freshness in data is critical, caching may not be an optimal solution, unless there is another element in the system that efficiently refreshes the caches at intervals that do not adversely impact the purpose and user experience of the application.</p><h2 id="section-5-proxies">Section 5: Proxies</h2><p>Proxy. What? &nbsp;Many of us have heard of proxy servers. &nbsp;We may have seen configuration options on some of our PC or Mac software that talk about adding and configuring proxy servers, or accessing "via a proxy".</p><p>So let's understand that relatively simple, widely used and important piece of tech. This is a word that exists in the English language completely independent of computer science, so let's start with that <a href="https://www.merriam-webster.com/dictionary/proxy">definition</a>.</p><figure class="kg-card kg-image-card kg-width-wide kg-card-hascaption"><img src="./System Design Interview Questions – Concepts You Should Know_files/Screen-Shot-2020-03-08-at-12.57.03-pm.png" class="kg-image" alt=""><figcaption>Source: <a href="https://www.merriam-webster.com/dictionary/proxy">https://www.merriam-webster.com/dictionary/proxy</a></figcaption></figure><p>Now you can eject most of that out of your mind, and hold on to one key word: "substitute". &nbsp;</p><p>In computing, a proxy is typically a server, and it is a server that acts as a middleman between a client and another server. It literally is a bit of code that sits between client and server. That's the crux of proxies. </p><p>In case you need a refresher, or aren't sure of the definitions of client and server, a "client" is a process (code) or machine that requests data from another process or machine (the "server"). &nbsp;The browser is a client when it requests data from a backend server. &nbsp;</p><p>The server serves the client, but can also be a client - when it retrieves data from a database. Then the database is the server, the server is the client (of the database) and <em>also</em> a server for the front-end client (browser). </p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="./System Design Interview Questions – Concepts You Should Know_files/image-22.png" class="kg-image" alt=""><figcaption>Source: <a href="https://teoriadeisegnali.it/appint/html/altro/bgnet/clientserver.html#figure2">https://teoriadeisegnali.it/appint/html/altro/bgnet/clientserver.html#figure2</a></figcaption></figure><p>As you can see from the above, the client-server relationship is bi-directional. &nbsp;So one thing can be both the client and server. &nbsp;If there was a middleman server that received requests, then sent them to another service, then forwards the response it got from that other service back to the originator client, that would be a proxy server.</p><p>Going forward we will refer to clients as clients, servers as servers and proxies as the thing between them.</p><p>So when a client sends a request to a server via the proxy, the proxy may sometimes mask the identity of the client - to the server, the IP address that comes through in the request may be the proxy and not the originating client.</p><p>For those of you who access sites or download things that otherwise are restricted (from the torrent network for example, or sites banned in your country), you may recognize this pattern - it's the principle on which VPNs are built.</p><p>Before we move a bit deeper, I want to call something out - when generally used, the term proxy refers to a "forward" proxy. &nbsp;A forward proxy is one where the proxy acts on behalf of (substitute for) the client in the interaction between client and server. </p><p>This is distinguished from a reverse proxy - where the proxy acts on behalf of a server. &nbsp;On a diagram it would look the same - the proxy sits between the client and the server, and the data flows are the same client &lt;-&gt; proxy &lt;-&gt; server. &nbsp;</p><p>The key difference is that a reverse proxy is designed substitute for the server. &nbsp;Often clients won't even know that the network request got routed through a proxy and the proxy passed it on to the intended server (and did the same thing with the server's response).</p><p>So, in a forward proxy, the server won't know that the client's request and its response are traveling through a proxy, and in a reverse proxy the client won't know that the request and response are routed through a proxy. </p><p>Proxies feel kinda sneaky :)</p><p>But in systems design, especially for complex systems, proxies are useful and reverse proxies are particularly useful. Your reverse proxy can be delegated a lot of tasks that you don't want your main server handling - it can be a gatekeeper, a screener, a load-balancer and an all around assistant.</p><p>So proxies can be useful but you may not be sure why. &nbsp;Again, if you've read my other stuff you'd know that I firmly believe that you can understand things properly only when you know <em>why</em> they exist - knowing <em>what</em> they do is not enough. &nbsp;</p><h2 id="section-6-load-balancing">Section 6: Load Balancing</h2><p>If you think about the two words, load and balance, you will start to get an intuition as to what this does in the world of computing. &nbsp;When a server simultaneously receives a lot of requests, it can slow down (throughput reduces, latency rises). &nbsp;After a point it may even fail (no availability). &nbsp;</p><p>You can give the server more muscle power (vertical scaling) or you can add more servers (horizontal scaling). &nbsp;But now you got to work out how the income requests get distributed to the various servers - which requests get routed to which servers and how to ensure they don't get overloaded too? In other words, how do you balance and allocate the request load?</p><p>Enter load balancers. Since this article is an introduction to principles and concepts, they are, of necessity, very simplified explanations. A load balancer's job is to sit between the client and server (but there are other places it can be inserted) and work out how to distribute incoming request loads across multiple servers, so that the end user (client's) experience is consistently fast, smooth and reliable. </p><p>So load balancers are like traffic managers who direct traffic. &nbsp;And they do this to maintain <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#system-availability">availability</a> and <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#storage-latency-throughput">throughput</a>. </p><p>When understanding where a load balancer is inserted in the system's architecture, you can see that load balancers can be thought of as <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#proxies">reverse proxies</a>. &nbsp;But a load balancer can be inserted in other places too - between other exchanges - for example, between your server and your database.</p><h3 id="the-balancing-act-server-selection-strategies">The Balancing Act - Server Selection Strategies</h3><p>So how does the load balancer decide how to route and allocate request traffic? To start with, every time you add a server, you need to let your load balancer know that there is one more candidate for it to route traffic to. &nbsp;</p><p>If you remove a server, the load balancer needs to know that too. &nbsp;The configuration ensures that the load balancer knows how many servers it has in its go-to list and which ones are available. &nbsp;It is even possible for the load balancer to be kept informed on each server's load levels, status, availability, current task and so on.</p><p>Once the load balancer is configured to know what servers it can redirect to, we need to work out the best routing strategy to ensure there is proper distribution amongst the available servers. &nbsp;</p><p>A naive approach to this is for the load balancer to just randomly pick a server and direct each incoming request that way. &nbsp;But as you can imagine, randomness can cause problems and "unbalanced" allocations where some servers get more loaded than others, and that could affect performance of the overall system negatively.</p><h3 id="round-robin-and-weighted-round-robin">Round Robin and Weighted Round Robin</h3><p>Another method that can be intuitively understood is called "round robin". This is the way many humans process lists that loop. &nbsp;You start at the first item in the list, move down in sequence, and when you're done with the last item you loop back up to the top and start working down the list again. </p><p>The load balancer can do this too, by just looping through available servers in a fixed sequence. &nbsp;This way the load is pretty evenly distributed across your servers in a simple-to-understand and predictable pattern. &nbsp;</p><p>You can get a little more "fancy" with the round robin by "weighting" some services over others. &nbsp;In the normal, standard round robin, each server is given equal weight (let's say all are given a weighting of 1). &nbsp;But when you differently weight servers, then you can have some servers with a lower weighting (say 0.5, if they're less powerful), &nbsp;and others can be higher like 0.7 or 0.9 or even 1. </p><p>Then the total traffic will be split up in proportion to those weights and allocated accordingly to the servers that have power proportionate to the volume of requests.</p><h3 id="load-based-server-selection">Load-based server selection</h3><p>More sophisticated load balancers can work out the current capacity, performance, and loads of the servers in their go-to list and allocate dynamically according to current loads and calculations as to which will have the highest throughput, lowest latency etc. It would do this by monitoring the performance of each server and deciding which ones can and cannot handle the new requests. &nbsp;</p><h3 id="ip-hashing-based-selection">IP Hashing based selection</h3><p>You can configure your load balancer to <a href="https://www.cs.cmu.edu/~adamchik/15-121/lectures/Hashing/hashing.html">hash</a> the IP address of incoming requests, and use the hash value to determine which server to direct the request too. &nbsp;If I had 5 servers available, then the hash function would be designed to return one of five hash values, so one of the servers definitely gets nominated to process the request. </p><p>IP hash based routing can be very useful where you want requests from a certain country or region to get data from a server that is best suited to address the needs from within that region, or where your servers cache requests so that they can be processed fast. &nbsp;</p><p>In the latter scenario, you want to ensure that the request goes to a server that has previously cached the same request, as this will improve speed and performance in processing and responding to that request.</p><p>If your servers each maintain independent caches and your load balancer does not consistently send identical requests to the same server, you will end up with servers re-doing work that has already been done in as previous request to another server, and you lose the optimization that goes with caching data.</p><h3 id="path-or-service-based-selection">Path or Service based selection</h3><p>You can also get the load balancer to route requests based on their "path" or function or service that is being provided. &nbsp;For example if you're buying flowers from an online florist, requests to load the "Bouquets on Special" may be sent to one server and credit card payments may be sent to another server. </p><p>If only one in twenty visitors actually bought flowers, then you could have a smaller server processing the payments and a bigger one handling all the browsing traffic.</p><h3 id="mixed-bag">Mixed Bag</h3><p>And as with all things, you can get to higher and more detailed levels of complexity. You can have multiple load balancers that each have different server selection strategies! &nbsp;And if yours is a very large and highly trafficked system, then you may need <em>load balancers for load balancers...</em></p><p>Ultimately, you add pieces to the system until your performance is tuned to your needs (your needs may look flat, or slow upwards mildly over time, or be prone to spikes!).</p><p>We've talked about VPNs (for forward proxies) and load-balancing (for reverse proxies), but there are more examples <a href="https://www.quora.com/What-are-the-different-uses-of-proxy-servers">here</a>.</p><h2 id="section-7-consistent-hashing">Section 7: Consistent Hashing</h2><p>One of the slightly more tricky concepts to understand is hashing in the context of load balancing. So it gets its own section.</p><p>In order to understand this, please first understand <a href="https://www.cs.cmu.edu/~guna/15-123S11/Lectures/Lecture17.pdf">how hashing works at a conceptual level</a>. The TL;DR is that hashing converts an input into a fixed-size value, often an integer value (the hash). &nbsp;</p><p>One of the key principles for a good hashing algorithm or function is that the function must be <a href="https://en.wikipedia.org/wiki/Hash_function#Deterministic">deterministic</a>, which is a fancy way for saying that identical inputs will generate identical outputs when passed into the function. So, deterministic means - if I pass in the string "Code" (case sensitive) and the function generates a hash of 11002, then every time I pass in "Code" it must generate "11002" as an integer. And if I pass in "code" it will generate a different number (consistently). </p><p>Sometimes the hashing function can generate the same hash for more than one input - this is not the end of the world and there are ways to deal with it. &nbsp;In fact it becomes more likely the more the range of unique inputs are. &nbsp;But when more than one input deterministically generates the same output, it's called a "collision". </p><p>With this in firmly in mind, let's apply it to routing and directed requests to servers. Let's say you have 5 servers to allocate loads across. &nbsp;An easy to understand method would be to hash incoming requests (maybe by IP address, or some client detail), and then generate hashes for each request. &nbsp;Then you apply the modulo operator to that hash, where the right operand is the number of servers. &nbsp;</p><p>For example, this is what your load balancers' pseudo code could look like:</p><pre class=" language-javascript"><code class=" language-javascript">
+request#<span class="token number">1</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">34</span>
+request#<span class="token number">2</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">23</span>
+request#<span class="token number">3</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">30</span>
+request#<span class="token number">4</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">14</span>
+
+<span class="token comment">// You have 5 servers =&gt; [Server A, Server B ,Server C ,Server D ,Server E]</span>
+
+<span class="token comment">// so modulo 5 for each request...</span>
+
+request#<span class="token number">1</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">34</span> <span class="token operator">=&gt;</span> <span class="token number">34</span> <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">=</span> <span class="token number">4</span> <span class="token operator">=&gt;</span> send <span class="token keyword">this</span> request to servers<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span> Server <span class="token constant">E</span>
+
+request#<span class="token number">2</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">23</span> <span class="token operator">=&gt;</span> <span class="token number">23</span> <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">=&gt;</span> send <span class="token keyword">this</span> request to servers<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span> Server <span class="token constant">D</span>
+
+request#<span class="token number">3</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">30</span> <span class="token operator">=&gt;</span> <span class="token number">30</span> <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">=</span> <span class="token number">0</span> <span class="token operator">=&gt;</span> send <span class="token keyword">this</span> request to  servers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span> Server <span class="token constant">A</span>
+
+request#<span class="token number">4</span> <span class="token operator">=&gt;</span> hashes to <span class="token number">14</span> <span class="token operator">=&gt;</span> <span class="token number">14</span> <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">=</span> <span class="token number">4</span> <span class="token operator">=&gt;</span> send <span class="token keyword">this</span> request to servers<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span> Server <span class="token constant">E</span></code></pre><p>As you can see, the hashing function generates a spread of possible values, and when the modulo operator is applied it brings out a smaller range of numbers that map to the server number. </p><p>You will definitely get different requests that map to the same server, and that's fine, as long as there is "<a href="https://en.wikipedia.org/wiki/Hash_function#Uniformity">uniformity</a>" in the overall allocation to all the servers.</p><h3 id="adding-servers-and-handling-failing-servers">Adding Servers, and Handling Failing Servers</h3><p>So - what happens if one of the servers that we are sending traffic to dies? The hashing function (refer to the pseudo code snippet above) still thinks there are 5 servers, and the mod operator generates a range from 0-4. &nbsp;But we only have 4 servers now that one has failed, and we are still sending it traffic. &nbsp;Oops.</p><p>Inversely, we could add a sixth server but that would <em>never</em> get any traffic because our mod operator is 5, and it will never yield a number that would include the newly added 6th server. Double oops.</p><pre><code>// Let's add a 6th server
+servers =&gt; [Server A, Server B ,Server C ,Server D ,Server E, Server F]
+
+// let's change the modulo operand to 6
+request#1 =&gt; hashes to 34 =&gt; 34 % 6 = 4 =&gt; send this request to servers[4] =&gt; Server E
+
+request#2 =&gt; hashes to 23 =&gt; 23 % 6 = 5 =&gt; send this request to servers[5] =&gt; Server F
+
+request#3 =&gt; hashes to 30 =&gt; 30 % 6 = 0 =&gt; send this request to  servers[0] =&gt; Server A
+
+request#4 =&gt; hashes to 14 =&gt; 14 % 6 = 2 =&gt; send this request to servers[2] =&gt; Server C</code></pre><p>We note that the server number after applying the mod changes (though, in this example, <em>not</em> for request#1 and request#3 - but that is just because in this specific case the numbers worked out that way). </p><p>In effect, the result is that half the requests (could be more in other examples!) are now being routed to new servers altogether, and we lose the benefits of previously cached data on the servers. &nbsp;</p><p>For example, request#4 used to go to Server E, but now goes to Server C. &nbsp;All the cached data relating to request#4 sitting on Server E is of no use since the request is now going to Server C. &nbsp;You can calculate a similar problem for where one of your servers dies, but the mod function keeps sending it requests.</p><p>It sounds minor in this tiny system. &nbsp;But on a very large scale system this is a poor outcome. #SystemDesignFail.</p><p>So clearly, a simple hashing-to-allocate system does not scale or handle failures well.</p><h3 id="a-popular-solution-consistent-hashing">A popular solution - consistent hashing</h3><p>Unfortunately this is the part where I feel word descriptions will not be enough. Consistent hashing is best understood visually. &nbsp;But the purpose of this post so far is to give you an intuition around the problem, what it is, why it arises, and what the shortcomings in a basic solution might be. &nbsp;Keep that firmly in mind.</p><p>The key problem with naive hashing, as we discussed, is that when (A) a server fails, traffic still gets routed to it, and (B) you add a new server, the allocations can get substantially changed, thus losing the benefits of previous caches.</p><p>There are two very important things to keep in mind when digging into consistent hashing:</p><ol><li>Consistent hashing <em>does not eliminate the problems</em>, especially B. But it does reduce the problems a lot. At first you might wonder what the big deal is in consistent hashing, as the underlying downside still exists - yes, but to a much smaller extent, and that itself is a valuable improvement in very large scale systems.</li><li>Consistent hashing applies a hash function to incoming requests <em>and the servers</em>. The resulting outputs therefore fall in a set range (continuum) of values. &nbsp;This detail is very important.</li></ol><p>Please keep these in mind as you watch the below recommended video that explains consistent hashing, as otherwise its benefits may not be obvious.</p><p>I strongly recommend this video as it embeds these principles without burdening you with too much detail.</p><figure class="kg-card kg-embed-card kg-card-hascaption"><div class="fluid-width-video-container"><div class="fluid-width-video-wrapper" style="padding-top: 56.1798%;"><iframe src="./System Design Interview Questions – Concepts You Should Know_files/tHEyzVbl4bg.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" name="fitvid0"></iframe></div></div><figcaption>A brief intro to consistent hashing by Hannah Barton</figcaption></figure><p>If you're having a little trouble really understanding why this strategy is important in load balancing, I suggest you take a break, then return to the <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#load-balancing">load balancing section</a> and then re-read this again. &nbsp;It's not uncommon for all this to feel very abstract unless you've directly encountered the problem in your work!</p><h2 id="section-8-databases">Section 8: Databases</h2><p>We briefly <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#storage-latency-throughput">considered</a> that there are different types of storage solutions (databases) designed to suit a number of different use-cases, and some are more specialized for certain tasks than others. &nbsp;At a very high level though, databases can be categorized into two types: Relational and Non-Relational. &nbsp;</p><h3 id="relational-databases">Relational Databases</h3><p>A <strong><a href="https://en.wikipedia.org/wiki/Relational_database">relational database</a></strong> is one that has strictly enforced relationships between things &nbsp;stored in the database. These relationships are typically made possible by requiring the database to represented each such thing (called the "entity") as a structured table - with zero or more rows ("records", "entries") and and one or more columns ("attributes, "fields"). </p><p>By forcing such a structure on an entity, we can ensure that each item/entry/record has the right data to go with it. &nbsp;It makes for better consistency and the ability to make tight relationships between the entities. &nbsp;</p><p>You can see this structure in the table recording "Baby" (entity) data below. &nbsp;Each record ("entry) in the table has 4 fields, which represent data relating to that baby. This is a classic relational database structure (and a formalized entity structure is called a <a href="https://en.wikipedia.org/wiki/Database_schema">schema</a>).</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="./System Design Interview Questions – Concepts You Should Know_files/image-46.png" class="kg-image" alt=""><figcaption>source: <a href="https://web.stanford.edu/class/cs101/table-1-data.html">https://web.stanford.edu/class/cs101/table-1-data.html</a></figcaption></figure><p>So the key feature to understand about relational databases is that they are highly structured, and impose structure on all the entities. &nbsp;This structure in enforced by ensuring that data added to the table conforms to that structure. &nbsp;Adding a height field to the table when its schema doesn't allow for it will not be permitted.</p><p>Most relational databases support a database querying language called SQL - <a href="https://en.wikipedia.org/wiki/SQL">Structured Query Language</a>. This is a language specifically designed to interact with the contents of a structured (relational) database. The two concepts are quite tightly coupled, so much so that people often referred to a relational database as a "SQL database" (and sometimes pronounced as "sequel" database). &nbsp; </p><p>In general, it is considered that SQL (relational) databases support more complex queries (combining different fields and filters and conditions) than non-relational databases. The database itself handles these queries and sends back matching results. &nbsp;</p><p>Many people who are SQL database fans argue that without that function, you would have to fetch <em>all </em>the data and then have the server or the client load that data "<a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#storage-latency-throughput">in memory</a>" and apply the filtering conditions - which is OK for small sets of data but for a large, complex dataset, with millions of records and rows, that would badly affect performance. However, this is not always the case, as we will see when we learn about NoSQL databases.</p><p>A common and much-loved example of a relational database is the <a href="https://en.wikipedia.org/wiki/PostgreSQL">PostgreSQL</a> (often called "Postgres") database. &nbsp;</p><h3 id="acid">ACID</h3><p>ACID transactions are a set of features that describe the transactions that a good relational database will support. <a href="https://en.wikipedia.org/wiki/ACID">ACID = "Atomic, Consistent, Isolation, Durable"</a>. A transaction is an interaction with a database, typically read or write operations.</p><p><strong>Atomicity</strong> requires that when a single transaction comprises of more than one operation, then the database must guarantee that if one operation fails the <em>entire</em> transaction (all operations) also fail. &nbsp;It's "all or nothing". That way if the transaction succeeds, then on completion you know that all the sub-operations completed successfully, and if an operation fails, then you know that all the operations that went with it failed. &nbsp;</p><p>For example if a single transaction involved reading from two tables and writing to three, then if any one of those individual operations fails the entire transaction fails. This means that none of those individual operations should complete. You would not want even 1 out of the 3 write transactions to work - that would "dirty" the data in your databases!</p><p><strong>Consistency</strong> requires that each transaction in a database is valid according to the database's defined rules, and when the database changes state (some information has changed), such change is valid and does not corrupt the data. Each transaction moves the database from one <em>valid</em> state to another <em>valid</em> state. Consistency can be thought of as the following: &nbsp;every "read" operation receives the most recent "write" operation results.</p><p><strong>Isolation</strong> means that you can "concurrently" (at the same time) run multiple transactions on a database, but the database will end up with a state that looks as though each operation had been run serially ( in a sequence, like a queue of operations). &nbsp;I personally think "Isolation" is not a very descriptive term for the concept, but I guess ACCD is less easy to say than ACID...</p><p><strong>Durability</strong> is the promise that once the data is stored in the database, it will remain so. &nbsp;It will be "<a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-2-storage-latency-throughput">persistent</a>" - stored on disk and not in "memory". &nbsp;</p><h3 id="non-relational-databases">Non-relational databases</h3><p>In contrast, a <strong>non-relational database</strong> has a less rigid, or, put another way, a more flexible structure to its data. &nbsp;The data typically is presented as "key-value" pairs. &nbsp;A simple way of representing this would be as an array (list) of "key-value" pair objects, for example:</p><pre class=" language-javascript"><code class=" language-javascript"><span class="token comment">// baby names</span>
+<span class="token punctuation">[</span>
+	<span class="token punctuation">{</span> 
+    	name<span class="token punctuation">:</span> <span class="token string">"Jacob"</span><span class="token punctuation">,</span>
+        rank<span class="token punctuation">:</span> ##<span class="token punctuation">,</span>
+        gender<span class="token punctuation">:</span> <span class="token string">"M"</span><span class="token punctuation">,</span>
+        year<span class="token punctuation">:</span> ####
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> 
+    	name<span class="token punctuation">:</span> <span class="token string">"Isabella"</span><span class="token punctuation">,</span>
+        rank<span class="token punctuation">:</span> ##<span class="token punctuation">,</span>
+        gender<span class="token punctuation">:</span> <span class="token string">"F"</span><span class="token punctuation">,</span>
+        year<span class="token punctuation">:</span> ####
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token comment">//...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    
+    <span class="token comment">// ...</span>
+<span class="token punctuation">]</span></code></pre><p>Non relational databases are also referred to as "NoSQL" databases, and offer benefits when you do not want or need to have consistently structured data. </p><p>Similar to the ACID properties, NoSQL database properties are sometimes referred to as BASE:</p><p><strong>Basically Available </strong>which states that the system guarantees availability</p><p><strong>Soft State</strong> means the state of the system may change over time, even without input </p><p><strong>Eventual Consistency</strong> states that the system will become consistent over a (very short) period of time unless other inputs are received. </p><p>Since, at their core, these databases hold data in a hash-table-like structure, they are extremely fast, simple and easy to use, and are perfect for use cases like caching, environment variables, configuration files and session state etc. This flexibility makes them perfect for using in memory (e.g. <a href="https://en.wikipedia.org/wiki/Memcached">Memcached</a>) and also in persistent storage (e.g. <a href="https://en.wikipedia.org/wiki/Amazon_DynamoDB">DynamoDb</a>).</p><p>There are other "JSON-like" databases called document databases like the well-loved <a href="https://www.mongodb.com/document-databases">MongoDb</a>, and at the core these are also "key-value" stores. </p><h3 id="database-indexing">Database Indexing</h3><p>This is a complicated topic so I will simply skim the surface for the purpose of giving you a high level overview of what you need for systems design interviews. </p><p>Imagine a database table with 100 million rows. &nbsp;This table is used mainly to look up one or two values in each record. To retrieve the values for a specific row you would need to iterate over the table. If it's the very last record that would take a long time!</p><p>Indexing is a way of short cutting to the record that has matching values more efficiently than going through each row. Indexes are typically a data structure that is added to the database that is designed to facilitate fast searching of the database for those <em>specific</em> attributes (fields). </p><p>So if the census bureau has 120 million records with names and ages, and you most often need to retrieve lists of people belonging to an age group, then you would index that database on the age attribute.</p><p>Indexing is core to relational databases and is also widely offered on non-relational databases. The benefits of indexing are thus available in theory for both types of databases, and this is hugely beneficial to optimise lookup times.</p><h3 id="replication-and-sharding">Replication and Sharding</h3><p>While these may sound like things out of a bio-terrorism movie, you're more likely to hear them everyday in the context of database scaling.</p><p>Replication means to duplicate (make copies of, replicate) your database. &nbsp;You may remember that when we discussed <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#system-availability">availability</a>.</p><p>We had considered the benefits of having redundancy in a system to maintain high availability. Replication ensures redundancy in the database if one goes down. But it also raises the question of how to synchronize data across the replicas, since they're meant to have the same data. &nbsp;Replication on write and update operations to a database can happen synchronously (at the same time as the changes to the main database) or asynchronously . &nbsp;</p><p>The acceptable time interval between synchronising the main and a replica database really depends on your needs - if you really need state between the two databases to be consistent then the replication needs to be rapid. &nbsp;You also want to ensure that if the write operation to the replica fails, the write operation to the main database also fails (atomicity).</p><p>But what do you do when you've got so much data that simply replicating it may solve availability issues but does not solve throughput and latency issues (speed)? &nbsp;</p><p>At this point you may want to consider "chunking down" your data, into "shards". Some people also call this partitioning your data (which is different from partitioning your hard drive!). &nbsp;</p><p>Sharding data breaks your huge database into smaller databases. &nbsp;You can work out how you want to shard your data depending on its structure. &nbsp;It could be as simple as every 5 million rows are saved in a different shard, or go for other strategies that best fit your data, needs and locations served.</p><h2 id="section-9-leader-election">Section 9: Leader Election</h2><p>Let's move back to servers again for a slightly more advanced topic. &nbsp;We already understand the principle of <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-3-system-availability">Availability</a>, and how redundancy is one way to increase availability. &nbsp;We have also walked through some practical considerations when handling the <a href="https://www.freecodecamp.org/news/systems-design-for-interviews/#section-6-load-balancing">routing of requests</a> to clusters of redundant servers. </p><p>But sometimes, with this kind of setup where multiple servers are doing much the same thing, there can arise situations where you need only one server to take the lead. </p><p>For example, you want to ensure that only one server is given the responsibility for updating some third party API because multiple updates from different servers could cause issues or run up costs on the third-party's side. &nbsp;</p><p>In this case you need to choose that primary server to delegate this update responsibility to. &nbsp;That process is called <a href="https://en.wikipedia.org/wiki/Leader_election">leader election</a>. &nbsp;</p><p>When multiple servers are in a cluster to provide redundancy, they could, amongst themselves, be configured to have one and only one leader. They would also detect when that leader server has failed, and appoint another one to take its place. </p><p>The principle is very simple, but the devil is in the details. &nbsp;The really tricky part is ensuring that the servers are "in sync" in terms of their data, state and operations. </p><p>There is always the risk that certain outages could result in one or two servers being disconnected from the others, for example. &nbsp;In that case, engineers end up using some of the underlying ideas that are used in blockchain to derive consensus values for the cluster of servers. &nbsp;</p><p>In other words, a <a href="https://en.wikipedia.org/wiki/Consensus_algorithm">consensus algorithm</a> is used to give all the servers an "agreed on" value that they can all rely on in their logic when identifying which server is the leader.</p><p>Leader Election is commonly implemented with software like <a href="https://etcd.io/">etcd</a>, which is a store of key-value pairs that offers both high availability <em>and </em>strong consistency (which is valuable and an unusual combination) by using Leader Election itself and using a consensus algorithm. &nbsp;</p><p>So engineers can rely on etcd's own leader election architecture to produce leader election in their systems. This is done by storing in a service like etcd, a key-value pair that represents the current leader. &nbsp;</p><p>Since etcd is highly available <em>and </em>strongly consistent, that key-value pair can always be relied on by your system to contain the final "source of truth" server in your cluster is the current elected leader.</p><h2 id="section-10-polling-streaming-sockets">Section 10: Polling, Streaming, Sockets</h2><p>In the modern age of continuous updates, push notifications, streaming content and real-time data, it is important to grasp the basic principles that underpin these technologies. &nbsp;To have data in your application updated regularly or instantly requires the use of one of the two following approaches.</p><h3 id="polling">Polling</h3><p>This one is simple. If you look at the<a href="https://en.wikipedia.org/wiki/Polling_(computer_science)"> wikipedia entry</a> you may find it a bit intense. &nbsp;So instead take a look at its dictionary meaning, especially in the context of computer science. &nbsp;Keep that simple fundamental in mind.</p><figure class="kg-card kg-image-card"><img src="./System Design Interview Questions – Concepts You Should Know_files/Screen-Shot-2020-03-14-at-10.25.44-am.png" class="kg-image" alt=""></figure><p>Polling is simply having your client check on a server by sending it a network request and asking for updated data. &nbsp;These requests are typically made at regular intervals like 5 seconds, 15 seconds, 1 minute or any other interval required by your use case. </p><p>Polling every few seconds is still not quite the same as real-time, and also comes with the following downsides, especially if you have a million plus simultaneous users:</p><ul><li>almost-constant network requests (not great for the client)</li><li>almost constant inbound requests (not great for the server loads - 1 million+ requests per second!)</li></ul><p>So polling rapidly is not really efficient or performant, and polling is best used in circumstances when small gaps in data updates is not a problem for your application. </p><p>For example, if you built an Uber clone, you may have the driver-side app send driver location data every 5 seconds, and your rider-side app poll for the driver's location every 5 seconds.</p><h3 id="streaming">Streaming</h3><p>Streaming solves the constant polling problem. &nbsp;If constantly hitting the server is necessary, then it's better to use something called <a href="https://en.wikipedia.org/wiki/WebSocket">web-sockets</a>. </p><p>This is a network communication protocol that is designed to work over TCP. It opens a two-way dedicated channel (socket) between a client and server, kind of like an open hotline between two endpoints. </p><p>Unlike the usual TCP/IP communication, these sockets are "long-lived" so that its a single request to the server that opens up this hotline for the two-way transfer of data, rather than multiple separate requests. By long-lived, we meant that the socket connection between the machines will last until either side closes it, or the network drops.</p><p>You may remember from our discussion on IP, TCP and HTTP that these operate by sending "packets" of data, for each request-response cycle. &nbsp;Web-sockets mean that there is a single request-response interaction (not a cycle really if you think about it!) and that opens up the channel through which two-data is sent in a "stream". </p><p>The big difference with polling and all "regular" IP based communication is that whereas polling has the client making requests to the server for data at regular intervals ("pulling" data), in streaming, the client is "on standby" waiting for the server to "push" some data its way. The server will send out data when it changes, and the client is always listening for that. Hence, if the data change is constant, then it becomes a "stream", which may be better for what the user needs. &nbsp;</p><p>For example, while using <a href="https://www.freecodecamp.org/news/p/51a1d601-c57e-48cf-8f8d-9bb1c333d64d/repl.it">collaborative coding IDEs</a>, when either user types something, it can show up on the other, and this is done via web-sockets because you want to have real-time collaboration. &nbsp;It would suck if what I typed showed up on your screen after you tried to type the same thing or after 3 minutes of you waiting wondering what I was doing! </p><p>Or think of online, multiplayer games - that is a perfect use case for streaming game data between players!</p><p>To conclude, the use case determines the choice between polling and streaming. &nbsp;In general, you want to stream if your data is "real-time", and if it's OK to have a lag (as little as 15 seconds is still a lag) then polling may be a good option. But it all depends on how many simultaneous users you have and whether they expect the data to be instantaneous. A commonly used example of a streaming service is <a href="https://en.wikipedia.org/wiki/Apache_Kafka">Apache Kafka</a>.</p><h2 id="section-11-endpoint-protection">Section 11: Endpoint Protection</h2><p>When you build large scale systems it becomes important to protect your system from too many operations, where such operations are not actually needed to use the system. Now that sounds very abstract. &nbsp;But think of this - how many times have you clicked furiously on a button thinking it's going to make the system more responsive? Imagine if each one of those button clicks pinged a server and the server tried to process them all! If the throughput of the system is low for some reason (say a server was struggling under unusual load) then each of those clicks would have made the system even slower because it has to process them all!</p><p>Sometimes it's not even about protecting the system. Sometimes you want to limit the operations because that is part of your service. For example, you may have used free tiers on third-party API services where you're only allowed to make 20 requests per 30 minute interval. if you make 21 or 300 requests in a 30 minute interval, after the first 20, that server will stop processing your requests.</p><p>That is called rate-limiting. Using rate-limiting, a server can limit the number of operations attempted by a client in a given window of time. A rate-limit can be calculated on users, requests, times, payloads, or other things. Typically, once the limit is exceeded in a time window, for the rest of that window the server will return an error.</p><p>Ok, now you might think that endpoint "protection" is an exaggeration. You're just restricting the users ability to get something out of the endpoint. &nbsp;True, but it is also protection when the user (client) is malicious - like say a bot that is smashing your endpoint. &nbsp;Why would that happen? Because flooding a server with more requests than it can handle is a strategy used by malicious folks to bring down that server, which effectively brings down that service. &nbsp;That's exactly what a <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack">Denial of Service (D0S) attack </a>is. </p><p>While DoS attacks can be defended against in this way, rate-limiting by itself won't protect you from a sophisticated version of a DoS attack - a <em>distributed</em> DoS. Here distribution simply means that the attack is coming from multiple clients that seem unrelated and there is no real way to identify them as being controlled by the single malicious agent. &nbsp;Other methods need to be used to protect against such coordinated, distributed attacks.</p><p>But rate-limiting is useful and popular anyway, for less scary use-cases, like the API restriction one I mentioned. &nbsp;Given how rate-limiting works, since the server has to first check the limit conditions and enforce them if necessary, you need to think about what kind of data structure and database you'd want to use to make those checks super fast, so that you don't slow down processing the request if it's within allowed limits. Also, if you have it in-memory within the server itself, then you need to be able to guarantee that all requests from a given client will come to that server so that it can enforce the limits properly. &nbsp;To handle situations like this it's popular to use a separate <a href="https://en.wikipedia.org/wiki/Redis">Redis service</a> that sits outside the server, but holds the user's details in-memory, and can quickly determine whether a user is within their permitted limits.</p><p>Rate limiting can be made as complicated as the rules you want to enforce, but the above section should cover the fundamentals and most common use-cases.</p><h2 id="section-12-messaging-pub-sub">Section 12: &nbsp;Messaging &amp; Pub-Sub</h2><p>When you design and build large-scale and <a href="https://blog.stackpath.com/distributed-system/">distributed systems</a>, for that system to work cohesively and smoothly, it is important to exchange information between the components and services that make up the system. But as we have seen before, systems that rely on networks suffer from the same weakness as networks - they are fragile. Networks fail and its not an infrequent occurrence. &nbsp;When networks fail, components in the system are not able to communicate and may degrade the system (best case) or cause the system to fail altogether (worst case). &nbsp;So distributed systems need robust mechanisms to ensure that the communication continues or recovers where it left off, even if there is an "arbitrary partition" (i.e. failure) between components in the system.</p><p>Imagine, as an example, that you're booking airline tickets. You get a good price, choose your seats, confirm the booking and you've even paid using your credit card. &nbsp;Now you're waiting for your ticket PDF to arrive in your inbox. &nbsp;You wait, and wait, and it never comes. &nbsp;Somewhere, there was a system failure that didn't get handled or recover properly. &nbsp;A booking system will often connect with airline and pricing APIs to handle the actual flight selection, fare summary, date and time of flight etc. &nbsp;All that gets done while you click through the site's booking UI. But it doesn't have to send you the PDF of the tickets until a few minutes later. Instead the UI can simply confirm that your booking is done, and you can expect the tickets in your inbox shortly. That's a reasonable and common user experience for bookings because the moment of paying and the receipt of the tickets does not have to be simultaneous - the two events can be asynchronous. &nbsp;Such a system would need messaging to ensure that the service (server endpoint) that &nbsp;asynchronously generates the PDF gets notified of a confirmed, paid-for booking, and all the details, and then the PDF can be auto-generated and emailed to you. &nbsp;But if that messaging system fails, the email service would never know about your booking and no ticket would get generated.</p><p><strong>Publisher / Subscriber Messaging</strong></p><p>This is a very popular paradigm (model) for messaging. The key concept is that publishers 'publish' a message and a subscriber subscribes to messages. &nbsp;To give greater granularity, messages can belong to a certain "topic" which is like a category. &nbsp;These topics are like dedicated "channels" or pipes, where each pipe exclusives handles messages belonging to a specific topic. &nbsp;Subscribers choose which topic they want to subscribe to and get notified of messages in that topic. &nbsp;The advantage of this system is that the publisher and the subscriber can be completely de-coupled - i.e. they don't need to know about each other. &nbsp;The publisher announces, and the subscriber listens for announcements for topics that it is on the lookout for.</p><p>A server is often the publisher of messages and there are usually several topics (channels) that get published to. &nbsp;The consumer of a specific topic subscribes to those topics. There is no direct communication between the server (publisher) and the subscriber (could be another server). The only interaction is between publisher and topic, and topic and subscriber.</p><p>The messages in the topic are just data that needs to be communicated, and can take on whatever forms you need. So that gives you four players in Pub/Sub: Publisher, Subscriber, Topics and Messages.</p><h3 id="better-than-a-database">Better than a database</h3><p>So why bother with this? Why not just persist all data to a database and consume it directly from there? Well, you need a system to queue up the messages because &nbsp;each message corresponds to a task that needs to be done based on that message's data. So in our ticketing example, if 100 people make a booking in 35 minutes, putting all that in the database doesn't solve the problem of emailing those 100 people. It just stores a 100 transactions. &nbsp; Pub/Sub systems handle the communication, the task sequencing <em>and</em> the messages get persisted in a database. &nbsp;So the system can offer useful features like "at least once" delivery (messages won't be lost), persistent storage, ordering of messages, "try-again", "re-playability" of messages etc. Without this system, just storing the messages in the database will not help you ensure that the message gets delivered (consumed) and acted upon to successfully complete the task. &nbsp; </p><p>Sometimes the same message may get consumed more than once by a subscriber - typically because the network dropped out momentarily, and though the subscriber consumed the message, it didn't let the publisher know. So the publisher will simply re-send it to the subscriber. &nbsp;That's why the guarantee is "at least once" and not "once and only once". This is unavoidable in distributed systems because networks are inherently unreliable. &nbsp;This can raise complications, where the message triggers an operation on the subscriber's side, and that operation could change things in the database (change state in the overall application). &nbsp;What if a single operation gets repeated multiple times, and each time the application's state changes?</p><h3 id="controlling-outcomes-one-or-many-outcomes">Controlling Outcomes - one or many outcomes?</h3><p>The solution to this new problem is called idempotency - which is a concept that is important but not intuitive to grasp the first few times you examine it. It is a concept that can appear complex (especially if you read the wikipedia entry), so for the current purpose, here is a user-friendly simplification <a href="https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation">from StackOverflow</a>:</p><blockquote><em>In computing, an idempotent operation is one that has no additional effect if it is called more than once with the same input parameters.</em></blockquote><p>So when a subscriber processes a message two or three times, the overall state of the application is exactly what it was after the message was processed the <em>first</em> time. If, for example, at the end of booking your flight tickets and after you entered your credit card details, you clicked on "Pay Now" three times because the system was slow ... you would not want to pay 3X the ticket price right? You need idempotency to ensure that each click after the <em>first</em> one doesn't make another purchase and charge your credit card more than once. In contrast, you can post an identical comment on your best friend's newsfeed N number of times. They will all show up as separate comments, and apart from being annoying, that's not actually <em>wrong. </em>Another example is offering "claps" on Medium posts - each clap is meant to increment the number of claps, not be one and only one clap. These latter two examples do not require idempotency, but the payment example does.</p><p>There are many flavours of messaging systems, and the choice of system is driven by the use-case to be solved for. &nbsp;Often, people will refer to "event based" architecture which means that the system relies on messages about "events" (like paying for tickets) to process operations (like emailing the ticket). &nbsp;The really commonly talked about services are Apache Kafka, RabbitMQ, Google Cloud Pub/Sub, AWS SNS/SQS.</p><h2 id="section-13-smaller-essentials">Section 13: Smaller Essentials</h2><h3 id="logging">Logging</h3><p>Over time your system will collect a lot of data. &nbsp;Most of this data is extremely useful. It can give you a view of the health of your system, its performance and problems. It can also give you valuable insight into who uses your system, how they use it, how often, which parts get used more or less, and so on. &nbsp;</p><p>This data is valuable for analytics, performance optimization and product improvement. It is also extremely valuable for debugging, not just when you log to your console during development, but in actually hunting down bugs in your test and production environments. So logs help in traceability and audits too. &nbsp;</p><p>The key trick to remember when logging is to view it as a sequence of consecutive events, which means the data becomes time-series data, and the tools and databases you use should be specifically designed to help work with that kind of data.</p><h3 id="monitoring">Monitoring</h3><p>This is the next steps after logging. &nbsp;It answers the question of "What do I do with all that logging data?". You monitor and analyze it. &nbsp;You build or use tools and services that parse through that data and present you with dashboards or charts or other ways of making sense of that data in a human-readable way. </p><p>By storing the data in a specialized database designed to handle this kind of data (time-series data) you can plug in other tools that are built with that data structure and intention in mind.</p><h3 id="alerting">Alerting</h3><p>When you are actively monitoring you should also put a system in place to alert you of significant events. Just like having an alert for stock prices going over a certain ceiling or below a certain threshold, certain metrics that you're watching may warrant an alert being sent if they go too high or too low. Response times (latency) or errors and failures are good ones to set up alerting for if they go above an "acceptable" level.</p><p>The key to good logging and monitoring is to ensure your data is fairly consistent over time, as working with inconsistent data could result in missing fields that then break the analytical tools or reduce the benefits of the logging.</p><h2 id="resources">Resources</h2><p>As promised, some useful resources are as follows:</p><ol><li> A fantastic <a href="https://github.com/donnemartin/system-design-primer">Github repo</a> full of concepts, diagrams and study prep</li><li>Tushar Roy's introduction to <a href="https://www.youtube.com/watch?v=UzLMhqg3_Wc">Systems Design</a></li><li>Gaurav Sen's <a href="https://www.youtube.com/watch?v=quLrc3PbuIw&amp;list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX">YouTube playlist</a></li><li><a href="https://www.sitepoint.com/sql-vs-nosql-differences/">SQL vs NoSQL</a></li></ol><p>I hope you enjoyed this long-form guide! </p><p>If you would like to learn more about my journey into code, check out <a href="http://podcast.freecodecamp.org/53-zubin-pratap-from-lawyer-to-developer">episode 53</a> of the <a href="http://podcast.freecodecamp.org/">freeCodeCamp podcast</a>, where Quincy (founder of freeCodeCamp) and I share our experiences as career changers that may help you on your journey. You can also access the podcast on <a href="https://itunes.apple.com/au/podcast/ep-53-zubin-pratap-from-lawyer-to-developer/id1313660749?i=1000431046274&amp;mt=2">iTunes</a>, <a href="https://www.stitcher.com/podcast/freecodecamp-podcast/e/59201373?autoplay=true">Stitcher</a>, and <a href="https://open.spotify.com/episode/4lG0RGpzriG5vXRMgza05C">Spotify</a>.</p><p>I will also hold a few AMAs and webinars in the coming months. If this is of interest to you please let me know by going <a href="http://www.matchfitmastery.com/">here</a>. And of course, you can also Tweet me at <a href="https://twitter.com/zubinpratap">@ZubinPratap</a>.</p>
+                </div>
+                <hr>
+
+                <div class="post-full-author-header">
+                    
+<section class="author-card">
+    <img class="author-profile-image" src="./System Design Interview Questions – Concepts You Should Know_files/WhatsApp-Image-2018-03-22-at-13.36.56.jpeg" alt="Zubin Pratap">
+    <section class="author-card-content">
+        <h4 class="author-card-name"><a href="https://www.freecodecamp.org/news/author/zubin/">Zubin Pratap</a></h4>
+        <p>Recovering lawyer | recovering MBA type | founder | self taught coder| blogger | #TalkNerdyToMe
+
+I broke a lot of "rules" , more as I got older,
+and all that did was encourage me to be bolder.</p>
+    </section>
+</section>
+
+
+                </div>
+                <hr>
+
+                <p class="social-row">
+
+    If you read this far, tweet to the author to show them you care. <a id="tweet-btn" class="cta-button">Tweet a thanks</a>
+</p>
+
+                
+<div class="learn-cta-row">
+    <p>
+        Learn to code for free. freeCodeCamp's open source curriculum has helped more than 40,000 people get jobs as developers. <a class="cta-button" id="learn-to-code-cta" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/learn/">Get started</a>
+    </p>
+</div>
+
+                  <script>
+    // Conditionally show comments section based on publication language setting
+    const showCommentsList = ['zh-cn'];
+
+    if (showCommentsList.includes(`en`)) {
+      const hostname = window.location.hostname;
+      const discourseEmbedMap = {
+        'www.freecodecamp.org': {
+          file: 'https://forum.freecodecamp.org/srv/status',
+          discourseUrl: 'https://forum.freecodecamp.org/'
+        },
+        'chinese.freecodecamp.org': {
+          file: 'https://chinese.freecodecamp.org/forum/srv/status',
+          discourseUrl: 'https://chinese.freecodecamp.org/forum/',
+        },
+        'dev': {
+          file: 'https://forum.freecodecamp.dev/srv/status',
+          discourseUrl: 'https://forum.freecodecamp.dev/'
+        },
+      };
+      const discourseEmbedInfo = discourseEmbedMap[hostname] ? discourseEmbedMap[hostname] : discourseEmbedMap['dev'];
+      const { file, discourseUrl } = discourseEmbedInfo;
+
+      function loadDiscourseComments() {
+        var xhr = new XMLHttpRequest();
+        var randomNum = Math.round(Math.random() * 10000);
+        xhr.open('HEAD', file + '?rand=' + randomNum, true);
+        xhr.send();
+        xhr.addEventListener('readystatechange', processRequest, false);
+        function processRequest(e) {
+          if (xhr.readyState == 4) {
+            if (xhr.status >= 200 && xhr.status < 304) {
+              document.getElementById('discourse-comments').innerHTML = '';
+              DiscourseEmbed = {
+                discourseUrl,
+                discourseEmbedUrl: 'https://www.freecodecamp.org/news/systems-design-for-interviews/'
+              };
+              var d = document.createElement('script');
+              d.type = 'text/javascript';
+              d.async = true;
+              d.src = discourseUrl + 'javascripts/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+            } else {
+              document.getElementById('discourse-comments').innerHTML =
+                '<div style="text-align: center;">Sorry, we could not load the comments. Please try again after some time.</div>';
+            }
+          }
+        }
+      }
+
+      if (window && window.addEventListener) {
+        // Create comments section
+        const commentsDivHtml = `
+          <div id='discourse-comments'>
+            <button id='trigger-load-comments'>Show comments</button>
+          </div>
+        `;
+        const fullContentSection = document.getElementsByClassName('post-full-content')[0];
+        fullContentSection.insertAdjacentHTML('beforeend', commentsDivHtml);
+
+        window.addEventListener('load', function () {
+          document.getElementById('trigger-load-comments').onclick = loadDiscourseComments;
+        });
+      }
+    }
+  </script>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+
+
+
+        <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-desc-col">
+                <p>
+                    freeCodeCamp is a donor-supported tax-exempt 501(c)(3) nonprofit organization (United States Federal Tax Identification Number: 82-0779546)
+                </p>
+                <p>
+                    Our mission: to help people learn to code for free. We accomplish this by creating thousands of videos, articles, and interactive coding lessons - all freely available to the public. We also have thousands of freeCodeCamp study groups around the world.
+                </p>
+                <p>
+                    Donations to freeCodeCamp go toward our education initiatives, and help pay for servers, services, and staff.
+                </p>
+                <p class="footer-donation">
+                    You can <a id="footer-donation" class="inline" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/donate/">make a tax-deductible donation here</a>.
+                </p>
+            </div>
+            <div class="trending-guides">
+                <div class="col-header">Trending Guides</div>
+                <div class="trending-guides-row">
+                    <div class="footer-col footer-col-1">
+                        <a id="article0" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/10-to-the-power-of-0-the-zero-exponent-rule-and-the-power-of-zero-explained/">10 to the Power of 0</a>
+                        <a id="article1" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/git-reset-to-remote-head-how-to-reset-a-remote-branch-to-origin/">Git Reset to Remote</a>
+                        <a id="article2" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-a-correlation-coefficient-r-value-in-statistics-explains/">R Value in Statistics</a>
+                        <a id="article3" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-economics/">What is Economics?</a>
+                        <a id="article4" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/node-module-exports-explained-with-javascript-export-function-examples/">Module Exports</a>
+                        <a id="article5" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/python-vs-javascript-what-are-the-key-differences-between-the-two-popular-programming-languages/">Python VS JavaScript</a>
+                        <a id="article6" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/model-view-architecture/">Model View Controller</a>
+                        <a id="article7" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/react-testing-library-tutorial-javascript-example-code/">React Testing Library</a>
+                        <a id="article8" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/ascii-table-hex-to-ascii-value-character-code-chart-2/">ASCII Table Chart</a>
+                        <a id="article9" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/form-validation-with-html5-and-javascript/">Data Validation</a>
+                    </div>
+                    <div class="footer-col footer-col-2">
+                        <a id="article10" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-recursion-in-javascript/">Recursion</a>
+                        <a id="article11" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-an-iso-file-explained-in-plain-english/">ISO File</a>
+                        <a id="article12" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/adb-android-install-guide-drivers-and-commands/">ADB</a>
+                        <a id="article13" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/mbr-vs-gpt-whats-the-difference-between-an-mbr-partition-and-a-gpt-partition-solved/">MBR VS GPT</a>
+                        <a id="article14" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/javascript-debounce-example/">Debounce</a>
+                        <a id="article15" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-a-helm-chart-tutorial-for-kubernetes-beginners/">Helm Chart</a>
+                        <a id="article16" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/the-80-20-rule-pareto-principle-explained-in-plain-english/">80-20 Rule</a>
+                        <a id="article17" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/osi-model-networking-layers-explained-in-plain-english/">OSI Model</a>
+                        <a id="article18" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/html-link-code-how-to-insert-a-link-to-a-website-with-href-3/">HTML Link Code</a>
+                        <a id="article19" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-sdlc-software-development-life-cycle-phases-methodologies-and-processes-explained/">SDLC</a>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <div class="footer-left">
+                            <a id="article20" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/inductive-vs-deductive-reasoning/">Inductive VS Deductive</a>
+                            <a id="article21" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/check-if-javascript-array-is-empty-or-not-with-length/">JavaScript Empty Array</a>
+                            <a id="article22" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/the-best-time-to-post-on-instagram-the-best-days-and-times-to-reach-your-ig-followers/">Best Instagram Post Time</a>
+                            <a id="article23" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/garbage-collection-in-java-what-is-gc-and-how-it-works-in-the-jvm/">Garbage Collection in Java</a>
+                            <a id="article24" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/auto-numbering-in-excel/">Auto-Numbering in Excel</a>
+                        </div>
+
+                        <div class="footer-right">
+                            <a id="article25" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/javascript-keycode-list-keypress-event-key-codes/">JavaScript Keycode List</a>
+                            <a id="article26" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/javascript-array-reverse-tutorial-with-example-js-code/">JavaScript Reverse Array</a>
+                            <a id="article27" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-take-a-screenshot-on-a-mac-keyboard-shortcut/">How to Screenshot on Mac</a>
+                            <a id="article28" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-reverse-image-search-on-your-phone-or-desktop/">How to Reverse Image Search</a>
+                            <a id="article29" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/ternary-operator-javascript-if-statement-tutorial/">Ternary Operator JavaScript</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="col-header">Our Nonprofit</div>
+            <div class="footer-divider"></div>
+            <div class="our-nonprofit">
+                <a id="about" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/about/">About</a>
+                <a id="alumni" rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/school/free-code-camp/people/">Alumni Network</a>
+                <a id="open-source" rel="noopener noreferrer" target="_blank" href="https://github.com/freeCodeCamp/">Open Source</a>
+                <a id="shop" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/shop/">Shop</a>
+                <a id="support" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/support/">Support</a>
+                <a id="sponsors" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/sponsors/">Sponsors</a>
+                <a id="honesty" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/academic-honesty-policy/">Academic Honesty</a>
+                <a id="coc" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/code-of-conduct/">Code of Conduct</a>
+                <a id="privacy" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/privacy-policy/">Privacy Policy</a>
+                <a id="tos" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/terms-of-service/">Terms of Service</a>
+                <a id="copyright" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/copyright-policy/">Copyright Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+
+    <script>
+        var images = document.querySelectorAll('.kg-gallery-image img');
+        images.forEach(function (image) {
+            var container = image.closest('.kg-gallery-image');
+            var width = image.attributes.width.value;
+            var height = image.attributes.height.value;
+            var ratio = width / height;
+            container.style.flex = ratio + ' 1 0%';
+        })
+    </script>
+
+    <script src="./System Design Interview Questions – Concepts You Should Know_files/jquery-3.2.1.min.js.download" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/jquery.fitvids.js.download"></script>
+
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-unescaped-markup.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-markup-templating.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-bash.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-c.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-clojure.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-cpp.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-csharp.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-css.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-docker.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-elixir.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-erlang.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-git.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-go.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-graphql.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-haskell.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-java.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-javascript.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-json.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-jsx.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-kotlin.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-lua.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-markup.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-php.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-python.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-r.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-ruby.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-rust.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-scala.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-sql.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-swift.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-typescript.min.js.download"></script>
+    <script type="text/javascript" src="./System Design Interview Questions – Concepts You Should Know_files/prism-yaml.min.js.download"></script>
+
+    <script>
+    // Conditionally remove social-row based on the publication language setting
+    const hideSocialRowList = ['zh-cn'];
+    const socialRow = document.getElementsByClassName('social-row')[0];
+
+    if (hideSocialRowList.includes(`en`)) socialRow.remove();
+    else {
+        const title = `System%20Design%20Interview%20Questions%20%E2%80%93%20Concepts%20You%20Should%20Know`.replace(/'/g, '%27');
+        const twitter = `@zubinpratap`;
+        const url = window.location;
+        const thanks = `Thank%20you%20%40zubinpratap%20for%20writing%20this%20helpful%20article.` +
+            `%0A%0A${title}%0A%0A${url}`;
+        const button = document.getElementById('tweet-btn');
+        button.addEventListener('click', () => {
+            if (twitter) {
+                window.open(`https://twitter.com/intent/tweet?text=${thanks}`, `share-twitter`, `width=550, height=235`);
+                return false;
+            }
+            else {
+                window.open(`https://twitter.com/intent/tweet?text=${title}%0A%0A${url}`, `share-twitter`, `width=550, height=235`);
+                return false;
+            }
+        });
+    }
+</script>
+
+<script>
+    const learnToCodeCtaAnchorEl = document.getElementById('learn-to-code-cta');
+
+    learnToCodeCtaAnchorEl.href = main['learn-to-code-cta-url'];
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Start fitVids
+        var $postContent = $(".post-full-content");
+        $postContent.fitVids();
+        // End fitVids
+    });
+</script>
+
+<script>
+    const navForumAnchorEl = document.getElementById('nav-forum');
+    const navDonateAnchorEl = document.getElementById('nav-donate');
+
+    navForumAnchorEl.href = main['forum-url'];
+    navDonateAnchorEl.href = main['donate-url'];
+</script>
+
+<script>
+    const bannerAnchorEl = document.getElementById('banner');
+
+    bannerAnchorEl.href = main['banner-url'];
+</script>
+
+<script>
+    const { trending, ...otherUrls } = footer;
+    const footerDonationAnchorEl = document.getElementById('footer-donation');
+
+    Object.keys(trending).forEach(key => {
+        const anchorId = key.replace(/link|title/, '');
+        const trendingAnchorEl = document.getElementById(anchorId);
+
+        if (key.includes('link')) {
+            trendingAnchorEl.href = trending[key]
+        } else if (key.includes('title')) {
+            trendingAnchorEl.textContent = trending[key];
+        }
+    });
+
+    Object.keys(otherUrls).forEach(key => {
+        const footerAnchorEl = document.getElementById(key);
+
+        footerAnchorEl.href = otherUrls[key];
+    });
+
+    footerDonationAnchorEl.href = main['donate-url'];
+</script>
+
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5D6RKKP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>

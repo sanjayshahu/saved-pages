@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://cdpn.io/charliewilco/fullembedgrid/gEoErR?animations=run&type=embed -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+<link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+
+
+  <title>CodePen - Understanding Event Emitters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./normalize.min.css">
+
+  
+  
+<style>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+}
+
+button {
+  margin: auto;
+  display: block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 700;
+  background: #147aab;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+}
+
+.Wrapper {
+  margin: 1rem auto;
+  max-width: 600px;
+  padding: 8px;
+}
+
+.Card {
+  margin: 0 0 16px;
+  padding: 16px;
+  border: 1px solid #c5c5c5;
+  display: flex;
+}
+
+.Card aside {
+  flex: 1;
+}
+
+.Card header {
+  flex: 7;
+}
+
+.Card h2 {
+  margin-bottom: 4px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.Card__meta {
+  color: #4f4f4f;
+  font-size: 12px;
+}
+
+.Card--error {
+  background: #d23923;
+  color: white;
+  font-weight: 700;
+  border: 0;
+}
+
+.Avatar {
+  display: block;
+  margin-right: 16px;
+  border-radius: 50%;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+<style></style></head>
+
+<body translate="no" data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed="">
+  <div class="Wrapper">
+  <div id="create_root"></div>
+  <button>Fetch New Repo</button>
+</div>
+    <script src="./stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js.download"></script>
+
+  
+      <script id="rendered-js">
+"use strict";
+class EventEmitter {
+    constructor(events) {
+        this.events = events || {};
+    }
+    subscribe(name, cb) {
+        (this.events[name] || (this.events[name] = [])).push(cb);
+        return {
+            unsubscribe: () => this.events[name] && this.events[name].splice(this.events[name].indexOf(cb) >>> 0, 1)
+        };
+    }
+    emit(name, ...args) {
+        (this.events[name] || []).forEach(fn => fn(...args));
+    }
+}
+class DOMTree {
+    constructor(repo, rootElement) {
+        this.repo = {};
+        this.node = "";
+        if (repo) {
+            this.repo = repo;
+        }
+        this.root = rootElement;
+    }
+    create(repo) {
+        this.node = `
+      <div class="Card">
+        <aside>
+          <img width="48" height="48" class="Avatar" src="${repo.owner.avatar_url}" alt="Profile picture for ${repo.owner.login}" />
+        </aside>
+        <header>
+          <h2>${repo.full_name}</h2>
+          <span class="Card__meta">${repo.description}</span>
+        </header>
+      </div>
+  `;
+    }
+    insert(repo) {
+        this.create(repo);
+        this.root.innerHTML = this.node;
+    }
+}
+function asyncMemoize(fn) {
+    let cache = {};
+    return async (...args) => {
+        console.log("Cache", Object.keys(cache));
+        let n = args[0];
+        if (n in cache) {
+            return cache[n];
+        }
+        else {
+            let result = await fn(n);
+            cache[n] = result;
+            return result;
+        }
+    };
+}
+const events = new EventEmitter();
+const tree = new DOMTree({}, document.querySelector('#create_root'));
+const REPOS = [
+    "charliewilco/obsidian",
+    "charliewilco/react-branches",
+    "charliewilco/downwrite",
+    "charliewilco/cyclops",
+    "jaredpalmer/formik",
+    "prettier/prettier",
+    "github/fetch",
+    "WordPress/gutenberg",
+    "facebook/react",
+    "atom/atom",
+    "microsoft/vscode",
+    "facebook/relay",
+    "apollographql/react-apollo",
+    "zeit/hyper",
+    "mobxjs/mobx",
+    "vuejs/vue"
+];
+async function getRepository(name) {
+    return await fetch(`https://api.github.com/repos/${name}`, { mode: "cors" }).then(res => res.json()).then(repo => details = repo);
+}
+const memoizedGetDetails = asyncMemoize(getRepository);
+events.subscribe("getRepo", async function (repo) {
+    const result = await memoizedGetDetails(repo);
+    tree.insert(result);
+});
+events.emit("getRepo", REPOS[getRandomInt(REPOS.length)]);
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+document.querySelector("button").addEventListener("click", function () {
+    const index = getRandomInt(REPOS.length);
+    events.emit("getRepo", REPOS[index]);
+});
+//# sourceURL=pen.js
+    </script>
+
+  
+
+  <script src="./iframeRefreshCSS-bb9a2ba1f03f6147732cb3cd52ac86c6b24524aa87a05ed0b726f11e46d7e277.js.download"></script>
+
+
+
+ 
+</body></html>

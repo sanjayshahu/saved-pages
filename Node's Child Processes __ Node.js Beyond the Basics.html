@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)https://jscomplete.com/learn/node-beyond-basics/child-processes -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Node's Child Processes :: Node.js Beyond the Basics</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,shrink-to-fit=no">
+<meta name="description" content="Node&#39;s Child Processes :: Learn fundamental and advanced concepts of Node like modules, event driven architecture, streams, child processes, scaling, testing, deployment, and more.">
+<meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320">
+<link rel="canonical" href="https://jscomplete.com/learn/node-beyond-basics/child-processes">
+<meta name="robots" content="index, follow">
+<meta name="content-type" content="Page">
+<meta name="categories" content="page">
+<meta name="theme-color" content="#2F3BA2">
+<meta property="og:site_name" content="jsComplete.com">
+<meta property="og:url" content="https://jscomplete.com/learn/node-beyond-basics/child-processes">
+<meta property="og:title" content="Node&#39;s Child Processes :: Node.js Beyond the Basics">
+<meta property="og:description" content="Node&#39;s Child Processes :: Learn fundamental and advanced concepts of Node like modules, event driven architecture, streams, child processes, scaling, testing, deployment, and more.">
+<meta property="og:image" content="https://jscomplete.com/stf/images/logo-sm.png">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Node&#39;s Child Processes :: Node.js Beyond the Basics">
+<meta name="twitter:description" content="Node&#39;s Child Processes :: Learn fundamental and advanced concepts of Node like modules, event driven architecture, streams, child processes, scaling, testing, deployment, and more.">
+<meta name="twitter:url" content="https://jscomplete.com/learn/node-beyond-basics/child-processes">
+<meta name="twitter:image" content="https://jscomplete.com/stf/images/logo-sm.png">
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Samer Buna">
+<meta name="twitter:label2" content="Filed under">
+<meta name="twitter:data2" content="JavaScript">
+<meta name="twitter:site" content="@agilelabs">
+<meta name="twitter:creator" content="@samerbuna">
+<meta property="article:published_time" content="2019-02-03T21:45:19.585Z">
+<meta property="article:modified_time" content="2020-04-26T16:05:40.815Z">
+<meta property="article:publisher" content="https://www.facebook.com/jscomplete">
+<meta property="article:author" content="https://www.facebook.com/samerbuna">
+<meta property="article:tag" content="JavaScript">
+<script type="text/javascript" async="" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/analytics.js.download"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-7BVNEJ8F7Y&amp;l=dataLayer&amp;cx=c"></script><script src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/sdk.js.download" async="" crossorigin="anonymous"></script><script id="facebook-jssdk" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/sdk.js(1).download"></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script async="" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/gtm.js.download"></script><script type="application/ld+json">
+      {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "publisher": {
+              "@type": "Organization",
+              "name": "jsComplete.com",
+              "logo": "https://jscomplete.com/stf/images/logo-sm.png"
+          },
+          "author": {
+              "@type": "Person",
+              "name": "Samer Buna",
+              "image": {
+                  "@type": "ImageObject",
+                  "url": "//www.gravatar.com/avatar/4b6b338a1609ea0a4dfec74208425620?s=250&d=mm&r=x",
+                  "width": 250,
+                  "height": 250
+              },
+              "url": "https://jscomplete.com/samer-buna",
+              "sameAs": [
+                  "https://samerbuna.com",
+                  "https://www.facebook.com/samerbuna",
+                  "https://twitter.com/samerbuna"
+              ]
+          },
+          "headline": "Node&#39;s Child Processes :: Node.js Beyond the Basics",
+          "url": "https://jscomplete.com/learn/node-beyond-basics/child-processes",
+          "datePublished": "2019-02-03T21:45:19.585Z",
+          "dateModified": "2020-04-26T16:05:40.815Z",
+          "image": {
+              "@type": "ImageObject",
+              "url": "https://jscomplete.com/stf/images/logo-sm.png",
+              "width": 800,
+              "height": 500
+          },
+          "keywords": "JavaScript",
+          "description": "Node&#39;s Child Processes :: Learn fundamental and advanced concepts of Node like modules, event driven architecture, streams, child processes, scaling, testing, deployment, and more.",
+          "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://www.jscomplete.com/learn/"
+          }
+      }
+      </script>
+<link rel="shortcut icon" href="https://jscomplete.com/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#9f6986">
+<meta name="apple-mobile-web-app-title" content="jsComplete">
+<link rel="apple-touch-icon" href="https://jscomplete.com/stf/images/icon.png">
+<link rel="apple-touch-icon" sizes="512x512" href="https://jscomplete.com/stf/images/icon-512.png">
+<link rel="apple-touch-startup-image" href="https://jscomplete.com/stf/images/icon-512.png">
+<link rel="stylesheet" href="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/main.27fdd7236a0a19da27b8.css">
+<link rel="manifest" href="https://jscomplete.com/stf/manifest.json">
+<script>window.__jscD = 'eyJpbml0U3RhdGUiOnsibGF5b3V0Ijp0cnVlLCJxdWVyeSI6e30sImNvdXJzZXPEJG5vZGUtYmV5b25kLWJhc2ljxRZpZCI61BssInRpdGxlIjoiTm9kZS5qcyBCxSAgdGhlIELIJHNlb1TGJ3VuZGVmaW5lZCwiZGVzY3JpcHRpb24iOiJMZWFybiBmdW5kYW1lbnRhbCBhbmQgYWR2YW5jZWQgY29uY2VwdHMgb2YgxGogbGlrZSBtb2R1bGVzLCBldmVudCBkcml2ZW4gYXJjaGl0ZWN0dXJlLCBzdHJlYW1zLCBjaGlsZCBwcm9jZXNzxDVzY2FsaW5nLCB0ZXN0xQlkZXBsb3nkAIAsxX9tb3JlLuYAwETsAK5udWxsLCJjYXRlZ2/kAUMiYm9va+QA6XdpcOgBXnB1Ymxpc2hlZMgRZmVh5ACSyRB0YWdzIjoiQm9vayxBbGwgTGV2ZWzERWljb27EGnJlYWRpbmciLCJwcmljZSI6MjgsImtleXdvcmTEIGphdmHmAJUs5AGaasQ8bGFzdFVwZGF0ZWRMYWJlbCI6IldJUCIsImNyZcQVQXQiOiIyMDE5LTAyLTAzVDIxOjIxOjMwLjI1NVoiLCJ1xjzLJzgtMDHRJ+QAg0NvdW50IjoxODA0MywiYWN0aXZlTGVzc29uSeQCLeUBby3pAW8iLCLnAa7lAmV1bGzoAlfEDOkCR8YNcG9zaewBamzFV3MiOlvGMyJs5AIuaW5nLeUCk3J1bnRpbWXrAo1JbnRyb2R1Y8VF7AKAxlDtAnvGE/8B48cQ/wHg5wHgZmFsc+oB4fUB0mRpc3BsYXlNZXRob+QA0coaYWRvY+0DKGNvbnRl5AFqyxRkZWZhdWx0Q+UDt+UBb/UDnOYBcsQg5gC/xhDtAQvGE1D1AXHKFjEsImxvY2vrAN3rAgIyMzUxLCJuZXh05gH/5AHZ5gRR+gCa5QHGcmVxdWly5AHH6AIb6gHCUsgcIE3HHH19LOcB/t84zzj/Af//Af/yAf/nAQH/AgD/AgD/AgD/AgD/AgD/AgD/AgD0AgAy6gIA5gDt6wH/MzI3MuQEo2V2/wH/8AH//wPF7gPFff8CYtZjxRrlBh3wBqsncyBFxBgtROYGNUHrBjXrAmvfQdhB/wJ0/wJ0/wJ0/wJ0/wJ0/wJ0/wJ0/wJ0/wJ0/wJ07gJ0M/sCdDI0Njb/AnT/BHP/BDvGHP8CdddkxRrnCHfyAjVTxxnvAmTfMP8ExyI6IkFuIGnrAzEgdG/lCSkncyBiZXN05wjPc3QgbWlz5AHVcnN0b29kIGlkZWH/COHlCOFzaG9ydCDkAjLpCOf/ApTwCOhJbnRlcm1lZGnkCoz/Ap//Ap//Ap//Ap//Ap//Ap/JFjT8BxMzMzI1/wKg/wSx/wRw8ASx/wKp1m3yCaPPcUPEISBQySHqArTfO9I7/wK//wUS/wUS/wUS/wUS/wJz/wJz/wJz/wJz/wJz7gJzNf0JhjY3OP8Cc/8Er/4Er/8CYtZc5w1j5gfiYXBwzGFTxhzlBKbkDjlBcHBsaWNh5ADr7AJq30PaQ/8Ccv8Ccv8Ccv8Ccv8Ccv8Ccv8Ccv8Ccv8Ccv8Ccu4Ccjb8Cfg55Av3/wJx/wR3/wQ8xyF9fV19fSwidXNlckPoARXnAWzlAcDqAb/pASvEMOkONnvRc+gQ0v8Ai/4Ex/gQzP8CWv8CWv8CWv8CWv8CWv8CWv8CWiLtEH9KYXZhU+UA4P0QXzQ1OjE5LjU48xBfMjAtMDQtMjZUMTY6MDU6NDAuODHFJ21haW5JbWFn6QKu/wT3ImJvZOQIplBHZ3hQazV2WkdVbUl6Z3lNVGM3Y3lCRGFHbHNaQ0JRY205alpYTnpaWE04TDJneFBnbzhaR2wySUdsa1BTSjBiMk1pSUdOc1lYTnp4Z3pPRzNScGRHeGxJajQ4TDJScGRqNEtQSFZzeUN0elpXTjBiR1YyWld3eHhESnNhVDQ4WVNCb2NtVm1QU0lqZEdobExXUEVkQzF3eUhRdGJXOWtkY1JKVkdobDhBQ1FJRTNGSER3dllUxFx4cDBFNXpjR0YzYm1WazBGSWlQbFBHR2RCUDJVaG9aV3hzTFhONWJuUmhlQzFoYm1RdDVBQ25aWGhsWXkxbWRXNWpkR2x2YmlJK1U4UWtJRlBGSkNCxChn5ACISUR4amIyUmxQc1FxUENcdTAwMkZGQ3lCR3h6SFlhOGhhWm1sc1pjdGU1QUQ4eWsxR2FlUUE5TjlSeTFGemVXN3FBS3R6ekU0cVUzbHU4UUNjK1FFSXhFeG1iM0pyOVFDWnhCbjdBSlV2ZFd6RUJ1WUNET2dDSm5CeVpXRnRZdVFCM2NZVTZ3SWhhVzl1WW05a2VjOGFjR0Z5WVdkeVlYQm94Qmh3UGxOcGJtZHNaUzEwYUhKbFlXUmxaQ3dnYm05dUxXSnNiMk5yYVc1bklIQmxjbVp2Y23kAQlObElHbHVJT1FDMlNCM+QAkGN5Qm5jbVZoZENCbWIzSWdZU0J6eFVRZzV3SWVMaUJDZFhRZ1pYWmxiblIxWVd4c2VTd2diMjdKSGNSR3hBOURVRlVnYVhNxHgwSUdkdnhHcDBieUJpWlNCbGJtOTFaMmpFRFdoaGJtUnNaZVVDQTJsdVkzSmxZY1JseFh4c2IyRmtJRzltSUhsdmRYSWdZWEJ3YkdsalllUUE3QzQ4TDNEdUFTRDJBUEpPYnlCdFlYUjBaWElnYUc5M0lIQnZkMlZ5Wm5Wc3hrOXpaWEoyxBxiV0Y1SUdKbExPb0EyK1lCSHlCxVB2bXg1SUhOMWNIQnZjblHkAOxzYVcxcGRHVmtJT1FBbHY4QWd1a0FndVFCOG1aaFkz5QIRaGRPWUJWWEoxYnVVQkhOQnlaRzlsNWdFbWJXVmhic1l3ZDJYa0FJam5CR0IwSUhSaGEyVWdZV1IyWVc1MFlXZGw1QUVaYlhWc2RHbHc2Z0dSWlhQa0EwNHN4QnRqYjNWeWMyVXN5aU50WVdOb2FXN0VJbk1nZDJWc2JQOEF3K2tBdzFYbEFZ5gKJVGFtbHo1UUcwWW1WemRDQjNZWG5rQWN0elkyRnNaU0JoNWdEcDdBR3h4aEpwY3lCa1pYTnBaK1FFVHVRQ1VHSjFhV3hreEY1a2FYTjBjbWxpZGVRQlg4czNjeUIzYVhSb0lHMWhibmvkAdFrWlhNdUlGUm9hY1Y2ZDJoNUlHbDA2UVY3Ym1GdFpXUWdQSMREOXVaK1VGbGp3dnh3MHVJRk5qWVd4aFltbHNhWFI1eER0aVlXdGxaQ0JwYm5SdjVRREFjR3hoZE9RQyt1VUVpTXhUYjNRZ2MyOXRaWFJvNUFDaWVXOTFJSE4wWVhMa0FjcHBidVVETW1GaWIzVjBJR3hoNUFKZ2FlUUJzbVVnYkdsbVpYUnBiZVVCbkdGdStnS3p6Z2Z2QTgzbEJlbG9NdVlHR3Y4RjTmAUBnRjQyZ3nGDHdRbCtBSHVWK1VDY3lEa0E0WGtBdjF3NVFLcDVnUzA1UUNJNkFJQTZBUzlkZVVDSHUwSEI4VW9YOGNvSU9ZQXJ1Y0Y1Vzl6WmNZZnlFZGxjOHh2WTI5dGJYVnU1QUV5WmVZQittVmhZMmdnYjNSb1pYTEdFR0VnYldWemMyRm54SFJ6ZVhOMFpXM+YAkEFzYnRBNG5yQU1mb0FKxhRvQU1mbkFLWmxi5AEAR1Z6SUhWejVBTE9ZV1BFSXlCUGNHVnlZWFRFYzFQRmN5RG9CZEZoYkdsMGFXVnpJR0o1NUFQVmJzUWk1QUtxNWdDWjVRRE41UUpUYm5OcDVBTU9MT1VEZGl6dUFRRMZyQUzGCHdBWmRqYjI15AHiczVnUWV6VWtnYVc1d+QEE2MzVGtCaVhsQVc1c+QCSlpXN2tBTWhwZEhNZ+QBpnlpQXVJTWRRWVd4emI4dFbkAppjbWQxYldWdWRPVUJBR0psSUhCaGMzTmxaTVFOeEI1MWJtUmxjbXg1NUFEcFQxUG9BT0VzeFc3bUJLc2daRzhnZDJoaGRHWGtCVnQzWlNCM+QDXzVnRzY1Z0N5eGpMcEFpcm1BSlV1SUVadmNpQmxlR0Z0Y0d45AN/bXhVcHdhWERtQmhUR0plUURVdVFHVHNkRDVBVEZ4QjNtQVBia0FheHU1Z0luS0dwMWMzUeQCWnJaY1JKWkfmARFrQTVwTWFXNTFlQ25FTTJGc2JNWXo1UVVveDF0enhGeDBhR1hrQXB6R1h1WUNsZVFBxjczSmxjMuQCElNXZMlKaFhxQXU3bkFVcsYSQWNIdEFvQnk1QUZmWlNCbTVBWita5ALabVZ5WmVRQkhtRjU1UUZ0NUFiNWRPUUZQUEFCMThWdk91Y0N2ZVVKcFNncDV3SzNMT3NJVHRFVjVBajh5eFhrQVBES0dlUUpGY2tkxmp3REU2d0tGNXdHNmNtWHFCOHR65AKpcCtnQTBtUGtBeEZsZEjkBLRKODVRRlY1UUR4NlFsUjVnSXVhTVFlNUFGVFplVUQ1UDhGSHZnRkh2OEtzxlpNyAk4RkdQOEVRT29CZytnRU9PZ0ExeUJzWVhWdVkyamtCMTdy5wEba+QFg3VaWGZwQWN6ckF5amtBUGxwNVFLNTVBTmk3UU1lNVFSRTZRT0k3d01kNUFKRzZnVnA1QUtJNUFHRDVBQ1N6MnpGVW5kcGJHd2c1QUh2ZFhUbUFhWG1BTUp3ZDJUb0FNREhkUGtDQXVRRVJXbOQEqktKdThCSWVRRU4yVnVkTVFXY0hKbFBtTnZibk4wSUh2bkFJMTlJRDBnY21WeGRXbHlaU2dpN1FWeUlpazdDZ3JHTGNVWUlEM0dNeWdpY0hka8QY6AgoRVR2c0NCZklGR25OcGJYQnNlZVFJVzNSeWRXTjBkWExzQU8zMkFhxi1rQjdybecBC2LGB0JoYm9CcnpvQVVacDZRVFFaZXNGQk9nRWoyWnBjbk4wNlFHOcYqd05ZN1FKY2PkBgdXemxBSlRHYXVVRFh2OEF4U2pLSWVVQXY4Z2hiMkpx5Al9NUFpZ2RtVXA1QWp5NkFmQzVRTVA1d01PeUMxcOQA+TVBdjFMQ0IzYUdsamFDRGtBVXhsNXdZRHlWOUY1QXZqUlcxcDVBdE15RGxCVUVubkPnBpBrQ3JIa0NsVGxBdHB5Wldma0JubHk1d3ZYY25QbENlcmxEQ1J6SegC+EJCUnA1d2dqNkFDb1pHbHk1QTdrZWZZR0NHUnY2d21HNWdRNGFPOElSU0JsZU9RRzQrUUhoOGQ5eEN4aDZBQ0M1UUNCN0E1aGFY5AHbVGxBSmM2xlt3TOgBGEw5NVFMOTVBQ1BMbTl1S0NMb0NvUEdac2NOSWl6cEFiVW94SGtzSU9RTEJXRnNLU0I3Q2lEa0I0QnpiMnhsTG14dlp5Z0tJQ0FnSU9ZRE1lMEEzbVZrNWdKM0lpQXJJR0RFUXlBa2U4UUhmZVVDbmNaT0lDUjd4Z2w5WUFvZ0lDazdDbugF0TA3M0Fvdm9BVGZsQWtBZ1oybDI1d2tSYUdYbEFJdm9BbkxsQzJURkMra0JZZTRBdU80UDJPWUFtOGN5TENCcDVBc2hlU3puQktoaHhHTG5DR2hsY20xcGJ1UUhDOUZTNXdKdjAxQWdkbUZ5YWVRSnUrVU9hbuQIOTRDS203a0R1bHNiSG7nAI02SHRBUmJtQ0bGEG5Bc2pyRFo3M0F2SHBCQ1jHJjNybEJ6RGtDQmZHS0dScGMyTnZibTVsWStnQ28ra0h6bkp5YitnRGU4Z1VZMnh2YytnQmhPd0g0ZVlMSk1nYStRRGxkZVFDNE9RQTRlVVFiZVVRZU93RzZQRUFpK1nnAu5lUUJZbVhsQkFyb0I4ZmtEVVJoNVFqTTZRdjBZVzdsRUJBZ+QI0GJPd0VTT1lES05KYTVBUGdiK2tHaHVnUlRPNEFrT3dCQXZJQWkybm1CYzNvQUlK5AlNc1pPVU53MkpsNWdaZ+QIpOQK1WEybHNiR1hmYWV3QlY5SnA2UUQweGkxemRHUnBiOGd0NXdvVTVRMys3d0o1WjJWMElNVlozMzN1QWJ6S2Y4UnliVzl65AV2b0c5eWRPUUxXRzl1WlM0Z1Nlb09zZkVBb3U0QWduWGtEVzNyQ0FYR0Z5NXpaVzVrNlFvSzZnWmM1UW5hYm1UbkRYRHNEM3JsRVV2bEFmQXY5QTNMK3czRTVBeDM1d0N1Ykd6bENqbmtEZnZtQmZEbUI0N2tENTVsYkc5MzdRRWs4Uk1OOWdPbFJYWmxjbm53QklQa0RPQm5aZWNHek9RUmFlUUx1V0Z1WkdGeTZBTXQ5QUhCNkFjTTV3UGk1dzRJNWd2OTdBTEp4RHpvQjVmcEE1WElHbTkxNmdQRTZnT2N5UjlsY3VnQ3pmOEVodW9JNnVZQjJPUVBST2dDYWVvQ1Z1UUZTdkFCOHVzRlhPY0lUMjNuQ2hOdDVBcDgrd0x4N1FWcTBo5gHjbEVjbnBETUowYU9VU3NQa0hZQ0JpWldOaDVBcng2UkpFOEFJNGJXbG5hSOQJ/WprQlFqRVNYTmhiZndEWUN3Z2MyxkltRGczTVNPVUYzT1VTVGZJVFNjVlZ4ajBnWschd0E06AdGWG5rRlRsalplVU9QTWhFNUFDcDVnRGM1Z04xY3VRQ00rWUNMZW9QZCtvQkl1d0nGNnVRQnbGCnNFTytVQXI4UmbkDGfkC481Z2NVNUE5UDd3TGJMaUJWYnVVTzV1WU1adVVHMGNnY3hHWjFaMmdzeGh6Tk4rNEV1dW9Db+cKX0pGT29DbU8wQTd1UVVvK1VIWWNnVmQyaHA1eFcxeVR2cEF3ekhKZVlLZTNkeWFYVEZPdVVFc09nRVJtSmhjMm5rQmg1NXhVTnBibuQB71BuQkFYa0FTSjBlWEJsNUFkSmRlZ05TRzFoYVc3c0NBam5BWURwQ25ma0FtRG1DSWZzQXlEcEFsSG/nA3VSdmJ1UUV5MDN0QlVubUZyakZLUElBNXZBQjFlb0E4V1JoZEdIdEF1anBCRGJrQTJOb1lYYndF5woPRUR1Z01NT1FYVFc1NUlPVUcxQ+QN4k52ZFc1MFpYTGxCYjNrQVZmdURBVEhOZjhLcVA4S3FPc0txT1lCK3VVS3IrUUF4U0lzSU1RSElEMG1aM1E3OFFxU1lNVTBJTVkwT2x4dUpIdkVMWDFnNWdwZ0NnckpVMlZ5Y3Q5VHhGUGxBUExMVlfEEEZW5wH5cTE5UW1mZEhmb0dFbHljK2NLdXVVQmlH5AXDQmnkC3RJR05oNVFjQTVnSEM3QUpPOUFNUDZ3V3g3Z1dySU9VRmhYZm9BYecA40RtbHZidVnkBKhGbmU0Q0N2Z1BpK1lHcjNCeWFlVVNkK2dMUlBRS3h1VUhYc1E4eDB3d3gwcm9Bb2ptRFpkdWIrY0NabTlqWeQN1HY4RTl2SVVjK1VRb08wVUYrd0N5T1FFcitvSWdlWUJGR1RrRFnoArhSanFCcE1nYzJWamIrUVBRc2RqN2dFZzFUM3BEcXZrREdRZ1lYSnlZWG5FTnVRRm9mOFV4T29BdXU4T2JlUUZaZkVCMG1acGJ2RUJudWNFS2VVQlMyN29Ecnh2Y25ub0ZxREdPaTNrQk1BZ1pzZzk2UURjS0jkDYxSTUlPUWNzdVFHRVd4NUtlc082djhENMQEdXNSaCs4Uld1UUF55AG3RnNpTGlJc0lDTGxBSjNFQ1dZaVhmOERiZk1DRjBubEdOcnJBbE56SUdSMTVROXg1ZzRoNVFTNTVCRmk3Z1R4S09VUUJ1Z0JiMmxtNUFEMTVBNWLkD3VuTVJTYVc1MllXeHBaT1VSeHVRT0FPa0RQU25zQ0tyeUNUN21CR25tQjQzb0RycmznAs1w5BBi5A7BbuQOfecCEUFlWlBBSW84MOQK223nCHVMa0NwMXA1Qk9ZWk9VR21zWThNZThEWnVRT2lHbG01QmdINWdlNzZBRWNhR0Z6NmdOejVnYXh4UmjkAJMxNUEzelkrWWRN5Q9LRGtDMmpuQWxobzVBYWFUMVBwQUxEbEFramtFaFhFUFA4RHV1a0JvMEh2QucKEXpCNkh1QjVydkdCYnFGSjNsREFQcUZOTGtFWW5tRjBBdUlFcnBG5AT/c25QUytZRThlUVoxdXNjSGVRQ20zWEVRZVVLUU9vRUFlY0ZDbWx3NmhCUTV3UHA1UUNTNXhQZXhDQWdZZkFIb3VZYnjGdE1BeStZSnRQb0Y3TzhCQzg5WDhCaUdZWFRJYWY4Qld1Z0krKzBF5wfxOEQx0AlWWHY4Vlh1a0VCSGRqeFJ6b0VxREhNT1lNd3k3a0FPY282d3pVNUFRWHh5bnJCK+cDPkNEx1LJCUIrRDhCSFBtQXh6b0RpcnJCMVB3R1N4MmIydnREdVYzNlNHdjZScXQ1Z08yNVFseGN5QnM1QjhSTE/kDX1SejVnMm1ZMmhoY21GajVBdlM2Um82NVFLR2RPUUgrT2thbFA4Q1ZDQW82Z2FoOEFKYktlb2VldjhDVE01SDd3TGlLZVlFVk9vV04rWVZXRzl0WXVnRlBlVVFOZVlTcCtRT0oySHFDd1htR3pWdDVTSGk1UnFYNXdMdDVRUnQ2UlZ0NXh2WTV3andhT2tUK1XkEOt3clJPZ0FvK1FiN3NRZ3hEemtGS1RtQlhubEU4M3RHNlB0QjlieEFaZucBAU5yd0NKVGxEOWZwQVkzdUFOZ3Y2Z2xuOHlDMGIrUWViT2dRa0N3ZzdSd3Q2QnpBNUFmSjVRSDU2UndQxkJ4eWk5QXBCN1FEdzlBaEo3UXhNN1FI5wb5Z0VyeERubEFyN3BDUERtQ0V6bklJTHhDSucJ8kJI5wqIzAk1QkgzbEI55wxwQ0nkBitESE1YZGp5aTkzWThVdExXekZJT2tFczhSRzZBU0g1UVN4ZDJQekJLN0dGZjhFcSt3RXEwNTFiV0psY3VRQmR1WUJTZjhFclA4Q29ra+QS+2s1QXB1NlFIQ0xla1dwZWtLQiswQsZyUFVCNG0za0krdmxDSHprQWVybEpJbkVN5Qb8Y01oZWdMYnVjRkN1VWpjdW9NK09jREJ1UUh2TVZDNWdzZjZRSXJ4QTNvQWlQa0NMemxIOXJ0QWtIa0Q2N8ZgSFpiNEha5wDfS0FIyQkyyQ1IYm42QVpGQzVBbGpabUYxYkhUbUFTbjhESlhwRWpycEg0M29BbnpsQU5UcEFtYndE5wPMb0FibDM1Z3h0NWdYaWFlZ1RSdVFCekhQa0FjMXpiT1FTNkd4NUlHMXY1QkpBWm1acFkybjFFMEhxQVFId0RQUGxBS0xwQUo3bEFKYm5DbDE0WldQSkx1WUtmVzdvR0xWdFlXcHY2aUJ6WStVV051a0EybUoxeEJkejZ3RGM2Z0RSNlEzYVrkEExDTUU1QmRFNXdKWWJtVG1EVmptQmVSM2HoDWhFZUhHSE9VSzR1VWhsT1VZQUdKaFkydnJITFRrR1Bia0p1OXZadWNLQSs4VmRPVWwzR0hvQm0zdEFh5A+DMHDGR3dZcjZRSDRTT3dmS3VRQXBIQnlaWFpwYjNYb0IybmxCS0o4SU9vRGZ1Z0lYK2tkQWVnYmTkE4J3R1rGQXg46A2eVmY3UVZmeOcMe8YGQlY0S3hDVG1CVkFnTGlEbkRtYmxBTVlnTFd3aUxDQW9aWEp5TE9jSmQ4VUnEDEtlc0UrV2xteFNQbUhIanhFWlhFWGVZTWFqb2dKSHRsY25MbEJRWEVLWEpsZEhWeWJzUU1mUecHY0JVRGtISWJsQUnnEudCVecEuEZXNytBd8YMbUdNM25Bd0gzQTQ3cEI2amtETcclVCt3RHpDRG1CS0RxQXZmb0hvYmxJV01zNUFPMTVBS2R4RHpuQjVER044aEY1Z3l2eUQxbVpXSGtJSGY1QWcxaFpHMXZibW5sQkxIa0FoQWdkMkZ5NUNZdjVBRHg1UW5WeEFoeXhBVmt5REpwWStRRkp3bzhhY2dSWm1FZ3hCUXR5RHNnNVM0eVBTSlh5RXM4TCtVWkxYUmt6VWpxQW14T2IrVUJJR0YwN0JGODZ3RUw1QUU0WmVjU1ZtSGtFWlrkCv9wTVhKcGMydmtBamg1YjNYcecLADdxRktEa0RmMXI1QUtQYjJZZ1pIbHVZVzFwWStjSjhuQnliM1pwNUFjTFpYaDBaWEp1NVIxd0lFSGtBVkp5NVFHWDZDRzI1QVFvNkFGVzZpTTc1Q0FhNVJBRDVCY0hhK29CYXVjRU5PMEF1T29McytVSnl6dmxCSjRrN3hCejV4QkJ4MkVySUNjN0lISnRJQzF5WmlCK0orZ0NYeW5vQVVBdjVRR09MK2dCblA4Q3RPMGNwdlFD5BV+Wk9VQmPmAMVJRlFlWVBhOFFjOHdVdnhCZndFeUowYjlKdDVTYmYrQXFOeWpya0F0M3VIMGZXS2VjY2N2WW5zZWtNV09VbjMrUWt4T1FVcnNR6BMnV8gJRXc2UUQyNVF6eFoyOXY1QTJQYjJua0xwSGxBb0FnYm1Yb0o0cm7nBCNyc0FnZmxBampuQTZ0cGV1a0R0K1lTSDNod1pXUGtCZEZtY205dDdRZXrkGTVjK1FnREM0Z0tGSmxiV1hrQk12c0owSHBET2ZsRE5ubEFjZnJCdkhGWOQZtUcxbGJlUVVBMkpsWnVRSDJlWUZMZVFDcDJsMExp6A/kUucC1UptRHVBUk50ZOQMxENkZDVDQnU1d0VhNlIzdMYid0QwN3dEMGJHRnlaK1F0dStZYm1lVUIwTVUxNkEzQjVnZVY2QWNDN1ExbVNVxjNuSTfHaEtQenhEYmJsQ3RURlMrY2ZrUEFQdm1obGN1Y2NtTuQOEURjNUJiMjVoNTdjK2NVUStjQ2dpd2dZdVVPMOQDp+cFrXFHZGZuQmdMSmV2NFdrdlFDVmVjdkxDRHhDRcYhckhLVHhDRXZwQVdud0NF5w2oQUlUxglEYXrGCUNFMytGZ0QxQ0REa0NBZnBCeGZrSEk4NklDTG5BWWdpTEFvZzVnRU1PaUIwY25YcUJ16AcSOVQyQzRYbkFtbnVGOXpHY1NmSGNla0ZobTl3N0JrNjZCQ0I3Z2ZpNUNWRTlCSUJ4VXJuSVM3K0VhVG9BK2I1SDZydkdmbmxCVFRsQU1iR1g4NTY2aGFGYytvYWgrWVlmK29XaGVjVjVPVUFtY1prNnhPRzZ3V0c2QlNFNXdpRXhEUnpZM0pwY09VRlkrWUZnT2tSK25MbEh6dGhkMucGsUpN6BJRWXp0QWVuMUFZZmtFU1BrSHBma0VvUDRCWVBuRUlUcEdnanBDWXJ1TFpWcOQT3jhRVm41alJReFJ6bkXnFZ5rQWVoMzVBUVE1QVNZNUJMSHhHRHRNd1BFRWVZQk1lUUJMT1FJaHVRQmkra2Y5dndEOHVnbTJ5N3BBd1RvSHA1eVpla2VtK1V5MzI5bTVoeEZkMjl5YkdUa0JQakhNUDjpA5LnAmlXRWdabVYzNXcyWDVRYmg1Z0ZtN1I3SDZESk1ZZXNxUys0UecFZVVxcmVvdFltSmw1REJ5NlFMMTVnNjd4aVh0QcdMcElINzJFdURwQ3pqR2RPb2NxdWNDR3VRU2nlHGNmR0p1UTFzT1l6eStnYkV1Z0JuZVVDdcY8d3N5T2tGVCtVUXLkHhVHd3Q1Z3hMeHk4Z1pPUU96TzBiWWZ3Y1ZlZ01GK1VQa3NZMThnQ2RjK1FDVEc4Z2JYa2dSRzkzYnVRMTArUWdiMnhrNUNTbTZ5WUw4UUQxNWhVdzVBS082Z2JQNWdPYzZoT1Y1Z0M5U2VZZ0JPa0Q3SDR2eVdvNngx6AsdZe0HDNUOM9AXZkVEK2tMam5ka09pQWlMMVbkHPR6TCtRQm9YTHFBTU1pxip3WVHGCXhxaTV6R3U1d0ZWN0FMOWN5QmxibmJtTHRabFnkDYlnT0ZaVzUyYVhKduQbZUN1Z3A2K3d1NeUZn1pwYzJubkJKekVNdVF2RFBFcVBXWG9FZ3ZuSWl0cGMrZ+QdLkxFTWd1xEQ2aGJqNUJDWTVn5B9venY2UzMwNWlZWHgzSG9FempIUWV3QXN55BM1d0lyU0J2ZG1WeWN1UTBGT1VBd1dKbGFHRjJhVzl5NlFONDZCcng1Ujk1YmlCbGJYQjBlZWt0MU93TDVlc0FwT2NBeDI5eTVRRDU1eHhrNVF2dTV3YUc1QUlwYVdUbUhRekdST1VVVmZVQldmOEnnEpA4Q21Qb0NtR1ZqYUc4Z0pFRk9VMWRGVXY4Q2p2TUNqbVZ1ZGpvZ2V5REdQem9nTkRJZ2ZmOENoUDhGbGVvQlNHTm82U1dJNlFIZDVSVkw2UlFSNVFQTDdnSHg3aXIwNmlFRjlBRlM3d1QrNUJYWllXN0VXTWRUNWdDSUpFaFBUVVhwQ0lya0N0TEdLYzhtNWdFQ3h5anBDOFRrTUpsaDVBc2Y1U0R0NURUc0lHTjFjM1J2YmZVQWt1UXBET1k3Z1BvQ1R2OElVZWtCU1U55ADxdDZpcWI3Z2tkNmdZd1pYaHdiT1HoEtJVQ21lY09aTeQaRVhtSucDAnVBSVBwSXN2bEZVUHlDWGR5ZGVRZ09lWWZRMlhr5wbBUHVEQ+cLPU4yYnlCSmR6YzNYbENFZmtHdkhsQWZMcEMrTGtBVE5wYldWeUxtcnBCM0hsQTc1clpXVnc1eThjNVNCSmJHOXZjQ0JpZFjnDMlHWGrGCUEwWG1BMOQCuVJVYVcxbOQcLktDanNFOFk4WlcwK0znEz5GZTlSNlBDOWxiVDRLZlN3Z01qQXdNROgcpXhuNkTnGUdyTXZMbkNKTGtFSnRuY3VVbmxPb1NRMkRvQWJwZzVnR+cGI3dE5x4DyQl4cOcJ93g3dDZRUnE1RHd0NVJwRTZBRzBJbDN1RE8zb0FMWG5CR2ZxQkVuckJKTm5ibTl5WlNMc0p1WjFibkpsWmnoANhWTDNCR3TkGLcrQitnRjdlVUtxZWNBaFBFckQrWUMwT2NxTU9RMFp5NGdUMjRnVjJsdVpHOTNjK1VNK09Ra2Irc29aV2x5SUc5MzVUb2U1QldYSUhmRkt1Y29T5w3xbkhzYkxOMkxrRElUbEJuOWxJR3prUUF4eTVROWU3ROcZkzVBSG5jT1l4dzNObGMzUGtDbOcOj0EwWHNKQ0hxQTlmbEFUTDBFTTNrRXV2cURSUHBBUeQa+URtRGQzdk1GYm1BcFhsQW/GOHbnEXRMcEJCbnBEYWZsT2I1MWMyWGtQK8YabkVoWEZJY1I3NnhTOUlHeHZibWN0NkR1OXlYM2tCWHQwYitZRFlXbDA2VHZkOGdNSHlWanBC5wCXeUMxM2tBWmRtYVdkMTVEeEU1VGtBNUI2OeUd3VFlYTZ3RE82QURNNWdENcYzd0Z4OEFKZTZpRWM1eVRHZGVZc0d1UTZyT1lLb2lqbUFKM3ZCTWprSUpId0FOaGk1QnMxNUFHVDVoWGpaT1lBdGVVREVzUVM2d1ZpOHdEdzVRVXRaR1hHZFc5eWMrUXRydWtOa01jMzVTQnY2VFBxNml4TTVnR2w1Z1ZWK1FG5weNeHlZK0J55wF1MFHnA2VFyAl4eOcBHVFNTjdCUzU2QVZVWWVZQkplUU1udVE0aXUwTXVPd2PnDW1BQWt1d0RRdVViSnNoZDVSdlQ1UVJkNWcwMzVSakvkE1J6azNRU2VZQzdPa0k1K1FJU2VrQWgrd0hlMm5rSGt0aWFlY1RaT2tjdSs0RW1lVW1IK1nnB1llY0kzK1JENk9nUURlWUQ2K1lFcXl6bUFKxARndVltSHFJVGR5eUJWamJla0lETVZUNUFQYjVDM2IyV0R2RUZQc+Qaw09jRnA1UeQHMkVMeVhQdERsVEZUdWNRM2VZT0srUUdLZVlRSE9VR2pPMEIwT1F4V8Z+OENsdndDbHY5R+cIGkFDa1A4OHlQOEVMV1hyRUNyeUFQbnpGdjMwUGp6SEcrb1dYUHNRbWVnN1J1a0UrT1FBNzJoeWIyN2tIWTNwUm9Ea01BSOQc8nFEZFoz5AJXSUhWdWRHbm1JdWp6TFHnCh1IWOcKZkNHM3lDRzNrQVc0czVRSFd5Z3JrQU/GHEVEdjRJaWY4SecKcU1CaU9Vd3FPc0JDdWtCQWVRU0tIQnY1QUNr5BYCaHVjR3grWVg2bkxsUVg3a0TnE3JrRGlia0R5RG1CV2pGRm1GemEzUG9NRnZsUksxMWNPZ0JNTWtnNXdiZTVBZ05jMmpsTnla5BTBaGRtxkFsRzZ2bEQ1WjNh6AUxSWZ2OUFz5wJrU1DnANRCVugLA3NyMURjRE1XZTRaTWVVTTc4Vcc5eTVXeENQa0VCVEZHdeQJzlVIT09rSmsrWVFQV0xrRmNsejVDVmM2Q0ZLNlVEcTAxanFBelhzQUtEb0o1Ym1LMVhtTnluRWZlUVRTbTVsYk3kJgFQa0hIaHBjK2PnBU1mSUMrK1VDQ3V3MmpzdGg1VFVjOVJQQjVDdk04UUQwNXdtQXhFSGtSMERGSHU4RHYySGtDU1RxR0w5bmJHOWk2elJyNXhDWWFYUnpaV3htNWdVVDV4UVY2RGc2N0VJTzZB5wQcNUFFY3gzVHJBV1JYNVVPeDVSR1g4ZzZmOUQ2RDV3UmE1REVyY21aaDVDTFo3Um1uNmpoZStReVY4d0pVNXdDajVBWm82QVVOeGhNdWF2OFR1ZjhF5w3ZVUVkK1FCQnY4TTQrZ25VK1lCTUQzRkNjY241QXpheENM5BFCbTh1Y0JkeUlzSUcxeucQ1mNtOUNKTnhpWG1C5wcqRlNzWXc2RFBWeDFEbE9oeDdJT1FIQnVRTkV1VecDBWlJZ8YJeEZzK0FGWXhXZnRBVmZvQU1QbkFW5woURGroGBFWYmxBVmJv5wbuxwdBUW4zQVFubUFlYzY3Z0VMYk9RNVkrWTFueUE5SURBN0NncOQHV0p4QTkyWVd6dUQ1aklmdWNCTjhjMk9zZ0pLeXZrQVR2a0Q1a+cCuHcrWTl3cE03UU5ENVFwQjZobWQ1UUpJOVFGWDZDeEc4VVFONlFxRDZ3Tm01QVQzN3hNTEtlZ25vT1VWcU9jM0N1NULnDhxROHRlWUZNOGNheGhQcERuN3NQS3JsU0N2cUJPVGxHMkR2R3gzcUJMbnFPNW5xSW94azVVYUt4RWZrRjlia0lT5wD5RFRucUHkJihYNWs1QTg5NlFTdjZRalQ1d0ZwN0FXRDZSV2s4eucBL8YGd1ZmNUFkZTdBVXM1UUVnYnVVNXBNbGY1d2ZNOHpw5wUCZ0ZzeUdqbkJaejFCY2ZHZmY4QkcrNDhiUFJFaXVrRkMrME43dWNDaU9sTlB1VVpCZVJGQytVeVFlVUJZTXBENlFSUkorVUVVU2ZrRmNqc0FLVG9OYmZuTndQbk5rM25BVVR1QndycEFwclpJdVVDYytZeXgrUVVLMk55NkIrUTZBUFU1aWl1N0HnCaI5Z0PnB1V4UlM2QUZJYVcxaFoy6AwcS3BwYldjZ2MzSmpQU0l2eFM15Avld0kzTXY1QU44TFdKaUwzQnA1VWJFeEE4NUxuRGtKZXRoYkhROUlzd1hJ5wwHx05EanNBY3hNWmVvM28rVWxidVVOeEhEa0pUVGtPNFBzRUR6bkhsejZDVugIKGtEVmRITmhlZW9WVVc0Z2FIUjBjT2hSZnVVSkMrWWZNSFBsT2NObGJtUndiMm5sU1Bqa0ZsZnBTNW5KR09nUXhTOWpiMjF3NUFPQzVVQXc2aERMNVRFRWNIVjA1UWxXNVHnDos1Q01JYm5Qa05tdm1IQkhrS0RIbFVVbmxIWXZtQWZQbVM0SnY1QUVIZEdYdE5Ram1FaVBsQlBEbEZXSG1DM3AxNecFtTI1UUPnB213YecYxndhMTZ3Z0w1UUVYNndnSHhCRHLnFoI3a0FJWkQ2Z0Rh5CPmN1FaNzVBYW1jM1Z0NWdhaUlPVUFyeWpFRkduRkVpQnBJQ1pzZERzZ01XVTVPeUJwS3l2b0tnREVNaXM5SUduRU0zMEs2Q25ueEJj5CH5SmUrY0JyRDNsQUtNdTVpeDlVOFVVS09RQW9NWWY1UWR6NUFDOVpYTjA1Q3FK5CRi5BjtcFBBcWZuSmxjUzUxY213Z1BUMDlJQ0xvQWNVaTdDcVI2QURKN3dEeXhHenFLb3ZFV3k3a0IyZm1BZzVUZGVVK2JTUjfkAMA2QVJPeFRCOUlHVnNjMlhIWHNnMElrOXI1QUZhNUFEMDVRZmo1d0RDNWdWdUtE5wYwQjUzNENPSnA1RHUyYjJkeVlXM2xM5wKJa0VTxglsRkZO5Ch/dOcHN0JFTitnQSt1a0Z4K2NDNE9nUVlXVno2xy5hNXfnAnzlJcx4RDA2Q0dGNTFVNjVBM3Y1aDFReHp2a0MzVG9KZHJ0R+cBmGtQM2wxYytjNnJjUWM3Z0xkYitaUeQcj+cJ9XNnMmVWT3plZ2N4MjlzNVJhZTVnRVk1QUVHNXhiWjVTR281Z0VOYnVVck4rZ05uZVVBauQJIk9VT3FPUWYrWE52Yk9ZNlUrWVFHdVZXbE9WV2p1UXc1OGd1NWxTUGIrWWlhbTNrRlFYRVV1MEVETXRiNWpmTjV4NkY2QVlyOXcx5wDed0VNN0JrMzVnYjB5WDdtS0NYR1VlOEN6dklPcitZd00zUGxGOG5tQjFUa1JYN25NZ2ZtTnRybUFRSEpNK1VDVStRdlQrUk05V1Zr5A9kWWVsVEllY0swdVFBaHV3bENQOE5DT3dLYStaT1QrY0tVdVlDcmU4SDl0bE7nAIFUNzhRVOcI3XdU5wlWzAkrQVRjOERr5ypEd3fnB7ZnU1g3UXY25QIrQzc2eDLoCFZFM3pXTOQSFm9aNlRFcDVncmo4d01qNXdvOTdTYnI2Z1B2NlFwSThnZlE2eE96OVFIYzVRSis2QVJCNlFzYjZROXA1d2N2NlVmcDnnEHpzNXdTNTZEUGU35wb56A1sT+gYFEnoJbJjNDVBWOcQ6nc5aDh3OecPtHdi5wyCzAk3Z2JvNmk3d3hIbkhIdW9QMjhZUTXHXWR4RERJRXVVQ1lDTGxFOXZRRys0Q3dPVUNyT2tBa2V35xkgZndITWV3ZEJ5RGxEcegUCTDnFTvJCUF2WHpESFBrT+cOkmxBVnpxTHVYd0J5dG9Z5B4MZOQGb1FjNCtnR3lPWWErTVFoNWlndzVpTkQ1eucA5zZBVVQ1dzFJN2dLSnhCYm1XZG51ROcDRnVBMnJuRHM3ckEyanFJZkhxQucEvXNCNlRsQXPnE/9RMjd0SVVYbk12WHZBSjdrU1dycEp2N2xCZ0R1QUpub0lrM21BT3prQmtIbktobmxNRWoxSXF2dEJ1bnpE6AZUQUxQM0VKREhTZVXoDXk4T3VQRU91UFVOdXVnUEoraEZjdVnnDI9tSG5TVTdFYU9vT2JlMGhyWE4xYmNobTVnM2Q1QTFmZWNSbDUxblk1UUVyNXdDZOQmijV6UHNjdVVsbk9ZRUFmOEJCdTBTMitvNWZlUXZYT2RlS09jT09XN3BOU0RxSCtMbkJa5Bptam1GNUR3TE9ia0czQnVaT29ERGVnQ2tlc0kwZW9LTk9rQXRPWUtNZVVDcHVjRXplZGZlZWNDalNEa0Zubm5LUnJsSFlMa0NGOW1kWEx0Q2rnAutBUG5yQnFYcucJf1RwQk5Gc2RlUlJET296c09ZVm8rczMzZVFBb25SdmNHbGo2UW4yYVd0dU9pOXNaV0Z5YnVjUEEyVjViMjVrTGVWS0luTXY1RjVU5DFVTGNVYuQwqWMxdHVaWGprS3jkLXBOc1pWNWRMT2RLVHVnY1l1UXJ3V1LkMOllN2dKUTVBRnQ2QjdQNVdCWlltRnNZVzVqNkFQdzZRczdZV+QMnW5FRStWZWVNUTM3bEh4NXps5wVDQzBjNlZ2dStoa3fkRN5hdGgiOiLGHOVAFcYL8jSBxhjyNbVyY2TkNdP+Nbw6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';</script><style></style>
+<script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PLLH4F5');
+      !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '1184601594897239');fbq('track', 'PageView');
+    </script>
+<script>
+    (function(d, s, id){var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) {return;}js = d.createElement(s); js.id = id;js.src = "https://connect.facebook.net/en_US/sdk.js";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+      var fbTimer = setTimeout(() => {
+        if (window.FB && window.FB.init) {
+          window.FB.init({appId: 328947630891473, autoLogAppEvents: true, xfbml: true, version: 'v2.9', cookie: true });
+          window.FB.AppEvents && window.FB.AppEvents.logPageView();
+        }
+      }, 2000);
+    </script>
+<script async="" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/adblocker-chromeglobalinjectjs.js.download"></script><script charset="utf-8" src="https://platform.twitter.com/js/button.75a79c54dcfc115f36a5bc654a4d6c25.js"></script><style type="text/css" data-fbcssmodules="css:fb.css.basecss:fb.css.dialog css:fb.css.iframewidget">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style><script charset="utf-8" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/trusted-types-checker-9cf6818a8cc69f2c5311a01d85d95c32.js.download"></script></head>
+<body id="top" class="light" data-new-gr-c-s-check-loaded="14.998.0" data-gr-ext-installed="">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLLH4F5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="root" class="full"><div id="app" class="DashboardPage"><div id="prompt-bg" class="twbs" hidden=""><div id="prompt-box"><div id="prompt-message">Keep reading, even when you're on the go...</div><div id="prompt-actions"><button id="prompt-cancel" class="btn btn-secondary">Not Now</button><button id="prompt-ok" class="btn btn-info">Install App</button></div></div></div><a class="skip-link" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#main-content">Skip to main</a><div id="navbar" class="twbs"><nav class="navbar-expand-sm navbar-light bg-light"><div class="navbar-inner-container navbar"><a class="navbar-brand" href="https://jscomplete.com/"><img src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/logo-f.svg" width="146" class="img-fluid" alt="jsComplete"></a><ul class="navbar-nav mr-auto"><li class="nav-item d-none d-md-inline-block"><a href="https://jscomplete.com/playground" class="nav-link"><i class="fas fa-play-circle"></i> Playground</a></li><li class="nav-item d-none d-lg-inline-block"><a href="https://jscomplete.com/help" class="nav-link"><i class="fas fa-question-circle"></i> Help</a></li></ul><ul class="navbar-nav"><li class="nav-item"><a href="https://jscomplete.com/login?to=/learn/node-beyond-basics/child-processes" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login </a></li><li class="nav-item d-none d-lg-inline-block"><a href="https://jscomplete.com/join" class="nav-link"><i class="fas fa-user-alt"></i> Create Account</a></li></ul></div></nav></div><div id="general-wrapper"><main id="main-content" class="resource-container"><div id="resource-header"><div class="wrapper"><div class="titles"><div class="header library-link"><a href="https://jscomplete.com/learn"><i class="fas fa-university"></i> Library</a></div><div class="header header-2-0">Node Beyond Basics</div><div class="header header-2-1">Child Processes</div></div><div id="header-links"><button id="toggle-theme"><i class="fas fa-palette"></i>Toggle Theme</button><div class="lesson-navigation"><a href="https://jscomplete.com/learn/node-beyond-basics/node-streams" class="prev" title="Node&#39;s Streams"><i class="far fa-arrow-alt-circle-left"></i> Prev</a><a href="https://jscomplete.com/learn/node-beyond-basics/scaling-node-apps" class="next" title="Scaling Node.js Applications">Next <i class="far fa-arrow-alt-circle-right"></i></a></div></div></div></div><div id="course-container"><div id="course-sidebar"><div class="hide-sidebar link" role="button" tabindex="0"><i class="fas fa-arrow-left"></i></div><div id="course-sidebar-content"><div class="module"><div class="module-name"></div><div class="lessons"><div class="course locked-false published-true current-false"><a href="https://jscomplete.com/learn/node-beyond-basics/learning-node-runtime">Introduction</a></div><div class="course locked-true published-true current-false"><a href="https://jscomplete.com/learn/node-beyond-basics/requiring-modules">Requiring Modules</a></div><div class="course locked-true published-true current-false"><a href="https://jscomplete.com/learn/node-beyond-basics/node-events">Node's Event-Driven Architecture</a></div><div class="course locked-false published-true current-false"><a href="https://jscomplete.com/learn/node-beyond-basics/node-streams">Node's Streams</a></div><div class="course locked-false published-true current-true"><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes">Node's Child Processes</a></div><div class="course locked-true published-true current-false"><a href="https://jscomplete.com/learn/node-beyond-basics/scaling-node-apps">Scaling Node.js Applications</a></div></div></div></div></div><div id="lesson-body" class="reading"><div id="adoc-wrapper" class="converted"><div id="adoc-content"><h1>Node’s Child Processes</h1>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-child-processes-module">The Child Processes Module</a></li>
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes#spawned-child-processes">Spawned Child Processes</a></li>
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes#shell-syntax-and-the-exec-function">Shell Syntax and the <code>exec</code> Function</a></li>
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-execfile-function">The <code>execFile</code> Function</a></li>
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-sync-functions">The <code>*Sync</code> Functions</a></li>
+<li><a href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-fork-function">The <code>fork</code> Function</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Single-threaded, non-blocking performance in Node works great for a single process. But eventually, one process in one CPU is not going to be enough to handle the increasing workload of your application.</p>
+</div>
+<div class="paragraph">
+<p>No matter how powerful your server may be, a single thread can only support a limited load.</p>
+</div>
+<div class="paragraph">
+<p>The fact that Node runs in a single thread does not mean that we can’t take advantage of multiple processes and, of course, multiple machines as well.</p>
+</div>
+<div class="paragraph">
+<p>Using multiple processes is the best way to scale a Node application. Node is designed for building distributed applications with many nodes. This is why it’s named <strong>Node</strong>. Scalability is baked into the platform and it’s not something you start thinking about later in the lifetime of an application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-child-processes-module">The Child Processes Module</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can easily spin a <code>child process</code> using Node’s child_process module and those child processes can easily communicate with each other with a messaging system.</p>
+</div>
+<div class="paragraph">
+<p>The <code>child_process</code> module enables us to access Operating System functionalities by running any system command inside a, well, child process.</p>
+</div>
+<div class="paragraph">
+<p>We can control that child process input stream and listen to its output stream. We can also control the arguments to be passed to the underlying OS command, and we can do whatever we want with that command’s output. For example, we can pipe the output of one command as the input to another (just like we do in Linux) as all inputs and outputs of these commands can be presented to us using Node streams.</p>
+</div>
+<div class="paragraph">
+<p>There are four different ways to create a child process in Node: <code>spawn()</code>, <code>fork()</code>, <code>exec()</code>, and <code>execFile()</code>.</p>
+</div>
+<div class="paragraph">
+<p>We’re going to see the differences between these four functions and when to use each.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spawned-child-processes">Spawned Child Processes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>spawn</code> function launches a command in a new process and we can use it to pass that command any arguments. For example, here’s code to spawn a new process that will execute the <code>pwd</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { spawn } = require("child_process");
+
+const child = spawn("pwd");</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We simply destructure the <code>spawn</code> function out of the <code>child_process</code> module and execute it with the OS command as the first argument.</p>
+</div>
+<div class="paragraph">
+<p>The result of executing the <code>spawn</code> function (the <code>child</code> object above) is a <code>ChildProcess</code> instance, which implements the <code>EventEmitter</code> API. This means we can register handlers for events on this child object directly. For example, we can do something when the child process exits by registering a handler for the <code>exit</code> event:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>child.on("<strong>exit</strong>", function(code, signal) {
+  console.log(
+    "child process exited with " + `code ${code} and signal ${signal}`
+  );
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The handler above gives us the exit <code>code</code> for the child process and the <code>signal</code>, if any, that was used to terminate the child process. This <code>signal</code> variable is null when the child process exits normally.</p>
+</div>
+<div class="paragraph">
+<p>The other events that we can register handlers for with the <code>ChildProcess</code> instances are <code>disconnect</code>, <code>error</code>, <code>close</code>, and <code>message</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>disconnect</code> event is emitted when the parent process manually calls the <code>child.disconnect</code> method.</p>
+</li>
+<li>
+<p>The <code>error</code> event is emitted if the process could not be spawned or killed.</p>
+</li>
+<li>
+<p>The <code>close</code> event is emitted when the <code>stdio</code> streams of a child process get closed.</p>
+</li>
+<li>
+<p>The <code>message</code> event is the most important one. It’s emitted when the child process uses the <code>process.send()</code> function to send messages. This is how parent/child processes can communicate with each other. We’ll see an example of this below.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Every child process also gets the three standard <code>stdio</code> streams, which we can access using <code>child.stdin</code>, <code>child.stdout</code>, and <code>child.stderr</code>.</p>
+</div>
+<div class="paragraph">
+<p>When those streams get closed, the child process that was using them will emit the <code>close</code> event. This <code>close</code> event is different than the <code>exit</code> event because multiple child processes might share the same <code>stdio</code> streams, so one child process exiting does not mean that the streams got closed.</p>
+</div>
+<div class="paragraph">
+<p>Since all streams are event emitters, we can listen to different events on those <code>stdio</code> streams that are attached to every child process. Unlike in a normal process though, in a child process the <code>stdout</code>/<code>stderr</code> streams are readable streams while the <code>stdin</code> stream is a writable one. This is basically the inverse of those types found in a main process. The events we can use for those streams are the standard ones. Most importantly, on the readable streams we can listen to the <code>data</code> event, which will have the output of the command or any error encountered while executing the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>child.stdout.on("data", data =&gt; {
+  console.log(`child stdout:\n${data}`);
+});
+
+child.stderr.on("data", data =&gt; {
+  console.error(`child stderr:\n${data}`);
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two handlers above will log both cases to the main process <code>stdout</code> and <code>stderr</code>. When we execute the <code>spawn</code> function above, the output of the <code>pwd</code> command gets printed and the child process exits with code <code>0</code>, which means no error occurred.</p>
+</div>
+<div class="paragraph">
+<p>We can pass arguments to the command that’s executed by the <code>spawn</code> function using the second argument of the <code>spawn</code> function, which is an array of all the arguments to be passed to the command. For example, to execute the <code>find</code> command on the current directory with a <code>-type f</code> argument (to list files only), we can do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const child = spawn("find", [".", "-type", "f"]);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If an error occurs during the execution of the command (for example, if we give find an invalid destination above) the <code>child.stderr</code> data event handler will be triggered and the <code>exit</code> event handler will report an exit code of <code>1</code>, which signifies that an error has occurred. The error values actually depend on the host OS and the type of error.</p>
+</div>
+<div class="paragraph">
+<p>A child process <code>stdin</code> is a writable stream. We can use it to send a command some input. Just like any writable stream, the easiest way to consume it is using the <code>pipe</code> function. We simply pipe a readable stream into a writable stream. Since the main process <code>stdin</code> is a readable stream, we can pipe that into a child process <code>stdin</code> stream. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { spawn } = require("child_process");
+
+const child = spawn("wc");
+
+<strong>process.stdin.pipe(child.stdin);</strong>
+
+child.stdout.on("data", data =&gt; {
+  console.log(`child stdout:\n${data}`);
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above, the child process invokes the <code>wc</code> command, which counts lines, words, and characters in Linux. We then pipe the main process <code>stdin</code> (which is a readable stream) into the child process <code>stdin</code> (which is a writable stream). The result of this combination is that we get a standard input mode where we can type something, and when we hit <code>Ctrl+D</code> what we typed will be used as the input of the <code>wc</code> command.</p>
+</div>
+<div class="paragraph">
+<p>We can also pipe the standard input/output of multiple processes on each other, just like we can do with Linux commands. For example, we can pipe the <code>stdout</code> of the <code>find</code> command to the <code>stdin</code> of the <code>wc</code> command to count all the files in the current directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { spawn } = require("child_process");
+
+const find = spawn("find", [".", "-type", "f"]);
+const wc = spawn("wc", ["-l"]);
+
+<strong>find.stdout.pipe(wc.stdin);</strong>
+
+wc.stdout.on("data", data =&gt; {
+  console.log(`Number of files ${data}`);
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I added the <code>-l</code> argument to the <code>wc</code> command to make it count only the lines. When executed, the code above will output a count of all files in all directories under the current one.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shell-syntax-and-the-exec-function">Shell Syntax and the <code>exec</code> Function</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, the <code>spawn</code> function does not create a <strong>shell</strong> to execute the command we pass into it. This makes it slightly more efficient than the <code>exec</code> function, which does create a shell. The exec function has one other major difference. It <strong>buffers</strong> the command’s generated output and passes the whole output value to a callback function (instead of using streams, which is what <code>spawn</code> does).</p>
+</div>
+<div class="paragraph">
+<p>Here’s the previous <code>find | wc</code> example implemented with an <code>exec</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { exec } = require("child_process");
+
+exec("find . -type f | wc -l", (err, stdout, stderr) =&gt; {
+  if (err) {
+    console.error(`exec error: ${err}`);
+    return;
+  }
+
+  console.log(`Number of files ${stdout}`);
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since the <code>exec</code> function uses a shell to execute the command, we can use the <strong>shell syntax</strong> directly here, making use of the shell <strong>pipe</strong> feature.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Note that using the shell syntax comes with a security risk if you’re executing any kind of dynamic input provided externally. A user can simply do a <strong>command injection attack</strong> using shell syntax characters like ; and $ (for example, <code>command + '; rm -rf ~'</code> )
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The <code>exec</code> function buffers the output and passes it to the callback function (the second argument to <code>exec</code>) as the <code>stdout</code> argument there. This <code>stdout</code> argument is the command’s output that we want to print out.</p>
+</div>
+<div class="paragraph">
+<p>The <code>exec</code> function is a good choice if you need to use the shell syntax and if the size of the data expected from the command is small. (Remember, <code>exec</code> will buffer the whole data in memory before returning it.)</p>
+</div>
+<div class="paragraph">
+<p>The <code>spawn</code> function is a much better choice when the size of the data expected from the command is large because that data will be streamed with the standard IO objects.</p>
+</div>
+<div class="paragraph">
+<p>We can make the spawned child process inherit the standard IO objects of its parents if we want to, but more importantly, we can make the <code>spawn</code> function use the shell syntax as well. Here’s the same <code>find | wc</code> command implemented with the <code>spawn</code> function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const child = spawn("find . -type f | wc -l", {
+  <strong>stdio: "inherit",
+  shell: true</strong>
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Because of the <code>stdio: 'inherit'</code> option above, when we execute the code, the child process inherits the main process <code>stdin</code>, <code>stdout</code>, and <code>stderr</code>. This causes the child process data events handlers to be triggered on the main <code>process.stdout</code> stream, making the script output the result right away.</p>
+</div>
+<div class="paragraph">
+<p>Because of the <code>shell: true</code> option above, we were able to use the shell syntax in the executed command, just like we did with <code>exec</code>. But with this code, we still get the advantage of the streaming of data that the <code>spawn</code> function gives us. <strong>This is really the best of both worlds.</strong></p>
+</div>
+<div class="paragraph">
+<p>There are a few other good options we can use in the last argument to the <code>child_process</code> functions besides <code>shell</code> and <code>stdio</code>. For example, we can use the <code>cwd</code> option to change the working directory of the script. For example, here’s the same count-all-files example done with a <code>spawn</code> function using a shell and with a working directory set to my Downloads folder. The <code>cwd</code> option here will make the script count all files I have in <code>~/Downloads:</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const child = spawn("find . -type f | wc -l", {
+  stdio: "inherit",
+  shell: true,
+  <strong>cwd: "/Users/samer/Downloads"</strong>
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another option we can use is env to specify the environment variables that will be visible to the new child process. The default for this option is <code>process.env</code> which gives any command access to the current process environment. If we want to override that behavior, we can simply pass an empty object as the <code>env</code> option or new values there to be considered as the only environment variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const child = spawn("echo $ANSWER", {
+  stdio: "inherit",
+  shell: true,
+  <strong>env: { ANSWER: 42 }</strong>
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>echo</code> command above does not have access to the parent process’s environment variables. For example, it cannot access <code>$HOME</code>, but it can access <code>$ANSWER</code> because it was passed as a custom environment variable through the <code>env</code> option.</p>
+</div>
+<div class="paragraph">
+<p>One last important child process option to explain here is the <code>detached</code> option, which makes the child process run independently of its parent process.</p>
+</div>
+<div class="paragraph">
+<p>Assuming we have a <code>file timer.js</code> that keeps the event loop busy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>setTimeout(() =&gt; {
+  <em>// keep the event loop busy</em>
+}, 20000);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can execute it in the background using the `detached`option:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { spawn } = require("child_process");
+
+const child = spawn("node", ["timer.js"], {
+  <strong>detached: true,</strong>
+  stdio: "ignore"
+});
+
+child.unref();</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The exact behavior of detached child processes depends on the OS. On Windows, they will have their own console window while on Linux they will be made the leaders of new process groups and sessions.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>unref</code> function is called on the detached process, the parent process can exit independently of the child. This can be useful if the child is executing a long-running process, but to keep it running in the background the child’s <code>stdio</code> configurations also have to be independent of the parent.</p>
+</div>
+<div class="paragraph">
+<p>The example above will run a node script (<code>timer.js</code>) in the background by detaching and also ignoring its parent <code>stdio</code> file descriptors so that the parent can terminate while the child keeps running in the background.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-execfile-function">The <code>execFile</code> Function</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you need to execute a file without using a shell, the <code>execFile</code> function is what you need. It behaves exactly like the <code>exec</code> function, but does not use a shell, which makes it a bit more efficient. On Windows, some files cannot be executed on their own, like <code>.bat</code> or <code>.cmd</code> files. Those files cannot be executed with <code>execFile</code> and either <code>exec</code> or <code>spawn</code> with shell set to true is required to execute them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-sync-functions">The <code>*Sync</code> Functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The functions <code>spawn</code>, <code>exec</code>, and <code>execFile</code> from the <code>child_process</code> module also have synchronous blocking versions that will wait until the child process exits.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { spawnSync, execSync, execFileSync } = require("child_process");</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Those synchronous versions are potentially useful when trying to simplify scripting tasks or any startup processing tasks, but they should be avoided otherwise.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-fork-function">The <code>fork</code> Function</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>fork</code> function is a variation of the <code>spawn</code> function for spawning node processes. The biggest difference between <code>spawn</code> and <code>fork</code> is that a communication channel is established to the child process when using <code>fork</code>, so we can use the <code>send</code> function on the forked <code>process</code> along with the global process object itself to exchange messages between the parent and forked processes. We do this through the <code>EventEmitter</code> module interface. Here’s an example:</p>
+</div>
+<div class="paragraph">
+<p>The parent file, <code>parent.js:</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const { fork } = require("child_process");
+
+const forked = fork("child.js");
+
+forked.on("message", msg =&gt; {
+  console.log("Message from child", msg);
+});
+
+forked.send({ hello: "world" });</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The child file, <code>child.js</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>process.on("message", msg =&gt; {
+  console.log("Message from parent:", msg);
+});
+
+let counter = 0;
+
+setInterval(() =&gt; {
+  process.send({ counter: counter++ });
+}, 1000);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the parent file above, we fork <code>child.js</code> (which will execute the file with the <code>node</code> command) and then we listen for the <code>message</code> event. The message event will be emitted whenever the child uses <code>process.send</code>, which we’re doing every second.</p>
+</div>
+<div class="paragraph">
+<p>To pass down messages from the parent to the child, we can execute the <code>send</code> function on the forked object itself. Then, in the child script, we can listen to the <code>message</code> event on the global <code>process</code> object.</p>
+</div>
+<div class="paragraph">
+<p>When executing the <code>parent.js</code> file above, it’ll first send down the <code>{ hello: 'world' }</code> object to be printed by the forked child process and then the forked child process will send an incremented counter value every second to be printed by the parent process.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/picturenode9.png" alt="picturenode9">
+</div>
+</div>
+<div class="paragraph">
+<p>Let’s do a more practical example about the <code>fork</code> function.</p>
+</div>
+<div class="paragraph">
+<p>Let’s say we have an http server that handles two endpoints. One of these endpoints (<code>/compute below</code>) is computationally expensive and will take a few seconds to complete. We can use a long for loop to simulate that:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const http = require("http");
+
+const longComputation = () =&gt; {
+  let sum = 0;
+  for (let i = 0; i &lt; 1e9; i++) {
+    sum += i;
+  }
+  return sum;
+};
+
+const server = http.createServer();
+
+server.on("request", (req, res) =&gt; {
+  if (req.url === "/compute") {
+    const sum = longComputation();
+    return res.end(<code>Sum is ${sum}</code>);
+  } else {
+    res.end("Ok");
+  }
+});
+
+server.listen(3000);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This program has a big problem; when the <code>/compute</code> endpoint is requested, the server will not be able to handle any other requests because the event loop is busy with the long for loop operation.</p>
+</div>
+<div class="paragraph">
+<p>There are a few ways we can solve this problem depending on the nature of the long operation but one solution that works for all operations is to just move the computational operation into another process using <code>fork</code>.</p>
+</div>
+<div class="paragraph">
+<p>We first move the whole <code>longComputation</code> function into its own file and make it invoke that function when instructed via a message from the main process:</p>
+</div>
+<div class="paragraph">
+<p>In a new <code>compute.js</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const longComputation = () =&gt; {
+  let sum = 0;
+  for (let i = 0; i &lt; 1e9; i++) {
+    sum += i;
+  }
+  return sum;
+};
+
+<strong>process.on("message", msg =&gt; {
+  const sum = longComputation();
+  process.send(sum);
+});</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, instead of doing the long operation in the main process event loop, we can <code>fork</code> the <code>compute.js</code> file and use the messages interface to communicate messages between the server and the forked process.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>const http = require("http");
+const { fork } = require("child_process");
+
+const server = http.createServer();
+
+server.on("request", (req, res) =&gt; {
+  if (req.url === "/compute") {
+    <strong>const compute = fork("compute.js");
+    compute.send("start");
+    compute.on("message", sum =&gt; {
+      res.end(<code>Sum is ${sum}</code>);</strong>
+    });
+  } else {
+    res.end("Ok");
+  }
+});
+
+server.listen(3000);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When a request to <code>/compute</code> happens now with the above code, we simply send a message to the forked process to start executing the long operation. The main process’s event loop will not be blocked.</p>
+</div>
+<div class="paragraph">
+<p>Once the forked process is done with that long operation, it can send its result back to the parent process using <code>process.send</code>.</p>
+</div>
+<div class="paragraph">
+<p>In the parent process, we listen to the <code>message</code> event on the forked child process itself. When we get that event, we’ll have a <code>sum</code> value ready for us to send to the requesting user over http.</p>
+</div>
+<div class="paragraph">
+<p>The code above is limited by the number of processes we can fork, but when we execute it and request the long computation endpoint over http, the main server is not blocked at all and can take further requests.</p>
+</div>
+<div class="paragraph">
+<p>Node’s <strong>cluster</strong> module, which is the topic of the likn:/learn/node-beyond-basics/scaling-node-apps[next article^], is based on this idea of child process forking and load balancing the requests among the many forks that we can create on any system.</p>
+</div>
+</div>
+</div></div><div id="footer-note" class="twbs layout"><hr><div class="title">Thanks for reading!</div><div class="paragraph"><div id="support-form" class="paragraph"><p>Writing high quality content takes a lot of time. If you found this helpful please consider sponsoring the library. 🙏</p><div id="stripe-form"><form method="post"><div class="form"><div class="row"><div class="col-sm-6" id="stripe-card-element-container"><div id="card-element" class="StripeElement StripeElement--empty"><div class="__PrivateStripeElement" style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;"><iframe name="__privateStripeFrame2785" frameborder="0" allowtransparency="true" scrolling="no" allowpaymentrequest="true" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/elements-inner-card-c5328fdfb02a53f899ab985627d7e577.html" title="Secure card payment input frame" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; will-change: transform !important; height: 19.2px;"></iframe><input class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false" maxlength="1" style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: -1px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;"></div></div></div><div class="col-sm-3"><select class="form-control"><option selected="" value="10">$10</option><option value="25">$25</option><option value="50">$50</option><option value="100">$100</option></select></div><div class="col-sm-3"><button class="btn btn-info btn-block" disabled="">Send $10</button></div></div></div></form></div></div></div><div class="email-line">Leave your email address below if you want to be notified when we publish new content. We will never send spam emails. You can unsubscribe any time.</div><form method="post"><div class="input-group"><input type="email" name="email" class="form-control" placeholder="Your Email Address" required="" value=""></div><div id="email-optins"><div class="group"><div class="col-action"><div class="form-check form-check-inline"><label class="form-check-label"><input type="radio" name="emailContent" class="form-check-input" value="1" required="">Yes</label></div><div class="form-check form-check-inline"><label class="form-check-label"><input type="radio" name="emailContent" class="form-check-input" value="0" required="">No</label></div></div><div class="col-text">Receive educational and content emails<div class="tag-line">(Short email articles about full-stack JavaScript)</div></div></div><div class="group"><div class="col-action"><div class="form-check form-check-inline"><label class="form-check-label"><input type="radio" name="emailNotifications" class="form-check-input" value="1" required="">Yes</label></div><div class="form-check form-check-inline"><label class="form-check-label"><input type="radio" name="emailNotifications" class="form-check-input" value="0" required="">No</label></div></div><div class="col-text">Receive notifications and announcements emails<div class="tag-line">(When new content is published, for example)</div></div></div><div class="group"><div class="col-action"><div class="form-check form-check-inline"><label class="form-check-label"><input type="radio" name="emailOffers" class="form-check-input" value="1" required="">Yes</label></div><div class="form-check form-check-inline"><label class="form-check-label"><input type="radio" name="emailOffers" class="form-check-input" value="0" required="">No</label></div></div><div class="col-text">Receive offers and events emails<div class="tag-line">(One-time workshops and other events and giveaways)</div></div></div></div><div class="footer"><button class="btn btn-secondary" type="submit">Join</button></div></form><hr><div class="grayed"><div class="social-row"><a class="twitter" href="https://twitter.com/intent/tweet?text=Node%27s%20Child%20Processes%3A%20Node.js%20Beyond%20the%20Basics&amp;url=https%3A%2F%2Fjscomplete.com%2Flearn%2Fnode-beyond-basics%2Fchild-processes&amp;via=agilelabs" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i><span>&nbsp;Tweet this</span></a><a class="email" href="mailto:?subject=Article%20on%20jsComplete%3A%20Node%27s%20Child%20Processes%3A%20Node.js%20Beyond%20the%20Basics&amp;body=Node%27s%20Child%20Processes%3A%20Node.js%20Beyond%20the%20Basics%0A%0Ahttps%3A%2F%2Fjscomplete.com%2Flearn%2Fnode-beyond-basics%2Fchild-processes" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope"></i><span>&nbsp;Email it</span></a><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjscomplete.com%2Flearn%2Fnode-beyond-basics%2Fchild-processes" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i><span>&nbsp;Share on Facebook</span></a><a class="linkedin" href="https://linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjscomplete.com%2Flearn%2Fnode-beyond-basics%2Fchild-processes&amp;title=Node%27s%20Child%20Processes%3A%20Node.js%20Beyond%20the%20Basics" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i><span>&nbsp;Share on LinkedIn</span></a></div></div><div class="paragraph"><p><strong>Any questions or feedback?</strong> <a href="https://twitter.com/agilelabs" target="_blank" rel="noopener noreferrer">Tweet us</a> <!-- -->or ask in the jsComplete slack<!-- --> <a href="https://jscomplete.com/help" target="_blank" rel="noopener noreferrer">help channel</a>.</p></div></div></div><div id="toc-sidebar"><div><a class="toc-top-link" onclick="window.scrollWithoutUrlChange(event, &#39;adoc-wrapper&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#top">
+                   <i class="fas fa-home"></i> TOP
+                 </a>
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a onclick="window.scrollWithoutUrlChange(event, &#39;the-child-processes-module&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-child-processes-module">The Child Processes Module</a></li>
+<li><a onclick="window.scrollWithoutUrlChange(event, &#39;spawned-child-processes&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#spawned-child-processes">Spawned Child Processes</a></li>
+<li><a onclick="window.scrollWithoutUrlChange(event, &#39;shell-syntax-and-the-exec-function&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#shell-syntax-and-the-exec-function">Shell Syntax and the <code>exec</code> Function</a></li>
+<li><a onclick="window.scrollWithoutUrlChange(event, &#39;the-execfile-function&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-execfile-function">The <code>execFile</code> Function</a></li>
+<li><a onclick="window.scrollWithoutUrlChange(event, &#39;the-sync-functions&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-sync-functions">The <code>*Sync</code> Functions</a></li>
+<li><a onclick="window.scrollWithoutUrlChange(event, &#39;the-fork-function&#39;)" href="https://jscomplete.com/learn/node-beyond-basics/child-processes#the-fork-function">The <code>fork</code> Function</a></li>
+</ul>
+</div></div></div></div></main></div><div id="footer" class="twbs"><footer class="main-footer"><div><div class="section">Copyright © 2016-<!-- -->2021<!-- --> Agilelabs LLC. All rights reserved</div><div class="tos-note">By using jsComplete, you agree to our<!-- --> <a href="https://jscomplete.com/terms" target="_blank" rel="noopener noreferrer" class="link">Terms and Conditions</a> <!-- -->and<!-- --> <a href="https://jscomplete.com/privacy" target="_blank" rel="noopener noreferrer" class="link">Privacy Policy</a>.</div></div><div id="help-section" class="section d-none d-sm-block"><div>Need any help?<div class="text-center">support@jscomplete.com</div></div></div><div id="footer-links" class="d-none d-lg-flex"><div class="social-profile twitter"><a href="https://twitter.com/agilelabs" class="twitter-follow-button twitter-follow-button-error" data-size="large" data-show-screen-name="false" data-show-count="false" data-twitter-extracted-i1615708942856365452="true">@AgileLabs</a></div><div class="social-profile facebook"><div class="fb-like fb_iframe_widget" data-href="https://www.facebook.com/jscomplete" data-layout="button" data-action="like" data-size="large" data-show-faces="false" data-share="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=328947630891473&amp;container_width=0&amp;href=https%3A%2F%2Fwww.facebook.com%2Fjscomplete&amp;layout=button&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;size=large"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f30c81d5f1aa094" width="1000px" height="1000px" data-testid="fb:like Facebook Social Plugin" title="fb:like Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/like.html" style="border: none; visibility: visible; width: 0px; height: 0px; display: none !important;"></iframe></span></div></div></div></footer><footer class="tiny-footer"><div><div class="section">Copyright <!-- -->2021<!-- --> © Agilelabs LLC ::<!-- --> <a href="https://jscomplete.com/terms" target="_blank" rel="noopener noreferrer" class="link">Terms</a> <!-- -->|<!-- --> <a href="https://jscomplete.com/privacy" target="_blank" rel="noopener noreferrer" class="link">Privacy</a></div></div></footer></div></div></div>
+<link rel="stylesheet" href="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/all.css" crossorigin="anonymous">
+<link href="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/icon" rel="stylesheet">
+<script src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/saved_resource"></script><script src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/vendor.f37da382ff021c3c9c60.js.download"></script><script src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/main.46d5bcd322969740650c.js.download"></script>
+<script async="" defer="" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/widgets.js.download" charset="utf-8"></script>
+
+
+<iframe name="__privateStripeMetricsController2780" frameborder="0" allowtransparency="true" scrolling="no" allowpaymentrequest="true" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/m-outer-0cba8a995d163797499ab006bbb6b889.html" aria-hidden="true" tabindex="-1" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe><iframe name="__privateStripeController2781" frameborder="0" allowtransparency="true" scrolling="no" allowpaymentrequest="true" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/controller-a1fbd8c66fd9149c8530db24ca4a503d.html" aria-hidden="true" tabindex="-1" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/widget_iframe.0edc1ef9f8b82d9b79c6115bda79f63f.html" title="Twitter settings iframe" style="display: none;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Node&#39;s Child Processes __ Node.js Beyond the Basics_files/saved_resource.html"></iframe><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div></body></html>

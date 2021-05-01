@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>JavaScript ES6 — write less, do more</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="./JavaScript ES6 — write less, do more_files/prism.min.css">
+    <link rel="stylesheet" type="text/css" href="./JavaScript ES6 — write less, do more_files/prism-unescaped-markup.css">
+
+    <link href="./JavaScript ES6 — write less, do more_files/css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./JavaScript ES6 — write less, do more_files/screen.css">
+    <link rel="stylesheet" type="text/css" href="./JavaScript ES6 — write less, do more_files/algolia-search.css">
+
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="./JavaScript ES6 — write less, do more_files/gtm.js.download"></script><script src="./JavaScript ES6 — write less, do more_files/algoliasearch.min.js.download"></script><style></style>
+    <script src="./JavaScript ES6 — write less, do more_files/autocomplete.min.js.download"></script>
+
+
+    <script src="./JavaScript ES6 — write less, do more_files/dayjs.min.js.download"></script>
+    <script src="./JavaScript ES6 — write less, do more_files/localizedFormat.min.js.download"></script>
+    <script src="./JavaScript ES6 — write less, do more_files/relativeTime.min.js.download"></script>
+
+    <script src="./JavaScript ES6 — write less, do more_files/zh-cn.min.js.download"></script>
+
+
+    <link rel="icon" href="https://www.freecodecamp.org/news/favicon.png" type="image/png">
+    <link rel="canonical" href="https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/amp/">
+    
+    <meta property="og:site_name" content="freeCodeCamp.org">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="JavaScript ES6 — write less, do more">
+    <meta property="og:description" content="JavaScript ES6 brings new syntax and new awesome features to make your code more modern and more readable. It allows you to write less code and do more. ES6 introduces us to many great features like arrow functions, template strings, class destruction, Modules… and more. Let’s take a look.">
+    <meta property="og:url" content="https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/">
+    <meta property="og:image" content="https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png">
+    <meta property="article:published_time" content="2018-04-20T17:53:40.000Z">
+    <meta property="article:modified_time" content="2020-04-24T19:13:35.000Z">
+    <meta property="article:tag" content="JavaScript">
+    <meta property="article:tag" content="ES6">
+    <meta property="article:tag" content="Front End Development">
+    <meta property="article:tag" content="Tech">
+    <meta property="article:tag" content="Programming">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/freecodecamp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JavaScript ES6 — write less, do more">
+    <meta name="twitter:description" content="JavaScript ES6 brings new syntax and new awesome features to make your code more modern and more readable. It allows you to write less code and do more. ES6 introduces us to many great features like arrow functions, template strings, class destruction, Modules… and more. Let’s take a look.">
+    <meta name="twitter:url" content="https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/">
+    <meta name="twitter:image" content="https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Said Hayani">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="JavaScript, ES6, Front End Development, Tech, Programming">
+    <meta name="twitter:site" content="@freecodecamp">
+    <meta name="twitter:creator" content="@SaidHYN">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="312">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "freeCodeCamp.org",
+        "url": "https://www.freecodecamp.org/news/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.freecodecamp.org/news/content/images/2019/11/fcc_primary_large_24X210.svg",
+            "width": 210,
+            "height": 24
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Said Hayani",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.freecodecamp.org/news/content/images/2020/10/IMG_5234.jpg",
+            "width": 2000,
+            "height": 1500
+        },
+        "url": "https://www.freecodecamp.org/news/author/saidhayani/",
+        "sameAs": [
+            "https://subscribi.io",
+            "https://twitter.com/SaidHYN"
+        ]
+    },
+    "headline": "JavaScript ES6 — write less, do more",
+    "url": "https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/",
+    "datePublished": "2018-04-20T17:53:40.000Z",
+    "dateModified": "2020-04-24T19:13:35.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png",
+        "width": 800,
+        "height": 312
+    },
+    "keywords": "JavaScript, ES6, Front End Development, Tech, Programming",
+    "description": "JavaScript ES6 brings new syntax and new awesome features to make your code more\nmodern and more readable. It allows you to write less code and do more. ES6\nintroduces us to many great features like arrow functions, template strings,\nclass destruction, Modules… and more. Let’s take a look.\n\nconst and let\nconst is a new keyword in ES6 for declaring variables. const is more powerful\nthan var. Once used, the variable can’t be reassigned. In other words, it’s an \nimmutable variable except when it us",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.freecodecamp.org/news/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.39">
+    <link rel="alternate" type="application/rss+xml" title="freeCodeCamp.org" href="https://www.freecodecamp.org/news/rss/">
+    <!-- This is related to https://webmonetization.org/ -->
+<meta name="monetization" content="$ilp.uphold.com/LJmbPn7WD4JB">
+<!-- GAP -->
+
+
+<!-- Google Tag Manager -->
+<script>
+  // Set up dataLayer with data if provided
+  window.dataLayer = window.dataLayer || [{ gaPropertyId: 'UA-55446531-20' }];
+
+  // Initialized GTM via gtag
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-55446531-20');
+
+  // Configure and initialize GTM
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl+'&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer', 'GTM-5D6RKKP');
+</script>
+<!-- End Google Tag Manager -->
+
+
+<meta name="google-site-verification" content="b4tITLzEeeZGEpvD4mGNf3khKM4fvqejQaz9SYBQP8E">
+
+</head>
+
+<body class="post-template tag-javascript tag-es6 tag-front-end-development tag-tech tag-programming">
+
+    <div class="site-wrapper">
+        <nav class="site-nav nav-padding">
+    <div class="site-nav-left">
+        <form id="search-form" onsubmit="submitSearch()">
+  <div role="search" class="searchbox__wrapper">
+    <input type="search" placeholder="Search 6,000+ tutorials" id="search-input" class="aa-input" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style=""><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Lato, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+    <button type="submit" title="Submit your search query." class="ais-SearchBox-submit">
+      <svg class="ais-SearchBox-submitIcon" xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 40 40">
+        <path d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"></path>
+      </svg>
+    </button>
+    <div id="dropdown-container"><span class="algolia-autocomplete" style="position: absolute; z-index: 100; display: none; direction: ltr;"><span class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0" style="display: block; left: 0px; right: auto;"><div class="aa-dataset-1"></div></span></span></div>
+  </div>
+</form>
+
+<script>
+  const client = algoliasearch('QMJYL5WYTI', '4318af87aa3ce128708f1153556c6108');
+  const index = client.initIndex("news");
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  const hitsToRender = (screenWidth >= 767 && screenHeight >= 768) ? 8 : 5;
+  const searchForm = document.getElementById('search-form');
+  const input = document.getElementById('search-input');
+  const dropdownContainer = document.getElementById('dropdown-container');
+  let searchQuery, hitSelected, hits;
+
+  input.addEventListener('input', e => {
+    searchQuery = e.target.value;
+  });
+
+  // Prevent form from being submitted with magnifying
+  // glass or enter when there is no query or hits
+  searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+  });
+
+  const search = autocomplete('#search-input', { 
+      hint: false,
+      keyboardShortcuts: ['s', 191],
+      openOnFocus: true,
+      appendTo: dropdownContainer,
+      debug: true // allow tabbing through results
+    }, [
+    {
+      source: autocomplete.sources.hits(index, { hitsPerPage: hitsToRender }),
+      debounce: 250,
+      templates: {
+        suggestion: (suggestion, result) => {
+          hits = true;
+          return `
+            <a href="${suggestion.url}">
+              <div class="algolia-result">
+                <span>${suggestion._highlightResult.title.value}</span>
+              </div>
+            </a>
+          `;
+        },
+        empty: (options) => {
+          hits = false;
+          return `
+            <div class="aa-suggestion footer-suggestion no-hits-footer">
+              <div class="algolia-result">
+                <span>
+                  No tutorials found
+                </span>
+              </div>
+            </div>
+          `;
+        },
+        footer: (query, result) => {
+          if (!query.isEmpty) {
+            return `
+              <div class="aa-suggestion footer-suggestion">
+                <a id="algolia-footer-selector" href="https://www.freecodecamp.org/news/search?query=${searchQuery}">
+                  <div class="algolia-result algolia-footer">
+                    <span>See all results for ${searchQuery}</span>
+                  </div>
+                </a>
+              </div>
+            `;
+          }
+        }
+      }
+    }
+  ]).on('autocomplete:selected', (event, suggestion, dataset, context) => {
+    // If article is selected, set to URL of the article. 
+    // If footer is selected, set to search results path
+    hitSelected = suggestion ? suggestion.url : `https://www.freecodecamp.org/news/search?query=${searchQuery}`;
+
+    // Let browser handle click, and do not go to selection on tab key press
+    if (context.selectionMethod === 'click' || context.selectionMethod === 'tabKey') {
+      return;
+    }
+
+    // Go to selected article or footer path
+    if (hits) {
+      window.location.assign(hitSelected);
+    }
+  });
+
+  // Go to highlighted hit or search for current query
+  // when magnifying glass or enter is pressed
+  function submitSearch() {
+    hitSelected = document.getElementsByClassName('aa-cursor')[0];
+
+    if (hitSelected && searchQuery) {
+      const articleUrl = hitSelected.querySelector('a').href;
+      window.location.assign(articleUrl);
+    } else if (!hitSelected && searchQuery && hits) {
+      window.location.assign(`https://www.freecodecamp.org/news/search?query=${searchQuery}`);
+    }
+  }
+
+  // close dropbar when clicking off 
+  document.addEventListener('click', e => {
+    if (e.target !== input) {
+      search.autocomplete.close();
+    }
+  });
+</script>
+    </div>
+    <div class="site-nav-middle">
+        <a class="site-nav-logo" href="https://www.freecodecamp.org/news"><img src="./JavaScript ES6 — write less, do more_files/fcc_primary_large_24X210.svg" alt="freeCodeCamp.org"></a>
+    </div>
+    <div class="site-nav-right">
+        <div class="nav-group">
+            <a class="nav-forum" href="https://forum.freecodecamp.org/">Forum</a>
+
+            <a class="toggle-button-nav" href="https://www.freecodecamp.org/donate/">
+                Donate
+            </a>
+        </div>
+
+    </div>
+</nav>
+        <a class="donation-banner" id="donation-banner-link" href="https://www.freecodecamp.org/">
+    <p>
+        Learn to code — <span>free 3,000-hour curriculum</span>
+    </p>
+</a>
+
+        <div id="error-message"></div>
+
+        
+
+
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post tag-javascript tag-es6 tag-front-end-development tag-tech tag-programming ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="April 20, 2018">April 20, 2018</time>
+                    <span class="date-divider">/</span>
+                    <a href="https://www.freecodecamp.org/news/tag/javascript/">
+                        #JavaScript
+                    </a>
+                </section>
+                <h1 class="post-full-title">JavaScript ES6 — write less, do more</h1>
+            </header>
+
+            <div class="post-full-author-header">
+
+
+                
+<section class="author-card">
+    <img class="author-profile-image" src="./JavaScript ES6 — write less, do more_files/IMG_5234.jpg" alt="Said Hayani">
+    <section class="author-card-content author-card-content-no-bio">
+        <h4 class="author-card-name"><a href="https://www.freecodecamp.org/news/author/saidhayani/">Said Hayani</a></h4>
+    </section>
+</section>
+
+
+            </div>
+
+            <figure class="post-full-image">
+                <img srcset="https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png 300w,
+                            https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png 600w,
+                            https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png 1000w,
+                            https://cdn-media-1.freecodecamp.org/images/1*_g2EvGpJlt4YKcvsNsta7g.png 2000w" sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 700px,
+                            1400px" src="./JavaScript ES6 — write less, do more_files/1__g2EvGpJlt4YKcvsNsta7g.png" alt="JavaScript ES6 — write less, do more" onerror="this.style.display=&#39;none&#39;">
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>JavaScript ES6 brings new syntax and new awesome features to make your code more modern and more readable. It allows you to write less code and do more. ES6 introduces us to many great features like arrow functions, template strings, class destruction, Modules… and more. Let’s take a look.</p><h3 id="const-and-let">const and let</h3><p><code>const</code> is a new keyword in ES6 for declaring variables. <code>const</code> is more powerful than <code>var</code>. Once used, the variable can’t be reassigned. In other words, it’s an <strong>immutable variable </strong>except when it used with objects.</p><p>This is really useful for targeting the selectors. For example, when we have a single button that fires an event, or when you want to select an HTML element in JavaScript, use <code>const</code> instead of <code>var</code>. This is because <code>var</code> is ‘hoisted’. It’s always preferable to use <code>const</code> when don’t want to reassign the variable .</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/e4r4Zg1XTz395qj9A5hOpHMK0mzH0zwxitK9" class="kg-image" alt=""></figure><p>In the code above, <code>const</code> will not change and cannot be reassigned. If you try to give it a new value, it will return you an error.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/kM-LHiezWRHQa0aakmKyPrgd53riDwKnrSUa" class="kg-image" alt=""></figure><p><code>let</code> can be reassigned and take new value. It creates a <strong>mutable variable</strong>.</p><p><code>let</code> is the same as <code>const</code> in that both are blocked-scope. It means that the variable is only available within its scope.</p><h3 id="arrow-functions">Arrow functions</h3><p>The arrow function is really awesome, and makes your code more readable, more structured, and look like modern code. Instead of using this:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/CAtsmTIStmCZaK-7ej4vvuHzY-aqfNhRhevc" class="kg-image" alt=""></figure><p>Use this:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/jaJg1ODAb7FcbQbWaQ8FwegEmTD4IsTtx7Of" class="kg-image" alt=""></figure><p>As you see, the arrow function seems more readable and clean! You won’t need to use the old syntax anymore.</p><p>Also, you can use Arrow function with <code>map</code>, <code>filter</code>, and <code>reduce</code><strong> </strong>built-in functions.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/2G7fWO8OuCNbdMXa7wiRxoncLZshsRxZ0WYR" class="kg-image" alt=""></figure><p>The map function with arrows looks more clear and readable than <code>map</code> in ES5. With ES6 you can write shorter and smarter code. You can use the same with <code>filter</code> and <code>reduce</code>.</p><h3 id="template-literals">Template Literals</h3><p>Template literals or template strings are pretty cool. We don’t have to use the plus (+) operator to concatenate strings, or when we want to use a variable inside a string.</p><p>The old syntax:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/pyiP612uJAXA9gvXK0fnmxc9tb6J0WRSB3Nj" class="kg-image" alt=""></figure><p>With new ES6 syntax:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/O1aAY7ehL3Vtvej0YXuZVXbN3LjHX2-WXzOG" class="kg-image" alt=""></figure><p>So simple! It’s a really huge difference between the old syntax and ES6. When playing with strings, the literal string in ES6 looks more organized and well structured than ES5.</p><h3 id="default-parameters"><strong>Default parameters</strong></h3><p>When I work in PHP, I usually use default parameters. These allow you to define a parameter in advance.</p><p>So, when you forget to write the parameter, it won’t return an undefined error because the parameter is already defined in the default. So when you run your function with a missed parameter, it will take the value of the default parameter <code>t</code>, and it will not return an error!</p><p>Look at this example:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/qFmJ6F0gOBdVl4kJ7sFhIqHaGIZx6iehhoML" class="kg-image" alt=""></figure><p>The function above returns undefined, because we forgot to give it the second parameter <code>age</code>.</p><p>But if we used the default parameter, it won’t return undefined, and it will use its value when we forget to assign a parameter!</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/-RczdieWIpZVTLYih1PD4ZJdq2UeurbiMBHu" class="kg-image" alt=""></figure><p>As you see, the function returns a value even though we missed the second parameter. Now with the default parameter we can handle the error in advance.</p><h3 id="array-and-object-destructing">Array and object destructing</h3><p>Destruction makes the assignment of the values of an array or object to the new variable easier.</p><p>The old syntax:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/rsZwpm7Ah7OyThsTpkBsaRUsCwjQBSGCGEfG" class="kg-image" alt=""></figure><p>With ES6 syntax:</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/rrKo0LFQOblpaAIlywUGrtD8keMqwywZ5MXR" class="kg-image" alt=""></figure><p>With ES5, we have to assign each value to each variable. With ES6, we just put our values within curly brackets to get any property of the object.</p><p>Note:<strong> </strong>if you assign a variable that is not identical to the name of property, it will return undefined. For example, if the name of the property is <code>name</code> and we assign it to a <code>username</code><strong> </strong>variable,<strong> </strong>it will return undefined.</p><p>We always have to name the variable the same as the name of the property. But in case we want to rename the variable, we can use the colon <code>:</code> instead.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/zLZ3XTvYSXB3UiRg2W05YXGcHa6GJGqEQJLa" class="kg-image" alt=""></figure><p>For the array, we use the same syntax as the object. We have just to replace the curly brackets with square brackets.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/JUcyaqc4T9qdXgQbYCqfbi10THAatzHh64ts" class="kg-image" alt=""></figure><h3 id="import-and-export">Import and export</h3><p>Using <code>import</code> and<code> export</code> in your JavaScript application makes it more powerful. They allow you to create separate and reusable components.</p><p>If you are familiar with any JavaScript MVC framework, you will see that they use <code>import</code> and <code>export</code> to handle the components most of the time. So how do they really work?</p><p>It is simple! <code>export</code> allows you to export a module to be used in another JavaScript component. We use <code>import</code> to import that module to use it in our component.</p><p>For example, we have two files. The first is named <code>detailComponent.js</code><strong> </strong>and the second is named<strong> </strong><code>homeComponent.js</code>.</p><p>In <code>detailComponent.js</code><strong> </strong>we are going to export the <code>detail</code> function.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/3K3KNLMTvnsVpk2EEx100lAURNgW7fXzBauC" class="kg-image" alt=""></figure><p>And if we want to use this function in <code>homeComponent.js</code>,<strong> </strong>we will just use <code>import</code>.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/IB6KSO6rK-574uNXuX5tDUIly6NkqIsT7cpZ" class="kg-image" alt=""></figure><p>If we want to import more than one module, we just put them within curly brackets.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/yeJzCdTfkuZEd-PL9oLX7DWO-cukNHKrLt-5" class="kg-image" alt=""></figure><p>So cool, isn’t it?!</p><h3 id="promises"><strong>Promises</strong></h3><p>Promises are a new feature of ES6. It’s a method to write asynchronous code. It can be used when, for example, we want to fetch data from an API, or when we have a function that takes time to be executed. Promises make it easier to solve the problem, so let’s create our first Promise!</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/zVsFm1MnCkDU9oPLEmfRhLJiA0dyH1nKCa7C" class="kg-image" alt=""></figure><p>If you log your console, it will return a Promise. So, if we want to execute a function after data is fetched, we will use a Promise. The Promise takes two parameters: <code>resolve</code> and <code>reject</code> to handle an expected error.</p><p>Note: the fetch function returns a Promise itself!</p><pre><code>const url='https://jsonplaceholder.typicode.com/posts';</code></pre><pre><code>const getData=(url)=&amp;gt;{return fetch(url);}</code></pre><pre><code>getData(url).then(data=&amp;gt; data.json()).then(result=&gt; console.log(result));</code></pre><p>Now if you log your console it will return an array of data.</p><h3 id="rest-parameter-and-spread-operator">Rest parameter and Spread operator</h3><p><a href="https://developer.mozilla.org/ar/docs/Web/JavaScript/Reference/Functions/rest_parameters" rel="noopener">The rest parameter</a>s are used to get the argument of an array, and return a new array.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/ZGyyj2ByWBRUpEw841VQRKGXPX6KV4aeyRyf" class="kg-image" alt=""></figure><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/SEt08SKlukqs7SSkDBoRHt-0dc9s2zrEpBDr" class="kg-image" alt=""></figure><p>The spread operator has the same syntax as the rest parameter, but the spread operator takes the Array itself and not just the arguments. We can use the Spread parameter to get the values of an Array, instead of using a for loop or any other method.</p><pre><code class="language-js">const arr=['said',20,'JavaScript enthusiast','Hi','Said','How are you?'];
+
+const Func=(...anArray)=&gt;{
+  return anArray;
+}
+
+console.log(Func(arr));
+
+//output  ["said", 20, "JavaScript enthusiast", "Hi", "Said", "How are you?"</code></pre><h3 id="classes">Classes</h3><p>Classes are the core of object oriented programming (OOP). They make your code more secure and encapsulated. Using classes gives your code a nice structure and keeps it oriented.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/2EGxzbm25W2EtzYv67c-N49DAqTMw01iZ2Ok" class="kg-image" alt=""></figure><p>To create a class, use the <code>class</code> keyword followed by the name of the class with two curly brackets.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/0K889E--nHdRPGY1nCVvUzCtAWGkDe8vPfCa" class="kg-image" alt=""></figure><p>Now we can access the <code>class</code> methods and properties using the <code>new</code> keyword.</p><pre><code class="language-js">class myClass{
+    constructor(name,age){
+    this.name=name;
+    this.age=age;
+}
+}
+const Home= new myClass("said",20);
+console.log(Home.name)//  said</code></pre><p>To inherit from another class, use the <code>extends</code> keyword followed by the name of the class you want to inherit from.</p><figure class="kg-card kg-image-card"><img src="./JavaScript ES6 — write less, do more_files/rTlJ5DgmaUL1ZCoy1EEKxCt4TK2ihUeWVd-M" class="kg-image" alt=""></figure><p>You can learn more about Classes<strong> </strong><a href="https://developer.mozilla.org/ar/docs/Web/JavaScript/Reference/Classes" rel="noopener">here</a>.</p><p>ES6 has other amazing features — you can explore them <a href="http://es6-features.org/" rel="noopener">here</a>.</p><h3 id="conclusion">Conclusion</h3><p>I hope you guys found this article useful, and I hope I was able to introduce you some of the ES6 features. If so, subscribe to this <a href="http://eepurl.com/dk9OJL" rel="noopener">mail-list</a> to learn more about Front-end topics. Thanks for your time.</p><blockquote>By the way, I’ve recently worked with a strong group of software engineers for one of my mobile applications. The organization was great, and the product was delivered very quickly, much faster than other firms and freelancers I’ve worked with, and I think I can honestly recommend them for other projects out there. Shoot me an email if you want to get in touch — <a href="mailto:said@devsdata.com">said@devsdata.com</a>.</blockquote>
+                </div>
+                <hr>
+
+                <div class="post-full-author-header">
+                    
+<section class="author-card">
+    <img class="author-profile-image" src="./JavaScript ES6 — write less, do more_files/IMG_5234.jpg" alt="Said Hayani">
+    <section class="author-card-content">
+        <h4 class="author-card-name"><a href="https://www.freecodecamp.org/news/author/saidhayani/">Said Hayani</a></h4>
+        <p>Creator of subscribi.io
+blogs https://saidhayani.com/
+get in touch info.said.dev@gmail.com 
+IG @saaed_happy</p>
+    </section>
+</section>
+
+
+                </div>
+                <hr>
+
+                <p class="social-row">
+
+    If you read this far, tweet to the author to show them you care. <a id="tweet-btn" class="cta-button">Tweet a thanks</a>
+</p>
+
+                
+<div class="learn-cta-row">
+    <p>
+        Learn to code for free. freeCodeCamp's open source curriculum has helped more than 40,000 people get jobs as developers. <a class="cta-button" href="https://www.freecodecamp.org/learn">Get started</a>
+    </p>
+</div>                  <script>
+    // Conditionally show comments section based on publication language setting
+    const showCommentsList = ['zh-cn'];
+
+    if (showCommentsList.includes(`en`)) {
+      const hostname = window.location.hostname;
+      const discourseEmbedMap = {
+        'www.freecodecamp.org': {
+          file: 'https://forum.freecodecamp.org/srv/status',
+          discourseUrl: 'https://forum.freecodecamp.org/'
+        },
+        'chinese.freecodecamp.org': {
+          file: 'https://chinese.freecodecamp.org/forum/srv/status',
+          discourseUrl: 'https://chinese.freecodecamp.org/forum/',
+        },
+        'dev': {
+          file: 'https://forum.freecodecamp.dev/srv/status',
+          discourseUrl: 'https://forum.freecodecamp.dev/'
+        },
+      };
+      const discourseEmbedInfo = discourseEmbedMap[hostname] ? discourseEmbedMap[hostname] : discourseEmbedMap['dev'];
+      const { file, discourseUrl } = discourseEmbedInfo;
+
+      function loadDiscourseComments() {
+        var xhr = new XMLHttpRequest();
+        var randomNum = Math.round(Math.random() * 10000);
+        xhr.open('HEAD', file + '?rand=' + randomNum, true);
+        xhr.send();
+        xhr.addEventListener('readystatechange', processRequest, false);
+        function processRequest(e) {
+          if (xhr.readyState == 4) {
+            if (xhr.status >= 200 && xhr.status < 304) {
+              document.getElementById('discourse-comments').innerHTML = '';
+              DiscourseEmbed = {
+                discourseUrl,
+                discourseEmbedUrl: 'https://www.freecodecamp.org/news/write-less-do-more-with-javascript-es6-5fd4a8e50ee2/'
+              };
+              var d = document.createElement('script');
+              d.type = 'text/javascript';
+              d.async = true;
+              d.src = discourseUrl + 'javascripts/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+            } else {
+              document.getElementById('discourse-comments').innerHTML =
+                '<div style="text-align: center;">Sorry, we could not load the comments. Please try again after some time.</div>';
+            }
+          }
+        }
+      }
+
+      if (window && window.addEventListener) {
+        // Create comments section
+        const commentsDivHtml = `
+          <div id='discourse-comments'>
+            <button id='trigger-load-comments'>Show comments</button>
+          </div>
+        `;
+        const fullContentSection = document.getElementsByClassName('post-full-content')[0];
+        fullContentSection.insertAdjacentHTML('beforeend', commentsDivHtml);
+
+        window.addEventListener('load', function () {
+          document.getElementById('trigger-load-comments').onclick = loadDiscourseComments;
+        });
+      }
+    }
+  </script>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+
+
+
+        <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-desc-col">
+                <p>
+                    freeCodeCamp is a donor-supported tax-exempt 501(c)(3) nonprofit organization (United States Federal Tax Identification Number: 82-0779546)
+                </p>
+                <p>
+                    Our mission: to help people learn to code for free. We accomplish this by creating thousands of videos, articles, and interactive coding lessons - all freely available to the public. We also have thousands of freeCodeCamp study groups around the world.
+                </p>
+                <p>
+                    Donations to freeCodeCamp go toward our education initiatives, and help pay for servers, services, and staff.
+                </p>
+                <p class="footer-donation">
+                    You can <a href="https://freecodecamp.org/donate" class="inline" rel="noopener noreferrer" target="_blank">make a tax-deductible donation here</a>.
+                </p>
+            </div>
+            <div class="trending-guides">
+                <div class="col-header">Trending Guides</div>
+                <div class="trending-guides-row">
+                    <div class="footer-col footer-col-1">
+                        <a href="https://www.freecodecamp.org/news/what-is-docker-used-for-a-docker-container-tutorial-for-beginners/">What is Docker?</a>
+                        <a href="https://www.freecodecamp.org/news/what-is-tcp-ip-layers-and-protocols-explained/">TCP/IP Model</a>
+                        <a href="https://www.freecodecamp.org/news/rtf-file-what-is-the-rich-text-format/">RTF File</a>
+                        <a href="https://www.freecodecamp.org/news/css-transition-examples/">CSS Transition</a>
+                        <a href="https://www.freecodecamp.org/news/how-to-use-instagram-like-a-pro/">How to Use Instagram?</a>
+                        <a href="https://www.freecodecamp.org/news/mbr-vs-gpt-whats-the-difference-between-an-mbr-partition-and-a-gpt-partition-solved/">MBR VS GPT</a>
+                        <a href="https://www.freecodecamp.org/news/how-to-format-a-usb-drive-to-fat32-on-windows-10/">FAT32 Format</a>
+                        <a href="https://www.freecodecamp.org/news/http-error-503-service-unavailable-explained-what-the-503-error-code-means/">Error 503 Code</a>
+                        <a href="https://www.freecodecamp.org/news/how-to-find-and-edit-a-windows-hosts-file/">Windows Hosts File</a>
+                        <a href="https://www.freecodecamp.org/news/mobi-to-pdf-how-to-convert-to-and-from-a-mobi-file/">Mobi to PDF</a>
+                    </div>
+                    <div class="footer-col footer-col-2">
+                        <a href="https://www.freecodecamp.org/news/what-is-stem-the-meaning-of-an-acronym-youll-hear-a-lot-in-school/">What is STEM?</a>
+                        <a href="https://www.freecodecamp.org/news/javascript-void-keyword-explained/">JavaScript Void 0</a>
+                        <a href="https://www.freecodecamp.org/news/sql-delete-row-statement-examples/">SQL Delete Row</a>
+                        <a href="https://www.freecodecamp.org/news/javascript-string-replace-example-with-regex/">JavaScript Replace</a>
+                        <a href="https://www.freecodecamp.org/news/python-read-json-file-how-to-load-json-from-a-file-and-parse-dumps/">Python JSON Parser</a>
+                        <a href="https://www.freecodecamp.org/news/cmd-delete-folder-how-to-remove-files-and-folders-in-windows/">cmd Delete Folder</a>
+                        <a href="https://www.freecodecamp.org/news/what-is-nfc-near-field-communication-uses-chips-tags-and-readers-explained/">What is NFC?</a>
+                        <a href="https://www.freecodecamp.org/news/what-is-the-correct-content-type-for-json-request-header-mime-type-explained/">Content Type JSON</a>
+                        <a href="https://www.freecodecamp.org/news/heic-to-jpg-how-to-convert-images-on-a-mac/">Convert HEIC to JPG</a>
+                        <a href="https://www.freecodecamp.org/news/generate-random-numbers-java/">Math Random Java</a>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <div class="footer-left">
+                            <a href="https://www.freecodecamp.org/news/how-to-start-a-blog-with-wordpress/">WordPress for Beginners</a>
+                            <a href="https://www.freecodecamp.org/news/qualitative-vs-quantitative-definition-research-methods-and-data/">Qualitative VS Quantitative</a>
+                            <a href="https://www.freecodecamp.org/news/javascript-split-string-example/">JavaScript Split String</a>
+                            <a href="https://www.freecodecamp.org/news/how-to-type-letters-with-accents-on-mac/">Accented Letters on Mac</a>
+                            <a href="https://www.freecodecamp.org/news/how-to-find-a-windows-10-product-key/">Windows 10 Product Key</a>
+                        </div>
+
+                        <div class="footer-right">
+                            <a href="https://www.freecodecamp.org/news/google-docs-landscape-tutorial-how-to-make-a-google-doc-landscape-orientation/">Google Docs Landscape</a>
+                            <a href="https://www.freecodecamp.org/news/antimalware-service-executable-what-is-msmpeng-exe-and-why-is-it-running-in-windows-10/">Antimalware Executable</a>
+                            <a href="https://www.freecodecamp.org/news/windows-10-start-menu-not-working-solved/">Windows 10 Start Menu</a>
+                            <a href="https://www.freecodecamp.org/news/how-to-open-the-command-prompt-in-windows-10/">Windows 10 Command Line</a>
+                            <a href="https://www.freecodecamp.org/news/google-account-recovery-change-gmail-password/">Google Account Recovery</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="col-header">Our Nonprofit</div>
+            <div class="footer-divider"></div>
+            <div class="our-nonprofit">
+                <a href="https://www.freecodecamp.org/news/about/">About</a>
+                <a href="https://www.linkedin.com/school/free-code-camp/people/" rel="noopener noreferrer" target="_blank">Alumni Network</a>
+                <a href="https://github.com/freeCodeCamp/">Open Source</a>
+                <a href="https://www.freecodecamp.org/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
+                <a href="https://www.freecodecamp.org/news/support/">Support</a>
+                <a href="https://www.freecodecamp.org/news/sponsors/">Sponsors</a>
+                <a href="https://www.freecodecamp.org/news/academic-honesty-policy/">Academic Honesty</a>
+                <a href="https://www.freecodecamp.org/news/code-of-conduct/">Code of Conduct</a>
+                <a href="https://www.freecodecamp.org/news/privacy-policy/">Privacy Policy</a>
+                <a href="https://www.freecodecamp.org/news/terms-of-service/">Terms of Service</a>
+                <a href="https://www.freecodecamp.org/news/copyright-policy/">Copyright Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    <script>
+        var images = document.querySelectorAll('.kg-gallery-image img');
+        images.forEach(function (image) {
+            var container = image.closest('.kg-gallery-image');
+            var width = image.attributes.width.value;
+            var height = image.attributes.height.value;
+            var ratio = width / height;
+            container.style.flex = ratio + ' 1 0%';
+        })
+    </script>
+
+    <script src="./JavaScript ES6 — write less, do more_files/jquery-3.2.1.min.js.download" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script></body></html>

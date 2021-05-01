@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>How to Center Anything with CSS - Align a Div, Text, and More</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism.min.css">
+    <link rel="stylesheet" type="text/css" href="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-unescaped-markup.css">
+
+    <link href="./How to Center Anything with CSS - Align a Div, Text, and More_files/css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./How to Center Anything with CSS - Align a Div, Text, and More_files/screen.css">
+    <link rel="stylesheet" type="text/css" href="./How to Center Anything with CSS - Align a Div, Text, and More_files/algolia-search.css">
+
+    <script type="text/javascript" async="" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/analytics.js.download"></script><script async="" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/gtm.js.download"></script><script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/algoliasearch.min.js.download"></script><style></style>
+    <script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/autocomplete.min.js.download"></script>
+
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/main.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/footer.js.download"></script>
+
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/main.js(1).download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/footer.js(1).download"></script>
+
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/main.js(2).download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/footer.js(2).download"></script>
+
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/setup-locale.js.download"></script>
+
+
+    <script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/dayjs.min.js.download"></script>
+    <script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/localizedFormat.min.js.download"></script>
+    <script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/relativeTime.min.js.download"></script>
+
+    <script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/zh-cn.min.js.download"></script>
+
+
+    <link rel="icon" href="https://www.freecodecamp.org/news/favicon.png" type="image/png">
+    <link rel="canonical" href="https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/amp/">
+    
+    <meta property="og:site_name" content="freeCodeCamp.org">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to Center Anything with CSS - Align a Div, Text, and More">
+    <meta property="og:description" content="Centering things is one of the most difficult aspects of CSS.  The methods themselves usually aren&#39;t difficult to understand. Instead, it&#39;s more due to the fact that there are so many ways to center things.  The method you use can vary depending on the HTML element you&#39;re trying to center,">
+    <meta property="og:url" content="https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ">
+    <meta property="article:published_time" content="2020-05-15T04:24:00.000Z">
+    <meta property="article:modified_time" content="2020-11-05T05:31:44.000Z">
+    <meta property="article:tag" content="CSS">
+    <meta property="article:tag" content="Responsive Design">
+    <meta property="article:tag" content="HTML">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/freecodecamp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Center Anything with CSS - Align a Div, Text, and More">
+    <meta name="twitter:description" content="Centering things is one of the most difficult aspects of CSS.  The methods themselves usually aren&#39;t difficult to understand. Instead, it&#39;s more due to the fact that there are so many ways to center things.  The method you use can vary depending on the HTML element you&#39;re trying to center,">
+    <meta name="twitter:url" content="https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="freeCodeCamp.org">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="CSS, Responsive Design, HTML">
+    <meta name="twitter:site" content="@freecodecamp">
+    <meta property="og:image:width" content="2000">
+    <meta property="og:image:height" content="1499">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "freeCodeCamp.org",
+        "url": "https://www.freecodecamp.org/news/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.freecodecamp.org/news/content/images/2019/11/fcc_primary_large_24X210.svg",
+            "width": 210,
+            "height": 24
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "freeCodeCamp.org",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/fcda43852608626fe46d7fd43145766e?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://www.freecodecamp.org/news/author/freecodecamp/",
+        "sameAs": []
+    },
+    "headline": "How to Center Anything with CSS - Align a Div, Text, and More",
+    "url": "https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/",
+    "datePublished": "2020-05-15T04:24:00.000Z",
+    "dateModified": "2020-11-05T05:31:44.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=2000&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ",
+        "width": 2000,
+        "height": 1499
+    },
+    "keywords": "CSS, Responsive Design, HTML",
+    "description": "Centering things is one of the most difficult aspects of CSS. \n\nThe methods themselves usually aren&#x27;t difficult to understand. Instead, it&#x27;s\nmore due to the fact that there are so many ways to center things. \n\nThe method you use can vary depending on the HTML element you&#x27;re trying to\ncenter, or whether you&#x27;re centering it horizontally or vertically.\n\nIn this tutorial, we&#x27;ll go over how to center different elements horizontally,\nvertically, and both vertically and horizontally.\n\nHow to Center Hor",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.freecodecamp.org/news/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.39">
+    <link rel="alternate" type="application/rss+xml" title="freeCodeCamp.org" href="https://www.freecodecamp.org/news/rss/">
+    <!-- This is related to https://webmonetization.org/ -->
+<meta name="monetization" content="$ilp.uphold.com/LJmbPn7WD4JB">
+<!-- GAP -->
+
+
+<!-- Google Tag Manager -->
+<script>
+  // Set up dataLayer with data if provided
+  window.dataLayer = window.dataLayer || [{ gaPropertyId: 'UA-55446531-20' }];
+
+  // Initialized GTM via gtag
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-55446531-20');
+
+  // Configure and initialize GTM
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl+'&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer', 'GTM-5D6RKKP');
+</script>
+<!-- End Google Tag Manager -->
+
+
+<meta name="google-site-verification" content="b4tITLzEeeZGEpvD4mGNf3khKM4fvqejQaz9SYBQP8E">
+
+<script async="" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/adblocker-chromeglobalinjectjs.js.download"></script><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+
+<body class="post-template tag-css tag-responsive-design tag-html" data-new-gr-c-s-check-loaded="14.998.0" data-gr-ext-installed="">
+
+    <div class="site-wrapper">
+        <nav class="site-nav nav-padding">
+    <div class="site-nav-left">
+        <form id="search-form" onsubmit="submitSearch()">
+  <div role="search" class="searchbox__wrapper">
+    <input type="search" placeholder="Search 6,000+ tutorials" id="search-input" class="aa-input" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style=""><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Lato, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+    <button type="submit" title="Submit your search query." class="ais-SearchBox-submit">
+      <svg class="ais-SearchBox-submitIcon" xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 40 40">
+        <path d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"></path>
+      </svg>
+    </button>
+    <div id="dropdown-container"><span class="algolia-autocomplete" style="position: absolute; z-index: 100; display: none; direction: ltr;"><span class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0" style="display: block; left: 0px; right: auto;"><div class="aa-dataset-1"></div></span></span></div>
+  </div>
+</form>
+
+<script>
+  const client = algoliasearch('QMJYL5WYTI', '4318af87aa3ce128708f1153556c6108');
+  const index = client.initIndex(main['algolia-index-name']);
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  const hitsToRender = (screenWidth >= 767 && screenHeight >= 768) ? 8 : 5;
+  const searchForm = document.getElementById('search-form');
+  const input = document.getElementById('search-input');
+  const dropdownContainer = document.getElementById('dropdown-container');
+  let searchQuery, hitSelected, hits;
+
+  input.addEventListener('input', e => {
+    searchQuery = e.target.value;
+  });
+
+  // Prevent form from being submitted with magnifying
+  // glass or enter when there is no query or hits
+  searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    submitSearch();
+  });
+
+  const search = autocomplete('#search-input', { 
+      hint: false,
+      keyboardShortcuts: ['s', 191],
+      openOnFocus: true,
+      appendTo: dropdownContainer,
+      debug: true // allow tabbing through results
+    }, [
+    {
+      source: autocomplete.sources.hits(index, { hitsPerPage: hitsToRender }),
+      debounce: 250,
+      templates: {
+        suggestion: (suggestion, result) => {
+          hits = true;
+          return `
+            <a href="${suggestion.url}">
+              <div class="algolia-result">
+                <span>${suggestion._highlightResult.title.value}</span>
+              </div>
+            </a>
+          `;
+        },
+        empty: (options) => {
+          hits = false;
+          return `
+            <div class="aa-suggestion footer-suggestion no-hits-footer">
+              <div class="algolia-result">
+                <span>
+                  No tutorials found
+                </span>
+              </div>
+            </div>
+          `;
+        },
+        footer: (query, result) => {
+          if (!query.isEmpty) {
+            return `
+              <div class="aa-suggestion footer-suggestion">
+                <a id="algolia-footer-selector" href="https://www.freecodecamp.org/news/search?query=${searchQuery}">
+                  <div class="algolia-result algolia-footer">
+                    <span>See all results for ${searchQuery}</span>
+                  </div>
+                </a>
+              </div>
+            `;
+          }
+        }
+      }
+    }
+  ]).on('autocomplete:selected', (event, suggestion, dataset, context) => {
+    // If article is selected, set to URL of the article. 
+    // If footer is selected, set to search results path
+    hitSelected = suggestion ? suggestion.url : `https://www.freecodecamp.org/news/search?query=${searchQuery}`;
+
+    // Let browser handle click, and do not go to selection on tab key press
+    if (context.selectionMethod === 'click' || context.selectionMethod === 'tabKey') {
+      return;
+    }
+
+    // Go to selected article or footer path
+    if (hits) {
+      window.location.assign(hitSelected);
+    }
+  });
+
+  // Go to highlighted hit or search for current query
+  // when magnifying glass or enter is pressed
+  function submitSearch() {
+    hitSelected = document.getElementsByClassName('aa-cursor')[0];
+
+    if (hitSelected && searchQuery) {
+      const articleUrl = hitSelected.querySelector('a').href;
+      window.location.assign(articleUrl);
+    } else if (!hitSelected && searchQuery && hits) {
+      window.location.assign(`https://www.freecodecamp.org/news/search?query=${searchQuery}`);
+    }
+  }
+
+  // close dropbar when clicking off 
+  document.addEventListener('click', e => {
+    if (e.target !== input) {
+      search.autocomplete.close();
+    }
+  });
+</script>
+    </div>
+    <div class="site-nav-middle">
+        <a class="site-nav-logo" href="https://www.freecodecamp.org/news"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/fcc_primary_large_24X210.svg" alt="freeCodeCamp.org"></a>
+    </div>
+    <div class="site-nav-right">
+        <div class="nav-group">
+            <a class="nav-forum" id="nav-forum" rel="noopener noreferrer" target="_blank" href="https://forum.freecodecamp.org/">Forum</a>
+
+            <a class="toggle-button-nav" id="nav-donate" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/donate/">
+                Donate
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+
+        <a class="banner" id="banner" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/">
+    <p>
+        Learn to code — <span>free 3,000-hour curriculum</span>
+    </p>
+</a>
+
+
+        <div id="error-message"></div>
+
+        
+
+
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post tag-css tag-responsive-design tag-html ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="May 15, 2020">May 15, 2020</time>
+                    <span class="date-divider">/</span>
+                    <a href="https://www.freecodecamp.org/news/tag/css/">
+                        #CSS
+                    </a>
+                </section>
+                <h1 class="post-full-title">How to Center Anything with CSS - Align a Div, Text, and More</h1>
+            </header>
+
+            <div class="post-full-author-header">
+
+
+            </div>
+
+            <figure class="post-full-image">
+                <img srcset="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 300w,
+                            https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w,
+                            https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w,
+                            https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2000w" sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 700px,
+                            1400px" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/photo-1523049673857-eb18f1d7b578" alt="How to Center Anything with CSS - Align a Div, Text, and More" onerror="this.style.display=&#39;none&#39;">
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content medium-migrated-article">
+                    <p>Centering things is one of the most difficult aspects of CSS. </p><p>The methods themselves usually aren't difficult to understand. Instead, it's more due to the fact that there are so many ways to center things. </p><p>The method you use can vary depending on the HTML element you're trying to center, or whether you're centering it horizontally or vertically.</p><p>In this tutorial, we'll go over how to center different elements horizontally, vertically, and both vertically and horizontally.</p><h2 id="how-to-center-horizontally">How to Center Horizontally</h2><p>Centering elements horizontally is generally easier than vertically centering them. Here are some common elements you may want to center horizontally and different ways to do it.</p><h3 id="how-to-center-text-with-the-css-text-align-center-property">How to Center Text with the CSS Text-Align Center Property</h3><p>To center text or links horizontally, just use the <code>text-align</code> property with the value <code>center</code>:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Hello, (centered) World!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">p</span> <span class="token punctuation">{</span>
+  <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/hello-centered-world.jpg" class="kg-image" alt=""></figure><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/image-15.png" class="kg-image" alt=""></figure><h3 id="how-to-center-a-div-with-css-margin-auto">How to Center a Div with CSS Margin Auto</h3><p>Use the shorthand <code>margin</code> property with the value <code>0 auto</code> to center block-level elements like a <code>div</code> horizontally:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.child</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">margin</span><span class="token punctuation">:</span> 0 auto<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-horizontally.jpg" class="kg-image" alt=""></figure><h3 id="how-to-center-a-div-horizontally-with-flexbox">How to Center a Div Horizontally with Flexbox</h3><p>Flexbox is the most modern way to center things on the page, and makes designing responsive layouts much easier than it used to be. However, it's not fully supported in some legacy browsers like Internet Explorer.</p><p>To center an element horizontally with Flexbox, just apply <code>display: flex</code> and <code>justify-content: center</code> to the parent element:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-horizontally-1.jpg" class="kg-image" alt=""></figure><h2 id="how-to-center-vertically">How to Center Vertically</h2><p>Centering elements vertically without modern methods like Flexbox can be a real chore. Here we'll go over some of the older methods to center things vertically first, then show you how to do it with Flexbox.</p><h3 id="how-to-center-a-div-vertically-with-css-absolute-positioning-and-negative-margins">How to Center a Div Vertically with CSS Absolute Positioning and Negative Margins</h3><p>For a long time this was the go-to way to center things vertically. For this method you must know the height of the element you want to center.</p><p>First, set the <code>display</code> property of the parent element to <code>relative</code>. </p><p>Then for the child element, set the <code>display</code> property to <code>absolute</code> and <code>top</code> to <code>50%</code>:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.child</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token comment">/* Center vertically */</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-1.jpg" class="kg-image" alt=""></figure><p>But that really just vertically centers the top edge of the child element.</p><p>To truly center the child element, set the <code>margin-top</code> property to <code>-(half the child element's height)</code>:</p><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.child</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token comment">/* Center vertically */</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">margin-top</span><span class="token punctuation">:</span> -25px<span class="token punctuation">;</span> <span class="token comment">/* half this element's height */</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-final.jpg" class="kg-image" alt=""></figure><h3 id="how-to-center-a-div-vertically-with-transform-and-translate">How to Center a Div Vertically with Transform and Translate</h3><p>If you don't know the height of the element you want to center (or even if you do), this method is a nifty trick.</p><p>This method is very similar to the negative margins method above. Set the <code>display</code> property of the parent element to <code>relative</code>. </p><p>For the child element, set the <code>display</code> property to <code>absolute</code> and set <code>top</code> to <code>50%</code>. Now instead of using a negative margin to truly center the child element, just use <code>transform: translate(0, -50%)</code>:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.child</span> <span class="token punctuation">{</span>
+  ... 
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-final-1.jpg" class="kg-image" alt=""></figure><p>Note that <code>translate(0, -50%)</code> is shorthand for <code>translateX(0)</code> and <code>translateY(-50%)</code>. You could also write <code>transform: translateY(-50%)</code> to center the child element vertically.</p><h3 id="how-to-center-a-div-vertically-with-flexbox">How to Center a Div Vertically with Flexbox</h3><p>Like centering things horizontally, Flexbox makes it super easy to center things vertically.</p><p>To center an element vertically, apply <code>display: flex</code> and <code>align-items: center</code> to the parent element:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-final-2.jpg" class="kg-image" alt=""></figure><h2 id="how-to-center-both-vertically-and-horizontally">How to Center Both Vertically and Horizontally</h2><h3 id="how-to-center-a-div-vertically-and-horizontally-with-css-absolute-positioning-and-negative-margins">How to Center a Div Vertically and Horizontally with CSS Absolute Positioning and Negative Margins</h3><p>This is very similar to the method above to center an element vertically. Like last time, you must know the width and height of the element you want to center.</p><p>Set the <code>display</code> property of the parent element to <code>relative</code>.</p><p>Then set the child's <code>display</code> property to <code>absolute</code>, <code>top</code> to <code>50%</code>, and <code>left</code> to <code>50%</code>. This just centers the top left corner of the child element vertically and horizontally.</p><p>To truly center the child element, apply a negative top margin set to half the child element's height, and a negative left margin set to half the child element's width:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.child</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token comment">/* Center vertically and horizontally */</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">left</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> -25px 0 0 -25px<span class="token punctuation">;</span> <span class="token comment">/* apply negative top and left margins to truly center the element */</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-and-horizontally.jpg" class="kg-image" alt=""></figure><h3 id="how-to-center-a-div-vertically-and-horizontally-with-transform-and-translate">How to Center a Div Vertically and Horizontally with Transform and Translate</h3><p>Use this method to center an element vertically and horizontally if you don't know its exact dimensions and can't use Flexbox.</p><p>First, set the <code>display</code> property of the parent element to <code>relative</code>. </p><p>Next, set the child element's <code>display</code> property to <code>absolute</code>, <code>top</code> to <code>50%</code>, and <code>left</code> to <code>50%</code>. </p><p>Finally, use <code>transform: translate(-50%, -50%)</code> to truly center the child element:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.child</span> <span class="token punctuation">{</span>
+  ... 
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">left</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-50%<span class="token punctuation">,</span> -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-and-horizontally-1.jpg" class="kg-image" alt=""></figure><h3 id="how-to-center-a-div-vertically-and-horizontally-with-flexbox">How to Center a Div Vertically and Horizontally with Flexbox</h3><p>Flexbox is the easiest way to center an element both vertically and horizontally.</p><p>This is really just a combination of the two previous Flexbox methods. Then apply <code>justify-content: center</code> and <code>align-items: center</code> to center the child element(s) horizontally and vertically:</p><pre class=" language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>child<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre><pre class=" language-css"><code class=" language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  ...
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><figure class="kg-card kg-image-card"><img src="./How to Center Anything with CSS - Align a Div, Text, and More_files/box-centered-vertically-and-horizontally-2.jpg" class="kg-image" alt=""></figure><p>That's everything you need to know to center with the best of 'em. Now go forth and center all the things.</p>
+                </div>
+                <hr>
+
+
+                <p class="social-row">
+
+    If this article was helpful, <a id="tweet-btn" class="cta-button">tweet it.</a>
+</p>
+
+                
+<div class="learn-cta-row">
+    <p>
+        Learn to code for free. freeCodeCamp's open source curriculum has helped more than 40,000 people get jobs as developers. <a class="cta-button" id="learn-to-code-cta" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/learn/">Get started</a>
+    </p>
+</div>
+
+                  <script>
+    // Conditionally show comments section based on publication language setting
+    const showCommentsList = ['zh-cn'];
+
+    if (showCommentsList.includes(`en`)) {
+      const hostname = window.location.hostname;
+      const discourseEmbedMap = {
+        'www.freecodecamp.org': {
+          file: 'https://forum.freecodecamp.org/srv/status',
+          discourseUrl: 'https://forum.freecodecamp.org/'
+        },
+        'chinese.freecodecamp.org': {
+          file: 'https://chinese.freecodecamp.org/forum/srv/status',
+          discourseUrl: 'https://chinese.freecodecamp.org/forum/',
+        },
+        'dev': {
+          file: 'https://forum.freecodecamp.dev/srv/status',
+          discourseUrl: 'https://forum.freecodecamp.dev/'
+        },
+      };
+      const discourseEmbedInfo = discourseEmbedMap[hostname] ? discourseEmbedMap[hostname] : discourseEmbedMap['dev'];
+      const { file, discourseUrl } = discourseEmbedInfo;
+
+      function loadDiscourseComments() {
+        var xhr = new XMLHttpRequest();
+        var randomNum = Math.round(Math.random() * 10000);
+        xhr.open('HEAD', file + '?rand=' + randomNum, true);
+        xhr.send();
+        xhr.addEventListener('readystatechange', processRequest, false);
+        function processRequest(e) {
+          if (xhr.readyState == 4) {
+            if (xhr.status >= 200 && xhr.status < 304) {
+              document.getElementById('discourse-comments').innerHTML = '';
+              DiscourseEmbed = {
+                discourseUrl,
+                discourseEmbedUrl: 'https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/'
+              };
+              var d = document.createElement('script');
+              d.type = 'text/javascript';
+              d.async = true;
+              d.src = discourseUrl + 'javascripts/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+            } else {
+              document.getElementById('discourse-comments').innerHTML =
+                '<div style="text-align: center;">Sorry, we could not load the comments. Please try again after some time.</div>';
+            }
+          }
+        }
+      }
+
+      if (window && window.addEventListener) {
+        // Create comments section
+        const commentsDivHtml = `
+          <div id='discourse-comments'>
+            <button id='trigger-load-comments'>Show comments</button>
+          </div>
+        `;
+        const fullContentSection = document.getElementsByClassName('post-full-content')[0];
+        fullContentSection.insertAdjacentHTML('beforeend', commentsDivHtml);
+
+        window.addEventListener('load', function () {
+          document.getElementById('trigger-load-comments').onclick = loadDiscourseComments;
+        });
+      }
+    }
+  </script>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+
+
+
+        <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-desc-col">
+                <p>
+                    freeCodeCamp is a donor-supported tax-exempt 501(c)(3) nonprofit organization (United States Federal Tax Identification Number: 82-0779546)
+                </p>
+                <p>
+                    Our mission: to help people learn to code for free. We accomplish this by creating thousands of videos, articles, and interactive coding lessons - all freely available to the public. We also have thousands of freeCodeCamp study groups around the world.
+                </p>
+                <p>
+                    Donations to freeCodeCamp go toward our education initiatives, and help pay for servers, services, and staff.
+                </p>
+                <p class="footer-donation">
+                    You can <a id="footer-donation" class="inline" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/donate/">make a tax-deductible donation here</a>.
+                </p>
+            </div>
+            <div class="trending-guides">
+                <div class="col-header">Trending Guides</div>
+                <div class="trending-guides-row">
+                    <div class="footer-col footer-col-1">
+                        <a id="article0" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-docker-used-for-a-docker-container-tutorial-for-beginners/">What is Docker?</a>
+                        <a id="article1" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-tcp-ip-layers-and-protocols-explained/">TCP/IP Model</a>
+                        <a id="article2" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/rtf-file-what-is-the-rich-text-format/">RTF File</a>
+                        <a id="article3" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/css-transition-examples/">CSS Transition</a>
+                        <a id="article4" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-use-instagram-like-a-pro/">How to Use Instagram?</a>
+                        <a id="article5" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/mbr-vs-gpt-whats-the-difference-between-an-mbr-partition-and-a-gpt-partition-solved/">MBR VS GPT</a>
+                        <a id="article6" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-format-a-usb-drive-to-fat32-on-windows-10/">FAT32 Format</a>
+                        <a id="article7" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/http-error-503-service-unavailable-explained-what-the-503-error-code-means/">Error 503 Code</a>
+                        <a id="article8" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-find-and-edit-a-windows-hosts-file/">Windows Hosts File</a>
+                        <a id="article9" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/mobi-to-pdf-how-to-convert-to-and-from-a-mobi-file/">Mobi to PDF</a>
+                    </div>
+                    <div class="footer-col footer-col-2">
+                        <a id="article10" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-stem-the-meaning-of-an-acronym-youll-hear-a-lot-in-school/">What is STEM?</a>
+                        <a id="article11" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/javascript-void-keyword-explained/">JavaScript Void 0</a>
+                        <a id="article12" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/sql-delete-row-statement-examples/">SQL Delete Row</a>
+                        <a id="article13" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/javascript-string-replace-example-with-regex/">JavaScript Replace</a>
+                        <a id="article14" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/python-read-json-file-how-to-load-json-from-a-file-and-parse-dumps/">Python JSON Parser</a>
+                        <a id="article15" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/cmd-delete-folder-how-to-remove-files-and-folders-in-windows/">cmd Delete Folder</a>
+                        <a id="article16" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-nfc-near-field-communication-uses-chips-tags-and-readers-explained/">What is NFC?</a>
+                        <a id="article17" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/what-is-the-correct-content-type-for-json-request-header-mime-type-explained/">Content Type JSON</a>
+                        <a id="article18" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/heic-to-jpg-how-to-convert-images-on-a-mac/">Convert HEIC to JPG</a>
+                        <a id="article19" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/generate-random-numbers-java/">Math Random Java</a>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <div class="footer-left">
+                            <a id="article20" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-start-a-blog-with-wordpress/">WordPress for Beginners</a>
+                            <a id="article21" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/qualitative-vs-quantitative-definition-research-methods-and-data/">Qualitative VS Quantitative</a>
+                            <a id="article22" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/javascript-split-string-example/">JavaScript Split String</a>
+                            <a id="article23" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-type-letters-with-accents-on-mac/">Accented Letters on Mac</a>
+                            <a id="article24" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-find-a-windows-10-product-key/">Windows 10 Product Key</a>
+                        </div>
+
+                        <div class="footer-right">
+                            <a id="article25" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/google-docs-landscape-tutorial-how-to-make-a-google-doc-landscape-orientation/">Google Docs Landscape</a>
+                            <a id="article26" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/antimalware-service-executable-what-is-msmpeng-exe-and-why-is-it-running-in-windows-10/">Antimalware Executable</a>
+                            <a id="article27" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/windows-10-start-menu-not-working-solved/">Windows 10 Start Menu</a>
+                            <a id="article28" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/how-to-open-the-command-prompt-in-windows-10/">Windows 10 Command Line</a>
+                            <a id="article29" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/google-account-recovery-change-gmail-password/">Google Account Recovery</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="col-header">Our Nonprofit</div>
+            <div class="footer-divider"></div>
+            <div class="our-nonprofit">
+                <a id="about" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/about/">About</a>
+                <a id="alumni" rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/school/free-code-camp/people/">Alumni Network</a>
+                <a id="open-source" rel="noopener noreferrer" target="_blank" href="https://github.com/freeCodeCamp/">Open Source</a>
+                <a id="shop" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/shop/">Shop</a>
+                <a id="support" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/support/">Support</a>
+                <a id="sponsors" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/sponsors/">Sponsors</a>
+                <a id="honesty" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/academic-honesty-policy/">Academic Honesty</a>
+                <a id="coc" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/code-of-conduct/">Code of Conduct</a>
+                <a id="privacy" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/privacy-policy/">Privacy Policy</a>
+                <a id="tos" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/terms-of-service/">Terms of Service</a>
+                <a id="copyright" rel="noopener noreferrer" target="_blank" href="https://www.freecodecamp.org/news/copyright-policy/">Copyright Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+
+    <script>
+        var images = document.querySelectorAll('.kg-gallery-image img');
+        images.forEach(function (image) {
+            var container = image.closest('.kg-gallery-image');
+            var width = image.attributes.width.value;
+            var height = image.attributes.height.value;
+            var ratio = width / height;
+            container.style.flex = ratio + ' 1 0%';
+        })
+    </script>
+
+    <script src="./How to Center Anything with CSS - Align a Div, Text, and More_files/jquery-3.2.1.min.js.download" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/jquery.fitvids.js.download"></script>
+
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-unescaped-markup.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-markup-templating.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-bash.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-c.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-clojure.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-cpp.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-csharp.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-css.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-docker.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-elixir.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-erlang.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-git.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-go.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-graphql.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-haskell.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-java.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-javascript.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-json.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-jsx.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-kotlin.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-lua.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-markup.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-php.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-python.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-r.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-ruby.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-rust.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-scala.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-sql.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-swift.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-typescript.min.js.download"></script>
+    <script type="text/javascript" src="./How to Center Anything with CSS - Align a Div, Text, and More_files/prism-yaml.min.js.download"></script>
+
+    <script>
+    // Conditionally remove social-row based on the publication language setting
+    const hideSocialRowList = ['zh-cn'];
+    const socialRow = document.getElementsByClassName('social-row')[0];
+
+    if (hideSocialRowList.includes(`en`)) socialRow.remove();
+    else {
+        const title = `How%20to%20Center%20Anything%20with%20CSS%20-%20Align%20a%20Div%2C%20Text%2C%20and%20More`.replace(/'/g, '%27');
+        const twitter = ``;
+        const url = window.location;
+        const thanks = `Thank%20you%20%20for%20writing%20this%20helpful%20article.` +
+            `%0A%0A${title}%0A%0A${url}`;
+        const button = document.getElementById('tweet-btn');
+        button.addEventListener('click', () => {
+            if (twitter) {
+                window.open(`https://twitter.com/intent/tweet?text=${thanks}`, `share-twitter`, `width=550, height=235`);
+                return false;
+            }
+            else {
+                window.open(`https://twitter.com/intent/tweet?text=${title}%0A%0A${url}`, `share-twitter`, `width=550, height=235`);
+                return false;
+            }
+        });
+    }
+</script>
+
+<script>
+    const learnToCodeCtaAnchorEl = document.getElementById('learn-to-code-cta');
+
+    learnToCodeCtaAnchorEl.href = main['learn-to-code-cta-url'];
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Start fitVids
+        var $postContent = $(".post-full-content");
+        $postContent.fitVids();
+        // End fitVids
+    });
+</script>
+
+<script>
+    const navForumAnchorEl = document.getElementById('nav-forum');
+    const navDonateAnchorEl = document.getElementById('nav-donate');
+
+    navForumAnchorEl.href = main['forum-url'];
+    navDonateAnchorEl.href = main['donate-url'];
+</script>
+
+<script>
+    const bannerAnchorEl = document.getElementById('banner');
+
+    bannerAnchorEl.href = main['banner-url'];
+</script>
+
+<script>
+    const { trending, ...otherUrls } = footer;
+    const footerDonationAnchorEl = document.getElementById('footer-donation');
+
+    Object.keys(trending).forEach(key => {
+        const anchorId = key.replace(/link|title/, '');
+        const trendingAnchorEl = document.getElementById(anchorId);
+
+        if (key.includes('link')) {
+            trendingAnchorEl.href = trending[key]
+        } else if (key.includes('title')) {
+            trendingAnchorEl.textContent = trending[key];
+        }
+    });
+
+    Object.keys(otherUrls).forEach(key => {
+        const footerAnchorEl = document.getElementById(key);
+
+        footerAnchorEl.href = otherUrls[key];
+    });
+
+    footerDonationAnchorEl.href = main['donate-url'];
+</script>
+
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5D6RKKP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>

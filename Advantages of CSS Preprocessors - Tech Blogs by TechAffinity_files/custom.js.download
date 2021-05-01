@@ -1,0 +1,66 @@
+//glossary goto link from alphabet list
+
+jQuery(document).on("click", ".glossary-links a", function() {
+
+	if(jQuery(".header").hasClass('sticky')){
+		var calcHeight = jQuery(".header").innerHeight()+27;
+	}
+	else{
+		var calcHeight = jQuery(".header").innerHeight();
+	}
+	jQuery('html, body').animate({
+        scrollTop: jQuery(this.hash).offset().top - calcHeight
+    }, 800);
+
+	return false;
+});
+
+
+jQuery(window).load(function(){
+	if (jQuery(".active-slider .feature-posts-slider").length) {
+        jQuery(".active-slider .feature-posts-slider.owl-carousel").owlCarousel({
+            autoplay: true,
+            loop: true,
+            responsiveClass: true,
+            smartSpeed: 1000,
+            margin: 20,
+            autoplayHoverPause: true,
+            nav: true,
+            items: 1,
+            autoHeight:true
+        });
+    }
+    if (jQuery(".es_subscription_form .es-field-wrap").length) {
+        jQuery('.es-field-wrap').each(function(){
+            console.log('te');
+          var text = jQuery(this).text();
+            jQuery(this).find('input').attr('placeholder', text);
+        });
+        jQuery(".es_submit_button").before("<div class='d-inline-block no-thanks'><a href='#' class='close-wbounce'>No thanks</a></div>");
+        jQuery(".es_subscription_form").prepend("<h3>IT'S EASY TO STAY UPDATED</h3><h4>Subscribe to our Weekly Tech Digest</h4>");
+    }
+    jQuery(".close-wbounce").bind( "click", function() {
+        jQuery(".modal-footer p").trigger('click');
+        return false;
+    });
+    jQuery(".nlsignup-trigger").bind( "click", function() {
+        jQuery('#wbounce-modal').show();
+        return false;
+    });
+    
+});
+
+jQuery(document).ready(function(){
+	var headerHeight;
+	if(jQuery('.header-height').length){
+		headerHeight = jQuery('header').innerHeight();
+		jQuery('.header-height').css('height', headerHeight);
+	}
+});
+
+jQuery(window).resize(function(){
+	if(jQuery('.header-height').length){
+		headerHeight = jQuery('header').innerHeight();
+		jQuery('.header-height').css('height', headerHeight);
+	}
+});

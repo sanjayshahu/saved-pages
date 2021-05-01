@@ -1,0 +1,327 @@
+jQuery.noConflict();
+(function( $ ) {
+    $(function() {
+
+        // jQuery("body").on("contextmenu", function(e) {
+        //     return false;
+        // }); 
+		
+		if(jQuery('.info-box').length > 1) {     
+			var $infoBox = jQuery('.info-box'), counterInfo = 0;
+			setInterval(function(){
+			  $infoBox.removeClass('active');
+			  $infoBox.eq(counterInfo++ % $infoBox.length).addClass('active');
+			}, 3000);
+		}
+     
+       
+        if(jQuery(window).width()>1400){
+            jQuery(".fixed-link-share").stick_in_parent({
+                   offset_top: 200
+            });
+        }
+
+        if(jQuery(".post-details-container").length>0){
+            stickySocialIcons();
+        }
+
+        function stickySocialIcons(){
+            if(jQuery(window).width()>1400){
+                var leftvalue = jQuery('.post-details-container').offset().left - 170;
+                jQuery('.fixed-link-share').css('left',leftvalue);                
+            }
+            else{                
+                jQuery('.fixed-link-share').css('left','0px');
+            }
+        }
+
+        $('input , textarea').each(function() {
+            $(this).focus(function() {
+                $(this).parent('div').addClass('focus');
+                //return false;
+            });
+
+            $(this).blur(function() {
+                if (!$(this).val()) {
+                    $(this).parent('div').removeClass('focus');
+                }
+            });
+        });
+
+        function tooltipalign(){
+          var blogcontainerwidth = jQuery('.post-details-container .entry-content').innerWidth();
+          var blogcontainerwidthoffset= jQuery('.post-details-container .entry-content').offset().left;
+          var totalblogcontainerwidth = blogcontainerwidth + blogcontainerwidthoffset;
+          console.log(totalblogcontainerwidth)
+          var alltooltipoffset = 0;
+          if(jQuery(window).width()>767){
+            var tooltipwidth = 400;  
+          }else{
+            var tooltipwidth = 260;
+          }
+          jQuery( "span.tooltip" ).each(function() {
+                var thisOffset = jQuery(this).offset().left;
+                alltooltipoffset = jQuery(this).offset().left + tooltipwidth;    
+                if(jQuery(window).width()>767){
+                    if(alltooltipoffset > totalblogcontainerwidth){
+                        jQuery(this).addClass("right-tooltip");
+                    }
+                }
+                else{                    
+                    jQuery(this).addClass("left-fixed-tooltip");
+                    thisOffsetset=thisOffset-35;
+                    jQuery(this).find(".tooltiptext").css("left", "-"+thisOffsetset+"px");
+                }
+          });                 
+          }
+          if(jQuery("span.tooltip").length){
+            tooltipalign();
+          }
+          
+
+       
+        /*blogpage labelbox*/
+        jQuery(".es_lablebox").each(function(){
+         var text = jQuery(this).find("label").text();
+         jQuery(this).next().append("<label>"+text+"</label>");
+         jQuery(this).next().append("<span class='bar'></span>");
+        });
+       
+
+        $(".post-list-display:not(.newsletter-post) .card").click(function() {
+            var href = $(this).attr("data-url")
+            window.location.href=href;
+        });
+
+        $('.accordion-footer').each(function() {
+            var $dropdown = $(this);
+            $($dropdown).on('click', '.footer-link', function(e) {
+                if ($(window).width() <= 575) {
+                    e.preventDefault();
+                    $div = $(".accor-container", $dropdown);
+                    $div.slideToggle();
+                    $dropdown.toggleClass('active');
+                    $(".accor-container").not($div).slideUp();
+                    $(".accor-container").not($div).parents('.accordion-footer').removeClass('active');
+                    return false;
+                }
+
+            });
+        });
+
+        var uls = $(".categories-container > li");
+        //console.log($(".categories-container li").length);
+        var ulsRouns = Math.ceil($(".categories-container li").length/3);
+        for(var i = 0; i < uls.length; i+=ulsRouns) {
+          uls.slice(i, i+ulsRouns).wrapAll("<ul class='categories-list categories-list-tags'></ul>");
+        }
+
+        var d = new Date();
+        var n = d.getFullYear();
+        document.getElementById("year").innerHTML = n  + " - " + (n + 1);
+
+        $(window).load(function() {            
+            // setTimeout(function() {
+            //     $(".links-share").fadeOut();
+            //     $(".links-share").addClass("active");
+            // }, 2000);
+
+            $('.v-ellipsis').vEllipsis({
+                'lines': 2,
+                'responsive': true,
+                'expandLink': false, // expand link after char and additional link (from data-expandlink on element)
+                'collapseLink': false, // collapse link after char and additional link (from data-collapselink on element)
+                'additionalEnding': false
+            });
+            
+
+        });
+        
+        
+       
+        $(window).scrollTop(0, 0)
+        var stickyNavTop = $('.header').offset().top;
+        //console.log($('.header').offset().top);
+        var stickyNav = function() {
+            var scrollTop = $(window).scrollTop();
+
+            if (scrollTop > stickyNavTop) {
+                $('.header').addClass('sticky');
+            } else {
+                $('.header').removeClass('sticky');
+            }
+        };
+        stickyNav();
+        $(window).scroll(function() {
+            stickyNav();
+        });
+          
+
+        $(window).resize(function(){
+            if(jQuery(".post-details-container").length>0){
+            stickySocialIcons();
+            }
+			tooltipalign();
+        });
+
+
+        $('#quickuserName').val("");
+        $('#quickbusinessMail').val("");
+        if ($("#pageUrl").length) {    
+            var windowUrl = window.location.href;
+            $('#pageUrl').val(windowUrl);
+        }
+
+        function svgPreloader() {
+            var snapB = Snap("#svgB");
+            // SVG B - "Squiggly" Path
+            var myPathB = snapB.path("M42.58,158.945c0-31.502,23.619-57.443,54.106-61.203V72.875h-1.268 c-0.944,0-1.86,0.107-2.796,0.141v-0.141H61.502c0,0,2.349-12.428,2.575-18.512C65.412,18.41,56.011,2.42,51.956,2.42 c-5.099,0-6.087,3.805-6.087,3.805s-1.885,21.04-8.028,33.862c-9.367,21.145-24.638,32.788-24.638,32.788H3.397 c-0.774,0-1.402,0.628-1.402,1.403v21.544c0,0.775,0.628,1.403,1.402,1.403h14.83l0.001,0.006v52.827v0.005v78.765 c0,42.407,34.379,76.786,76.787,76.786h1.67v-24.812c-30.46-3.575-54.106-29.438-54.106-60.858v-34.861V158.945z").attr({
+                id: "squiggle",
+                fill: "transparent",
+                strokeWidth: "2",
+                stroke: "#3d3d3d",
+                strokeMiterLimit: "10",
+                strokeDasharray: "9 9",
+                strokeDashOffset: "988.01"
+            });
+            // SVG B - Draw Path
+            var lenB = myPathB.getTotalLength();
+            // SVG B - Animate Path
+            myPathB.attr({
+                stroke: '#3d3d3d',
+                strokeWidth: 4,
+                fill: 'transparent',
+                fillOpacity: 0,
+                // Draw Path
+                "stroke-dasharray": lenB + " " + lenB,
+                "stroke-dashoffset": lenB
+            }).animate({
+                "stroke-dashoffset": 0,
+                "fill": 'transparent',
+                "fillOpacity": 0
+            }, 3500, mina.easeinout, function() {
+                myPathB.animate({
+                    "fill": '#3d3d3d',
+                    "fillOpacity": 1
+                }, 1000);
+            });
+            //Next path
+            var myPathB3 = snapB.path("M251.995,185.367v-5.034c0-59.349-48.11-107.458-107.458-107.458h-31.539v24.35 h22.656c50.805,0,91.99,41.186,91.99,91.991v0.082c0,50.791-41.174,91.966-91.964,91.966h-22.683v24.35h31.564 c33.479,0,63.379-15.315,83.082-39.321v27.146c0,6.725,5.451,12.176,12.176,12.176c6.724,0,12.175-5.451,12.175-12.176V185.369 V185.367z").attr({
+                id: "squiggle",
+                fill: "transparent",
+                strokeWidth: "4",
+                stroke: "#EF5A2A",
+                strokeMiterLimit: "10",
+                strokeDasharray: "9 9",
+                strokeDashOffset: "988.01",
+                strokeOpacity: 1
+            });
+            // SVG B - Draw Path
+            var lenB3 = myPathB3.getTotalLength();
+            // SVG B - Animate Path
+            myPathB3.attr({
+                stroke: '#EF5A2A',
+                strokeWidth: 4,
+                fill: 'transparent',
+                fillOpacity: 0,
+                // Draw Path
+                "stroke-dasharray": lenB3 + " " + lenB3,
+                "stroke-dashoffset": lenB3
+            }).animate({
+                "stroke-dashoffset": 0,
+                "fill": 'transparent',
+                "fillOpacity": 0
+            }, 3500, mina.easeinout, function() {
+                myPathB3.animate({
+                    "fill": '#EF5A2A',
+                    "fillOpacity": 1
+                }, 1000);
+            });
+            // Polygon
+            var Triangle = snapB.polygon("129.727,195.249 97.289,183.654 128.696,174.264 160.104,164.872 150.713,196.279 141.321,227.688");
+            Triangle.attr({
+                stroke: "#EF5A29",
+                strokeWidth: "4",
+                fill: 'transparent',
+                fillOpacity: 0,
+            }).animate({
+                "stroke-dashoffset": 0,
+                "fill": "#EF5A2A",
+                "fillOpacity": 1
+            }, 5000, mina.easeinout);
+
+            //Polygon - Draw Path
+            var Trianglelen = Triangle.getTotalLength();
+            Triangle.attr({
+                stroke: "#EF5A29",
+                strokeWidth: "4",
+                fill: 'transparent',
+                fillOpacity: 0,
+                strokeDasharray: Trianglelen + " " + Trianglelen,
+                strokeDashoffset: Trianglelen
+            }).animate({
+                "stroke-dashoffset": 0,
+                "fill": 'transparent',
+                "fillOpacity": 0
+            }, 3500, mina.easeinout, function() {
+                myPathB3.animate({
+                    "fill": '#EF5A29',
+                    "fillOpacity": 1
+                }, 1000);
+            });
+        }
+
+        $.validator.addMethod('nofreeemail', function(value) {
+            return /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)([\w-]+.)+[\w-]{2,4})?$/.test(value);
+        }, 'Free email addresses are not allowed.');
+
+        $("#quick-connect").validate({
+            rules: {
+                quickbusinessMail: {
+                    required: true,
+                    minlength: 2,
+                    nofreeemail: true
+                }
+            },
+            messages: {
+                quickuserName: {
+                    required: "Please enter a username",
+                    minlength: "Your email must consist of at least 2 characters"
+                },
+                quickbusinessMail: {
+                    required: "Please enter a Business Email",
+                    minlength: "Your email must consist of at least 2 characters",
+                    nofreeemail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail accounts."
+                }
+            },
+            submitHandler: function(form) {
+                //$('body').addClass('processing');
+                $('#preloader').delay(100).slideDown('slow');
+                setTimeout(function(){
+                    svgPreloader();                
+                }, 150);
+                $.ajax({
+                    type: "POST",
+                    url: "/quick-connect-mail.php",
+                    data: $("#quick-connect").serialize(),
+                    dataType : 'JSON',
+                    success: function(data) {
+                        if (data.response == "success") {
+                            window.location.href = "/thank-you-quick-connect.html";
+                        } else {
+                            console.log('Not form submitted');
+                        }
+                    }
+                });
+            }
+        });
+
+});
+})(jQuery);
+
+
+
+
+
+
+

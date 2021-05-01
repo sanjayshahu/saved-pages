@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://scotch.io/tutorials/understanding-scope-in-javascript -->
+<html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!--
+					 /$$               /$$
+					| $$              | $$
+	  /$$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$    /$$$$$$$| $$$$$$$  /$$   /$$
+	 /$$_____/ /$$_____/ /$$__  $$|_  $$_/   /$$_____/| $$__  $$| $$  | $$
+	|  $$$$$$ | $$      | $$  \ $$  | $$    | $$      | $$  \ $$| $$  | $$
+	 \____  $$| $$      | $$  | $$  | $$ /$$| $$      | $$  | $$| $$  | $$
+	 /$$$$$$$/|  $$$$$$$|  $$$$$$/  |  $$$$/|  $$$$$$$| $$  | $$|  $$$$$$$
+	|_______/  \_______/ \______/    \___/   \_______/|__/  |__/ \____  $$
+														 	     /$$  | $$
+															     | $$$$$$/
+														 	     \______/
+									 /$$               /$$
+									| $$              | $$
+	  /$$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$    /$$$$$$$| $$$$$$$
+	 /$$_____/ /$$_____/ /$$__  $$|_  $$_/   /$$_____/| $$__  $$
+	|  $$$$$$ | $$      | $$  \ $$  | $$    | $$      | $$  \ $$
+	 \____  $$| $$      | $$  | $$  | $$ /$$| $$      | $$  | $$
+	 /$$$$$$$/|  $$$$$$$|  $$$$$$/  |  $$$$/|  $$$$$$$| $$  | $$
+	|_______/  \_______/ \______/    \___/   \_______/|__/  |__/
+
+									 /$$               /$$
+									| $$              | $$
+	  /$$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$    /$$$$$$$| $$$$$$$
+	 /$$_____/ /$$_____/ /$$__  $$|_  $$_/   /$$_____/| $$__  $$
+	|  $$$$$$ | $$      | $$  \ $$  | $$    | $$      | $$  \ $$
+	 \____  $$| $$      | $$  | $$  | $$ /$$| $$      | $$  | $$
+	 /$$$$$$$/|  $$$$$$$|  $$$$$$/  |  $$$$/|  $$$$$$$| $$  | $$
+	|_______/  \_______/ \______/    \___/   \_______/|__/  |__/
+
+	Scotch.io is made with ♥ by @chrisoncode  and @whatnicktweets.
+	-->
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Understanding Scope in JavaScript ― Scotch.io</title>
+
+<style type="text/css">svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.225em;
+}
+.svg-inline--fa.fa-w-1 {
+  width: 0.0625em;
+}
+.svg-inline--fa.fa-w-2 {
+  width: 0.125em;
+}
+.svg-inline--fa.fa-w-3 {
+  width: 0.1875em;
+}
+.svg-inline--fa.fa-w-4 {
+  width: 0.25em;
+}
+.svg-inline--fa.fa-w-5 {
+  width: 0.3125em;
+}
+.svg-inline--fa.fa-w-6 {
+  width: 0.375em;
+}
+.svg-inline--fa.fa-w-7 {
+  width: 0.4375em;
+}
+.svg-inline--fa.fa-w-8 {
+  width: 0.5em;
+}
+.svg-inline--fa.fa-w-9 {
+  width: 0.5625em;
+}
+.svg-inline--fa.fa-w-10 {
+  width: 0.625em;
+}
+.svg-inline--fa.fa-w-11 {
+  width: 0.6875em;
+}
+.svg-inline--fa.fa-w-12 {
+  width: 0.75em;
+}
+.svg-inline--fa.fa-w-13 {
+  width: 0.8125em;
+}
+.svg-inline--fa.fa-w-14 {
+  width: 0.875em;
+}
+.svg-inline--fa.fa-w-15 {
+  width: 0.9375em;
+}
+.svg-inline--fa.fa-w-16 {
+  width: 1em;
+}
+.svg-inline--fa.fa-w-17 {
+  width: 1.0625em;
+}
+.svg-inline--fa.fa-w-18 {
+  width: 1.125em;
+}
+.svg-inline--fa.fa-w-19 {
+  width: 1.1875em;
+}
+.svg-inline--fa.fa-w-20 {
+  width: 1.25em;
+}
+.svg-inline--fa.fa-pull-left {
+  margin-right: 0.3em;
+  width: auto;
+}
+.svg-inline--fa.fa-pull-right {
+  margin-left: 0.3em;
+  width: auto;
+}
+.svg-inline--fa.fa-border {
+  height: 1.5em;
+}
+.svg-inline--fa.fa-li {
+  width: 2em;
+}
+.svg-inline--fa.fa-fw {
+  width: 1.25em;
+}
+
+.fa-layers svg.svg-inline--fa {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: 1em;
+}
+.fa-layers svg.svg-inline--fa {
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: #ff253a;
+  border-radius: 1em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
+  height: 1.5em;
+  line-height: 1;
+  max-width: 5em;
+  min-width: 1.5em;
+  overflow: hidden;
+  padding: 0.25em;
+  right: 0;
+  text-overflow: ellipsis;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: 0;
+  right: 0;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: 0;
+  left: 0;
+  right: auto;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  right: 0;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: 0;
+  right: auto;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+}
+
+.fa-lg {
+  font-size: 1.3333333333em;
+  line-height: 0.75em;
+  vertical-align: -0.0667em;
+}
+
+.fa-xs {
+  font-size: 0.75em;
+}
+
+.fa-sm {
+  font-size: 0.875em;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-fw {
+  text-align: center;
+  width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-left: 2.5em;
+  padding-left: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  left: -2em;
+  position: absolute;
+  text-align: center;
+  width: 2em;
+  line-height: inherit;
+}
+
+.fa-border {
+  border: solid 0.08em #eee;
+  border-radius: 0.1em;
+  padding: 0.2em 0.25em 0.15em;
+}
+
+.fa-pull-left {
+  float: left;
+}
+
+.fa-pull-right {
+  float: right;
+}
+
+.fa.fa-pull-left,
+.fas.fa-pull-left,
+.far.fa-pull-left,
+.fal.fa-pull-left,
+.fab.fa-pull-left {
+  margin-right: 0.3em;
+}
+.fa.fa-pull-right,
+.fas.fa-pull-right,
+.far.fa-pull-right,
+.fal.fa-pull-right,
+.fab.fa-pull-right {
+  margin-left: 0.3em;
+}
+
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+          animation: fa-spin 2s infinite linear;
+}
+
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+          animation: fa-spin 1s infinite steps(8);
+}
+
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(1, -1);
+          transform: scale(1, -1);
+}
+
+.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1);
+}
+
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical,
+:root .fa-flip-both {
+  -webkit-filter: none;
+          filter: none;
+}
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  position: relative;
+  width: 2.5em;
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em;
+}
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: #fff;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.sr-only-focusable:active, .sr-only-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}</style><link rel="apple-touch-icon" sizes="180x180" href="https://scotch.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://scotch.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://scotch.io/favicon-16x16.png">
+<link rel="manifest" href="https://scotch.io/manifest.json">
+<link rel="mask-icon" href="https://scotch.io/safari-pinned-tab.svg" color="#2e2e2e">
+<meta name="msapplication-TileColor" content="#2e2e2e">
+<meta name="theme-color" content="#333">
+<link rel="alternate" type="application/rss+xml" href="https://scotch.io/feed" title="Scotch.io RSS Feed">
+
+<meta name="author" content="Hammad Ahmed">
+<link rel="canonical" href="https://scotch.io/tutorials/understanding-scope-in-javascript">
+<link rel="amphtml" href="https://scotch.io/tutorials/understanding-scope-in-javascript/amp">
+
+<meta name="twitter:url" content="http://scotch.io/tutorials/understanding-scope-in-javascript">
+<meta name="twitter:title" content="Understanding Scope in JavaScript">
+<meta name="twitter:description" content="In this tutorial, we will learn everything there is to JavaScript Scope. So, come along.">
+<meta name="twitter:image" content="https://scotch-res.cloudinary.com/image/upload/w_auto,q_auto:good,f_auto/media/2526/ZHb3nTeORoCOFOiwXfk1_javascript-uderstanding-scope.png.jpg">
+<meta name="twitter:creator" content="shammadahmed">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@scotch_io">
+
+<meta property="og:title" content="Understanding Scope in JavaScript">
+<meta property="og:image" content="https://scotch-res.cloudinary.com/image/upload/w_auto,q_auto:good,f_auto/media/2526/ZHb3nTeORoCOFOiwXfk1_javascript-uderstanding-scope.png.jpg">
+<meta property="og:description" content="In this tutorial, we will learn everything there is to JavaScript Scope. So, come along.">
+<meta property="article:author" content="Scotch">
+<meta property="fb:admins" content="579622216,709634581">
+<meta property="fb:app_id" content="1389892087910588">
+<meta property="og:url" content="http://scotch.io/tutorials/understanding-scope-in-javascript">
+<meta property="og:type" content="article">
+<meta property="article:publisher" content="https://www.facebook.com/scotchdevelopment">
+<meta property="og:site_name" content="Scotch">
+
+<link rel="publisher" href="https://plus.google.com/b/113854128330570384219">
+<link rel="author" href="https://plus.google.com/b/113854128330570384219">
+<meta name="description" content="In this tutorial, we will learn everything there is to JavaScript Scope. So, come along.">
+<meta name="google-site-verification" content="NoKkRtzSguNO3Xd1cuhpVkUoh7n8mz-aofV9Ch4aS8w">
+<meta name="article_category" data-category="">
+<meta name="article_tags" content="">
+<link href="./Understanding Scope in JavaScript ― Scotch.io_files/css" rel="stylesheet">
+<link rel="stylesheet" href="./Understanding Scope in JavaScript ― Scotch.io_files/main.css">
+<style>
+.related-posts-container {
+    margin-bottom: 50px;
+}
+
+.up-next {
+    margin-bottom: 5px !important;
+}
+
+.related-posts {
+    display: flex;
+}
+
+@media  screen and (max-width: 780px) {
+    .related-posts {
+        display: block;
+    }
+}
+
+.related-post {
+    font-size: 18px;
+    display: block;
+    background: #553C9A;
+    color: #E9D8FD;
+    padding: 30px 20px;
+    letter-spacing: 0;
+    font-weight: bold;
+    line-height: 1.5;
+    width: 50%;
+}
+
+.related-post:nth-child(2) {
+    background: #6B46C1;
+}
+
+.related-post:hover {
+    background: #805AD5;
+    color: #E9D8FD;
+}
+
+.related-post .main-tag {
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: -0.2px;
+    display: block;
+    opacity: 0.8;
+}
+</style>
+<script async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/universal.js.download"></script><script async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/fbevents.js.download"></script><script async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/analytics.js.download"></script><script type="text/javascript" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/analytics.min.js.download"></script><script async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/gtm.js.download"></script><script>
+        window.scotchy = window.scotchy || {};
+        window.scotchy.env = 'production';
+    </script><style></style>
+<script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.unregister();
+            });
+        }
+    </script>
+<script type="text/javascript" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/scotch.js.download"></script><style type="text/css">#react-user-nav{display:flex;align-items:center}@media screen and (max-width:992px){#react-user-nav{margin-left:auto}}#react-user-nav ul{display:flex}#react-user-nav ul>li>a{padding:14px;display:flex;align-items:center}#react-user-nav .user-nav__action{width:auto;padding:0;margin:0 5px;height:43px;display:flex;align-items:center}#react-user-nav .user-nav__action>a{font-size:13px;line-height:1.2;border-radius:3px;color:#fff;display:block;height:100%}#react-user-nav .user-nav__action>a:hover{color:#fff!important}#react-user-nav .user-nav__action button{padding:0;align-items:flex-start;box-shadow:none!important;background:none;border:none}#react-user-nav .user-face{outline:0;border:0;padding:0;position:relative;background:none;margin-right:10px!important}#react-user-nav .user-face:active .dropdown,#react-user-nav .user-face:focus .dropdown{opacity:1;visibility:visible}#react-user-nav .user-face a{font-size:14px!important;color:#555;font-weight:400;padding:9px 12px;text-align:right;margin-top:0}#react-user-nav .user-face a:hover{color:#333!important}#react-user-nav .user-face .img{padding-left:0;padding-right:0;height:43px;width:43px;background-color:#333;background-size:contain;background-position:50%;background-repeat:no-repeat;border-radius:3px;transform:translateY(-3px)}#react-user-nav .dropdown-menu{width:200px}#react-user-nav .dropdown-menu .dropdown-content{padding:0}#react-user-nav .dropdown-menu .dropdown-divider{margin:0}#react-user-nav .dropdown-menu .dropdown-item{padding:0;height:38px;display:flex;justify-content:flex-start;align-items:center;font-size:13px!important}#react-user-nav .dropdown-menu .dropdown-item:hover{background:#e6e6e6}#react-user-nav .dropdown-menu .dropdown-item:hover svg{background:#dbdbdb;color:#209cee}#react-user-nav .dropdown-menu .dropdown-item svg{width:50px;height:100%;padding:10px;background:#f4f4f4;color:#444}#react-user-nav .dropdown-menu .dropdown-item span{padding-left:12px}</style><script type="text/javascript" charset="utf-8" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/23.js.download"></script><script type="text/javascript" charset="utf-8" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/25.js.download"></script><script type="text/javascript" charset="utf-8" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/27.js.download"></script><style type="text/css">#scotchy-nav form.search-form{display:flex;padding:10px 1rem;position:relative;max-width:100%;margin-left:auto;width:400px}@media screen and (max-width:1300px){#scotchy-nav form.search-form{width:200px}}#scotchy-nav form.search-form input{width:100%;background:#333;color:#fff!important;border:none;border-radius:5px;outline:none;padding:12px 20px;font-size:14px;transition:background .3s ease;color:#fff}#scotchy-nav form.search-form input:focus{background:#111}@media screen and (max-width:1407px){#scotchy-nav form.search-form input::-webkit-input-placeholder{color:transparent}#scotchy-nav form.search-form input:-moz-placeholder,#scotchy-nav form.search-form input::-moz-placeholder{color:transparent}#scotchy-nav form.search-form input:-ms-input-placeholder{color:transparent}}#scotchy-nav form.search-form .search-icon{border:none;background:none;outline:none;box-shadow:none;position:absolute;z-index:10;right:30px;top:0;bottom:0}#scotchy-nav form.search-form .search-icon svg path{fill:#555}</style><script async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/adblocker-chromeglobalinjectjs.js.download"></script><link rel="stylesheet" type="text/css" href="./Understanding Scope in JavaScript ― Scotch.io_files/universal.css" media="all"><script type="text/javascript" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/y5e6w4v2p6_popups.js.download"></script><style data-styled="active" data-styled-version="5.0.0-beta.0"></style><script id="_carbonads_projs" type="text/javascript" src="./Understanding Scope in JavaScript ― Scotch.io_files/CE7D6KQW.json"></script><script type="text/javascript" charset="utf-8" async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/18.js.download"></script><style type="text/css">#react-table-of-contents>div a{display:block;color:#999;transition:all .3s ease}#react-table-of-contents>div a:hover{color:#444}#react-table-of-contents>.is-fixed{position:fixed;height:100vh;padding-top:100px;display:flex;align-items:center;top:0;left:0;z-index:1;font-size:12px;pointer-events:none;max-width:250px;transform:translateX(-35px);transition:transform .3s cubic-bezier(.175,.885,.32,1.275)}@media screen and (max-width:1500px){#react-table-of-contents>.is-fixed{display:none!important}}#react-table-of-contents>.is-fixed:hover{transform:translateX(-20px)}#react-table-of-contents>.is-fixed:hover a span.line,#react-table-of-contents>.is-fixed:hover a span.text{opacity:1}#react-table-of-contents>.is-fixed a{position:relative;pointer-events:auto;padding-left:60px}#react-table-of-contents>.is-fixed a span.text{opacity:0;transition:opacity .3s ease}#react-table-of-contents>.is-fixed a span.line{display:flex;align-items:center;height:3px;background:#555;width:50px;position:absolute;left:0;opacity:.5;top:8px;border-radius:0 5px 5px 0}#react-table-of-contents>.is-fixed ul{list-style:none}#react-table-of-contents>.is-fixed li.is-current a{font-weight:700;transform:translateX(20px);color:#000}#react-table-of-contents>.is-inline{font-size:14px}#react-table-of-contents>.is-inline ul{list-style:none;margin-left:20px}#react-table-of-contents>.is-inline a{color:#444;padding-bottom:2px;padding-top:2px}#react-table-of-contents>.is-inline li.is-current a{font-weight:700;transform:translateX(20px);color:#000}</style><div id="_bsa_srv-CKYIT277_0"></div></head>
+<body class="is-single is-post" data-new-gr-c-s-check-loaded="14.993.0" data-gr-ext-installed="">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<script>!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}
+    analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";analytics.load("SFn8qPEq8q4VKKdqCB2nQeIcC8jurhpU");analytics.page();}}();</script>
+<nav id="scotchy-nav" class="navbar is-dark">
+<div class="navbar-brand">
+<a class="navbar-item" href="https://scotch.io/">
+<div class="scotch-container">
+<div class="scotch-logo">
+
+<svg class="scotch-logo__liquid" viewBox="0 0 30 48" style="max-width: 80px">
+<defs>
+<clippath id="clip-path--glass">
+<path class="liquid__path-container" d="M 8.6 1.5 c 0 13.33 -4.17 20 -3.75 23.33 a 9.17 8.33 0 0 0 20.83 0 c 0.42 -3.33 -3.75 -10 -3.75 -23.33 Z"></path>
+</clippath>
+<clippath id="clip-path--liquid">
+<path class="liquid__path liquid__path--top-clip" d="M -80 22 C -75.08 16 -69.08 16 -64.17 22 S -53.25 28 -48.33 22 S -37.42 16 -32.5 22 S -21.58 28 -16.67 22 S -5.75 16 -0.83 22 S 10.08 28 15 22 S 25.92 16 30.83 22 S 41.75 28 46.67 22 S 57.58 16 62.5 22 S 73.42 28 78.33 22 S 89.25 16 94.17 22 S 105.08 28 110 22 l 0 30 l -190 0"></path>
+</clippath>
+</defs>
+<g clip-path="url(#clip-path--glass)">
+<circle class="liquid__drop liquid__drop--top liquid__drop--1" cx="18.3" cy="3.3" r="1.5"></circle>
+<circle class="liquid__drop liquid__drop--bottom liquid__drop--2" cx="12" cy="5" r="1.5"></circle>
+<path class="liquid__path liquid__path--top" d="M -80 22 C -75.08 16 -69.08 16 -64.17 22 S -53.25 28 -48.33 22 S -37.42 16 -32.5 22 S -21.58 28 -16.67 22 S -5.75 16 -0.83 22 S 10.08 28 15 22 S 25.92 16 30.83 22 S 41.75 28 46.67 22 S 57.58 16 62.5 22 S 73.42 28 78.33 22 S 89.25 16 94.17 22 S 105.08 28 110 22 l 0 30 l -190 0"></path>
+<path class="liquid__path liquid__path--bottom" d="M -70 24.5 C -65.92 18.5 -59.92 18.5 -55.83 24.5 S -45.75 30.5 -41.67 24.5 S -31.58 18.5 -27.5 24.5 S -17.42 30.5 -13.33 24.5 S -3.25 18.5 0.83 24.5 S 10.92 30.5 15 24.5 S 25.08 18.5 29.17 24.5 S 39.25 30.5 43.33 24.5 S 53.42 18.5 57.5 24.5 S 67.58 30.5 71.67 24.5 S 81.75 18.5 85.83 24.5 S 95.92 30.5 100 24.5 l 0 30 l -170 0"></path>
+<g class="liquid__path--clip-container" clip-path="url(#clip-path--liquid)">
+<path class="liquid__path liquid__path--bottom-clip" d="M -70 24.5 C -65.92 18.5 -59.92 18.5 -55.83 24.5 S -45.75 30.5 -41.67 24.5 S -31.58 18.5 -27.5 24.5 S -17.42 30.5 -13.33 24.5 S -3.25 18.5 0.83 24.5 S 10.92 30.5 15 24.5 S 25.08 18.5 29.17 24.5 S 39.25 30.5 43.33 24.5 S 53.42 18.5 57.5 24.5 S 67.58 30.5 71.67 24.5 S 81.75 18.5 85.83 24.5 S 95.92 30.5 100 24.5 l 0 30 l -170 0"></path>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<span class="logo-text">Scotch</span>
+</a>
+<a role="button" class="navbar-burger" data-target="nav-menu" aria-label="menu" aria-expanded="false">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</a>
+</div>
+<div id="nav-menu" class="navbar-menu">
+<div class="navbar-start">
+<a class="navbar-item " href="https://scotch.io/courses" title="Courses">
+<span class="left">Video</span>
+<span class="right">Courses</span>
+</a>
+<a class="navbar-item is-active" href="https://scotch.io/tutorials" title="Tutorials">
+<span class="left">Written</span>
+<span class="right">Tutorials</span>
+</a>
+<a class="navbar-item " href="https://scotch.io/bar-talk" title="News">
+<span class="left">Bar Talk</span>
+<span class="right">News</span>
+</a>
+<a class="navbar-item " href="https://scotch.io/website-hosting" title="Hosting">
+<span class="left">Bar Talk</span>
+<span class="right" style="color: #5685fd !important; font-weight: bold;">App Hosting</span>
+</a>
+<div class="navbar-item has-dropdown is-hoverable is-hidden-tablet-only is-hidden-mobile navbar-extra">
+<a class="navbar-link">...</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="https://scotch.io/about">About</a>
+<a class="navbar-item" href="https://scotch.io/website-hosting">Website Hosting</a>
+<a class="navbar-item" href="https://scotch.io/glossary/javascript">JS Glossary</a>
+<a class="navbar-item" href="https://scotch.io/code-challenges">Code Challenges</a>
+<a class="navbar-item" href="https://discover.buysellads.com/scotch-io">Sponsor Scotch</a>
+<div class="navbar-item">
+<a class="m-r-sm" href="https://twitter.com/scotch_io" title="Follow Scotch on Twitter" aria-label="Follow Scotch on Twitter">
+<svg class="svg-inline--fa fa-twitter fa-w-16 fa-fw has-text-info" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg><!-- <i class="fab fa-fw fa-twitter has-text-info"></i> -->
+</a>
+<a href="https://facebook.com/scotchdevelopment" title="Follow Scotch on Facebook" aria-label="Follow Scotch on Facebook" style="margin-right: 15px;">
+<svg class="svg-inline--fa fa-facebook fa-w-16 fa-fw has-text-link" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg><!-- <i class="fab fa-fw fa-facebook has-text-link"></i> -->
+</a>
+<a href="https://facebook.com/scotchdevelopment" title="Follow Scotch on GitHub" aria-label="Follow Scotch on GitHub" style="margin-right: 15px;">
+<svg class="svg-inline--fa fa-github-alt fa-w-15 fa-fw has-text-white" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512" data-fa-i2svg=""><path fill="currentColor" d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path></svg><!-- <i class="fab fa-fw fa-github-alt has-text-white"></i> -->
+</a>
+<a href="https://www.youtube.com/channel/UCLyOul64B-SwBpOd9f2Kfxw" title="Follow Scotch on YouTube" aria-label="Follow Scotch on YouTube">
+<svg class="svg-inline--fa fa-youtube fa-w-18 fa-fw has-text-danger" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg><!-- <i class="fab fa-fw fa-youtube has-text-danger"></i> -->
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="navbar-end">
+<div id="react-search-bar"><form class="search-form" action="https://scotch.io/search" method="GET"><input type="search" name="q" placeholder="Search scotchy scotch..." aria-label="Search Scotch"><button type="submit" class="search-icon" aria-label="Search"><svg viewBox="654 -372 1664 1664" width="16" height="16"><path d="M1806,332c0-123.3-43.8-228.8-131.5-316.5C1586.8-72.2,1481.3-116,1358-116s-228.8,43.8-316.5,131.5  C953.8,103.2,910,208.7,910,332s43.8,228.8,131.5,316.5C1129.2,736.2,1234.7,780,1358,780s228.8-43.8,316.5-131.5  C1762.2,560.8,1806,455.3,1806,332z M2318,1164c0,34.7-12.7,64.7-38,90s-55.3,38-90,38c-36,0-66-12.7-90-38l-343-342  c-119.3,82.7-252.3,124-399,124c-95.3,0-186.5-18.5-273.5-55.5s-162-87-225-150s-113-138-150-225S654,427.3,654,332  s18.5-186.5,55.5-273.5s87-162,150-225s138-113,225-150S1262.7-372,1358-372s186.5,18.5,273.5,55.5s162,87,225,150s113,138,150,225  S2062,236.7,2062,332c0,146.7-41.3,279.7-124,399l343,343C2305.7,1098.7,2318,1128.7,2318,1164z"></path></svg></button></form></div>
+<div id="react-user-nav"><nav class="user-nav"><ul><li class="user-nav__action"><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#" class="button is-dark">Login</a></li><li class="user-nav__action"><a class="button is-danger is-outlined"><strong>Sign Up</strong><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="hand-spock" class="svg-inline--fa fa-hand-spock fa-w-16 m-l-sm" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M443.1 87.6c-.7-25.9-18.4-50-45.6-56.8-32.3-8.1-65 11.4-73.1 43.8L297.7 208l-31-161.2c-7.4-32.4-39.8-52.7-72.2-45.2-29.7 6.8-49.2 34.7-46.5 64.2-41.2-5.5-76.1 31.8-66.7 73.1L116 291.8v13.7l-14.5-13.6c-24.6-23.2-62.8-21.2-85.2 2.6-22.8 24.2-21.6 62.4 2.6 85.2l133.7 125.9c4.5 4.2 10.3 6.5 16.4 6.5h246.1c10.6 0 20-7 23-17.2l33-111.1c3-10.2 4.6-20.9 4.6-31.5V314c0-4.9.6-9.8 1.7-14.6l32.9-138.2c10-41.8-25.6-79.6-67.2-73.6zm36.1 66.2L446.3 292c-1.7 7.2-2.6 14.6-2.6 22v38.2c0 7.6-1.1 15.2-3.3 22.5L409.2 480H172.3L40.9 356.3c-11.3-10.7-11.9-28.6-1.2-39.9 10.7-11.4 28.6-11.9 39.9-1.2l54.9 51.7c5.1 4.8 13.5 1.2 13.5-5.8v-72c0-.6-.1-1.2-.2-1.8l-35.3-155.5c-8.3-36.4 46.8-49 55.1-12.5L199 257.8c.8 3.6 4.1 6.2 7.8 6.2h8.9c5.1 0 8.9-4.8 7.8-9.8L180.4 66.6C172 30.2 227.1 17.4 235.5 54l46.8 203.9c.8 3.6 4.1 6.2 7.8 6.2h13.7c3.7 0 6.9-2.5 7.8-6.1l43.9-175.5c9.1-36.3 63.9-22.6 54.8 13.7l-39.5 158c-1.3 5.1 2.6 9.9 7.8 9.9h10c3.7 0 6.9-2.5 7.8-6.1l27.9-117.1c8.6-36.5 63.6-23.5 54.9 12.9z"></path></svg></a></li></ul></nav></div>
+</div>
+</div>
+</nav>
+<a href="https://chrisoncode.live/" id="twitch-banner" class="has-text-centered p-a-sm" style="
+    display: none;
+    background: #5842a0;
+    color: hsl(254, 36%, 95%);
+    position: relative;
+    z-index: 1;
+">
+<svg class="svg-inline--fa fa-twitch fa-w-14 m-r-sm" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitch" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M40.1 32L10 108.9v314.3h107V480h60.2l56.8-56.8h87l117-117V32H40.1zm357.8 254.1L331 353H224l-56.8 56.8V353H76.9V72.1h321v214zM331 149v116.9h-40.1V149H331zm-107 0v116.9h-40.1V149H224z"></path></svg><!-- <i class="fab fa-twitch m-r-sm"></i> --> We're live-coding on Twitch! Join us!
+</a>
+<style>
+    #twitch-banner {
+        transition: 0.3s ease background;
+    }
+    #twitch-banner:hover {
+        background: hsl(254, 36%, 45%) !important;
+    }
+</style>
+<nav id="tag-nav" class="navbar is-dark is-hidden-touch">
+<a class="navbar-item color-react" href="https://scotch.io/tag/react">
+<span>#</span>react
+</a>
+<a class="navbar-item color-vue" href="https://scotch.io/tag/vue">
+<span>#</span>vue
+</a>
+<a class="navbar-item color-angular" href="https://scotch.io/tag/angular">
+<span>#</span>angular
+</a>
+<a class="navbar-item color-javascript" href="https://scotch.io/tag/javascript">
+<span>#</span>javascript
+</a>
+<a class="navbar-item color-node" href="https://scotch.io/tag/node">
+<span>#</span>node
+</a>
+<a class="navbar-item color-laravel" href="https://scotch.io/tag/laravel">
+<span>#</span>laravel
+</a>
+<a class="navbar-item color-css" href="https://scotch.io/tag/css">
+<span>#</span>css
+</a>
+<a class="navbar-item color-vs-code" href="https://scotch.io/tag/vs-code">
+<span>#</span>vs-code
+</a>
+<a class="navbar-item color-python" href="https://scotch.io/tag/python">
+<span>#</span>python
+</a>
+</nav>
+<div id="tag-nav-placeholder" style="height: 40px;"></div>
+<div id="react-login-modal"></div>
+<main id="scotchy-main">
+<div id="react-article-tools" data-type="post" data-edit-url="https://my.scotch.io/posts/4650" data-id="4650" data-author-id="2526" data-status="published" data-is-preview="" data-is-community=""><div class="article-tools" style="position: fixed; left: 30px; bottom: 30px; z-index: 9999;"></div></div>
+<div id="react-table-of-contents"><div class="is-fixed" style="display: none;"><ul class=""><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-introduction"><span class="line"></span><span class="text">Introduction</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-what-is-scope-"><span class="line"></span><span class="text">What is Scope?</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-why-scope-the-principle-of-least-access"><span class="line"></span><span class="text">Why Scope? The Principle of Least Access</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-scope-in-javascript"><span class="line"></span><span class="text">Scope in JavaScript</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-global-scope"><span class="line"></span><span class="text">Global Scope</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-local-scope"><span class="line"></span><span class="text">Local Scope</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-block-statements"><span class="line"></span><span class="text">Block Statements</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-context"><span class="line"></span><span class="text">Context</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-execution-context"><span class="line"></span><span class="text">Execution Context</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-lexical-scope"><span class="line"></span><span class="text">Lexical Scope</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-closures"><span class="line"></span><span class="text">Closures</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-public-and-private-scope"><span class="line"></span><span class="text">Public and Private Scope</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-changing-context-with-call-apply-and-bind-"><span class="line"></span><span class="text">Changing Context with .call(), .apply() and .bind()</span></a></li><li class=""><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-conclusion"><span class="line"></span><span class="text">Conclusion</span></a></li></ul></div></div>
+<div id="article-share-buttons">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript?utm_source=scotch&amp;utm_campaign=share&amp;utm_medium=twitter" class="action-button share-button is-social is-twitter m-t" title="Share to Twitter" data-title="Understanding Scope in JavaScript" data-type="Twitter" data-via="scotch_io" data-tooltip="Chirp chirp">
+<div role="button" aria-label="Twitter"><svg class="svg-inline--fa fa-twitter fa-w-16 fa-xs" data-fa-transform="right-0.5 down-0.3" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" style="transform-origin: 0.53125em 0.51875em;"><g transform="translate(256 256)"><g transform="translate(16, 9.6)  scale(1, 1)  rotate(0 0 0)"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" transform="translate(-256 -256)"></path></g></g></svg><!-- <i class="fab fa-twitter fa-xs" data-fa-transform="right-0.5 down-0.3"></i> --></div>
+</a>
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript?utm_source=scotch&amp;utm_campaign=share&amp;utm_medium=facebook" class="action-button share-button is-social is-facebook m-t" title="Share to Facebook" data-title="Understanding Scope in JavaScript" data-type="Facebook" data-tooltip="Zuck it">
+<div role="button" aria-label="Facebook"><svg class="svg-inline--fa fa-facebook fa-w-16 fa-xs" data-fa-transform="up-0.2" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" style="transform-origin: 0.5em 0.4875em;"><g transform="translate(256 256)"><g transform="translate(0, -6.4)  scale(1, 1)  rotate(0 0 0)"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" transform="translate(-256 -256)"></path></g></g></svg><!-- <i class="fab fa-facebook fa-xs" data-fa-transform="up-0.2"></i> --></div>
+</a>
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript?utm_source=scotch&amp;utm_campaign=share&amp;utm_medium=reddit" class="action-button share-button is-social is-reddit m-t" title="Share to Reddit" data-title="Understanding Scope in JavaScript" data-type="Reddit" data-tooltip="Karma me">
+<div role="button" aria-label="Reddit"><svg class="svg-inline--fa fa-reddit-alien fa-w-16 fa-xs" data-fa-transform="left-0.1 up-0.4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="reddit-alien" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" style="transform-origin: 0.49375em 0.475em;"><g transform="translate(256 256)"><g transform="translate(-3.2, -12.8)  scale(1, 1)  rotate(0 0 0)"><path fill="currentColor" d="M440.3 203.5c-15 0-28.2 6.2-37.9 15.9-35.7-24.7-83.8-40.6-137.1-42.3L293 52.3l88.2 19.8c0 21.6 17.6 39.2 39.2 39.2 22 0 39.7-18.1 39.7-39.7s-17.6-39.7-39.7-39.7c-15.4 0-28.7 9.3-35.3 22l-97.4-21.6c-4.9-1.3-9.7 2.2-11 7.1L246.3 177c-52.9 2.2-100.5 18.1-136.3 42.8-9.7-10.1-23.4-16.3-38.4-16.3-55.6 0-73.8 74.6-22.9 100.1-1.8 7.9-2.6 16.3-2.6 24.7 0 83.8 94.4 151.7 210.3 151.7 116.4 0 210.8-67.9 210.8-151.7 0-8.4-.9-17.2-3.1-25.1 49.9-25.6 31.5-99.7-23.8-99.7zM129.4 308.9c0-22 17.6-39.7 39.7-39.7 21.6 0 39.2 17.6 39.2 39.7 0 21.6-17.6 39.2-39.2 39.2-22 .1-39.7-17.6-39.7-39.2zm214.3 93.5c-36.4 36.4-139.1 36.4-175.5 0-4-3.5-4-9.7 0-13.7 3.5-3.5 9.7-3.5 13.2 0 27.8 28.5 120 29 149 0 3.5-3.5 9.7-3.5 13.2 0 4.1 4 4.1 10.2.1 13.7zm-.8-54.2c-21.6 0-39.2-17.6-39.2-39.2 0-22 17.6-39.7 39.2-39.7 22 0 39.7 17.6 39.7 39.7-.1 21.5-17.7 39.2-39.7 39.2z" transform="translate(-256 -256)"></path></g></g></svg><!-- <i class="fab fa-reddit-alien fa-xs" data-fa-transform="left-0.1 up-0.4"></i> --></div>
+</a>
+</div>
+<article class="article is-post  is-">
+<div class="article-background is-left"></div>
+<div class="article-background is-right"></div>
+<header class="article-header">
+<section class="
+    hero
+    article-hero
+    has-blob
+     is-javascript     has-feature
+">
+<div class="hero-body" style="padding-top: 40px;">
+<div class="container">
+<div class="is-hidden-with-subscription has-text-centered">
+<div id="bsa-zone_1537909991-0_123456"></div>
+<div id="carbon-block"><script src="./Understanding Scope in JavaScript ― Scotch.io_files/carbon.js.download" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42JJCVBDE2QECVSLYKQNC67DC2JNFTBDPZ3JCYYI6K7NCVSIK5QKC67DCK77C67DE53JCTYI5K3WFTAIC2QIHEYIKKQLCWYDE23ECTNCYBZ52K?segment=placement:scotchio;" class="carbon-img" target="_blank" rel="noopener sponsored"><img src="./Understanding Scope in JavaScript ― Scotch.io_files/1550855391-cc_dark.png" alt="ads via Carbon" border="0" height="100" width="130" style="max-width: 130px;"></a><a href="https://srv.carbonads.net/ads/click/x/GTND42JJCVBDE2QECVSLYKQNC67DC2JNFTBDPZ3JCYYI6K7NCVSIK5QKC67DCK77C67DE53JCTYI5K3WFTAIC2QIHEYIKKQLCWYDE23ECTNCYBZ52K?segment=placement:scotchio;" class="carbon-text" target="_blank" rel="noopener sponsored">Adobe Creative Cloud for Teams starting at $33.99 per month.</a></span><a href="http://carbonads.net/?utm_source=scotchio&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener sponsored">ads via Carbon</a></span></div></div>
+<script>
+    try {
+        var hasCarbonScriptLoaded = false;
+        if (document.getElementById('_carbonads_js')) hasCarbonScriptLoaded = true;
+
+        if (!hasCarbonScriptLoaded) {
+            fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' }))
+                .then(function(response) {
+                    return true;
+                }).catch(function(e) {
+
+                    console.log('calling carbon fallback');
+                    var carbonScript = document.createElement("script");
+                    carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CE7D6KQW&placement=scotchio";
+                    carbonScript.id = "_carbonads_js";
+                    document.getElementById("carbon-block").appendChild(carbonScript);
+                });
+        }
+    } catch (error) {
+        // console.log(error);
+    }
+</script>
+<style>
+    #carbonads {
+        display: block;
+        overflow: hidden;
+        max-width: 728px;
+        position: relative;
+        margin: 0 auto;
+        background-color: hsl(0, 0%, 99%);
+        border: solid 1px #eee;
+        font-size: 22px;
+        box-sizing: content-box;
+    }
+
+    #carbonads > span {
+        display: block;
+    }
+
+    #carbonads a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    #carbonads a:hover {
+        color: inherit;
+    }
+
+    .carbon-wrap {
+        display: flex;
+        align-items: center;
+    }
+
+    .carbon-img {
+        display: block;
+        margin: 0;
+        line-height: 1;
+    }
+
+    .carbon-img img {
+        display: block;
+        height: 90px;
+        width: auto;
+    }
+
+    .carbon-text {
+        display: block;
+        padding: 0 1em;
+        line-height: 1.35;
+        text-align: left;
+    }
+
+    .carbon-poweredby {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 6px 10px;
+        background: repeating-linear-gradient(
+                        -45deg,
+                        transparent,
+                        transparent 5px,
+                        hsla(0, 0%, 0%, 0.025) 5px,
+                        hsla(0, 0%, 0%, 0.025) 10px
+        )
+        hsla(203, 11%, 95%, 0.8);
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        font-size: 8px;
+        border-top-left-radius: 4px;
+        line-height: 1;
+    }
+
+    @media  only screen and (min-width: 320px) and (max-width: 759px) {
+        .carbon-text {
+        font-size: 14px;
+        }
+    }
+</style>
+</div>
+<div style="padding-top: 40px;">
+<div class="columns is-desktop m-b-0 ">
+<div class="column p-b-0">
+<div class="article-feature ">
+<div class="is-2by1">
+<img src="./Understanding Scope in JavaScript ― Scotch.io_files/ZHb3nTeORoCOFOiwXfk1_javascript-uderstanding-scope.png.jpg" class="media" alt="Understanding Scope in JavaScript">
+</div>
+</div>
+<div class="m-t has-text-centered">
+<h1 class="title is-2 m-t-0 m-b-xs">Understanding Scope in JavaScript</h1>
+<div class="article-byline m-b">
+<div class="scotch-line" style="justify-content: center">
+<div class="author">
+<a href="https://scotch.io/@shammadahmed" class="img" title="Hammad Ahmed&#39;s Avatar" style="background-image: url(https://scotch-res.cloudinary.com/image/upload/w_40,h_40,q_auto:good,f_auto,c_fill,g_face/v1535726478/eqlcdoctwiwl7ilzmt3x.jpg);">
+</a>
+<a href="https://scotch.io/@shammadahmed" title="Hammad Ahmed">
+Hammad Ahmed
+</a>
+<a class="m-l-sm m-r-xs has-text-light" href="https://twitter.com/shammadahmed" title="Follow @shammadahmed on Twitter" style="
+                background: #1e99e6;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 14px;
+                display: inline-block;
+                padding: 2px 8px;
+                letter-spacing: 0.5px;
+                margin-left: 9px;
+            ">
+<svg class="svg-inline--fa fa-twitter fa-w-16 fa-fw" style="transform: translateY(1px);" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg><!-- <i class="fab fa-fw fa-twitter" style="transform: translateY(1px);"></i> -->
+@shammadahmed
+</a>
+</div>
+<time>February 15, 2017</time>
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#comments" class="comment-number" title="Comments on this Article" data-id="4650" data-has-words="true">41 Comments</a>
+<span class="hotness">
+<span class="pageviews" data-type="post" data-id="4650">123,937</span> Views
+</span>
+<div id="react-bookmark" data-article-type="post" data-article-id="4650" data-article-title="Understanding Scope in JavaScript"><div class="sc-AykKE"><a class="bookmark-button m-r-sm"><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="bookmark" class="svg-inline--fa fa-bookmark fa-w-12 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M336 0H48C21.49 0 0 21.49 0 48v464l192-112 192 112V48c0-26.51-21.49-48-48-48zm16 456.287l-160-93.333-160 93.333V48c0-8.822 7.178-16 16-16h288c8.822 0 16 7.178 16 16v408.287z"></path></svg> Bookmark</a></div></div>
+</div>
+</div>
+<div class="article-links">
+</div>
+</div>
+</div>
+<div class="column p-b-0 is-narrow is-right is-flex " style="
+                flex-basis: 340px;
+                flex-direction: column;
+                justify-content: center;
+            ">
+<div class="react-syndicate m-b-lg is-hidden-touch" data-take="1"><div class="sc-AykKD"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<svg width="2000" height="2000" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" class="blob">
+<g transform="translate(300,300)">
+<path d="M67.5,-106.7C77.5,-57.5,68.8,-28.8,79.8,11.1C90.9,50.9,121.8,101.8,111.8,133C101.8,164.2,50.9,175.6,-4,179.6C-58.9,183.6,-117.9,180.2,-163,149C-208.2,117.9,-239.6,58.9,-242.4,-2.8C-245.2,-64.6,-219.5,-129.2,-174.3,-178.3C-129.2,-227.5,-64.6,-261.2,-17.9,-243.3C28.8,-225.4,57.5,-155.8,67.5,-106.7Z" fill="#f0dd3e"></path>
+</g>
+</svg>
+</section>
+</header>
+<div class="content m-b-0">
+<div class="container m-b-0 is-fluid">
+<div class="article-columns columns is-gapless">
+<div class="column is-narrow is-left ">
+<div class="article-inner">
+</div>
+</div>
+<div class="column is-middle">
+<div class="article-inner">
+<div class="article-content">
+<h2 id="toc-introduction">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-introduction">Introduction</a>
+</h2>
+<p>JavaScript has a feature called Scope. Though the concept of scope is not that easy to understand for many new developers, I will try my best to explain them to you in the simplest scope. Understanding <code>scope</code> will make your code stand out, reduce errors and help you make powerful design patterns with it.</p>
+<h2 id="toc-what-is-scope-">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-what-is-scope-">What is Scope?</a>
+</h2><div class="table-of-contents"><h3>Table of Contents</h3><ul><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-introduction">
+Introduction
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-what-is-scope-">
+What is Scope?
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-why-scope-the-principle-of-least-access">
+Why Scope? The Principle of Least Access
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-scope-in-javascript">
+Scope in JavaScript
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-global-scope">
+Global Scope
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-local-scope">
+Local Scope
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-block-statements">
+Block Statements
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-context">
+Context
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-execution-context">
+Execution Context
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-lexical-scope">
+Lexical Scope
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-closures">
+ Closures
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-public-and-private-scope">
+Public and Private Scope
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-changing-context-with-call-apply-and-bind-">
+Changing Context with .call(), .apply() and .bind()
+</a></li><li><a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-conclusion">
+Conclusion
+</a></li></ul></div>
+<p>Scope is the accessibility of variables, functions, and objects in some particular part of your code during runtime. In other words, scope determines the visibility of variables and other resources in areas of your code.</p>
+<h2 id="toc-why-scope-the-principle-of-least-access">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-why-scope-the-principle-of-least-access">Why Scope? The Principle of Least Access</a>
+</h2>
+<p>So, what's the point in limiting the visibility of variables and not having everything available everywhere in your code? One advantage is that scope provides some level of security to your code. One common principle of computer security is that users should only have access to the stuff they need at a time. </p>
+<p>Think of computer administrators. As they have a lot of control over the company's systems, it might seem okay to grant full access user account to them. Suppose you have a company with three administrators, all of them having full access to the systems and everything is working smooth. But suddenly something bad happens and one of your system gets infected with a malicious virus. Now you don't know whose mistake that was? You realize that you should them basic user accounts and only grant full access privileges when needed. This will help you track changes and keep an account of who did what. This is called The Principle of Least Access. Seems intuitive? This principle is also applied to programming language designs, where it is called scope in most programming languages including JavaScript which we are going to study next.</p>
+<p>As you continue on in your programming journey, you will realize that scoping parts of your code helps improve efficiency, track bugs and reduce them. Scope also solves the naming problem when you have variables with the same name but in different scopes. Remember not to confuse scope with context. They are both different features.</p>
+<h2 id="toc-scope-in-javascript">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-scope-in-javascript">Scope in JavaScript</a>
+</h2>
+<p>In the JavaScript language there are two types of scopes:</p>
+<ul>
+<li>Global Scope</li>
+<li>Local Scope</li>
+</ul>
+<p>Variables defined <strong>inside a function</strong> are in local scope while variables defined outside of a function are in the global scope. Each function when invoked creates a new scope.</p>
+<h2 id="toc-global-scope">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-global-scope">Global Scope</a>
+</h2>
+<p>When you start writing JavaScript in a document, you are already in the Global scope. There is only one Global scope throughout a JavaScript document. A variable is in the Global scope if it's defined outside of a function.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token comment">// the scope is by default global</span>
+<span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span></code></pre>
+<p>Variables inside the Global scope can be accessed and altered in any other scope.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs 'Hammad'</span>
+
+<span class="token keyword">function</span> <span class="token function">logName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 'name' is accessible here and everywhere else</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">logName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs 'Hammad'</span></code></pre>
+<h2 id="toc-local-scope">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-local-scope">Local Scope</a>
+</h2>
+<p>Variables defined inside a function are in the local scope. And they have a different scope for every call of that function. This means that variables having the same name can be used in different functions. This is because those variables are bound to their respective functions, each having different scopes, and are not accessible in other functions.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token comment">// Global Scope</span>
+<span class="token keyword">function</span> <span class="token function">someFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Local Scope #1</span>
+    <span class="token keyword">function</span> <span class="token function">someOtherFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Local Scope #2</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Global Scope</span>
+<span class="token keyword">function</span> <span class="token function">anotherFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Local Scope #3</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// Global Scope</span></code></pre>
+<h2 id="toc-block-statements">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-block-statements">Block Statements</a>
+</h2>
+<p>Block statements like <code>if</code> and <code>switch</code> conditions or <code>for</code> and <code>while</code> loops, unlike functions, don't create a new scope. Variables defined inside of a block statement will remain in the scope they were already in.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// this 'if' conditional block doesn't create a new scope</span>
+    <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span> <span class="token comment">// name is still in the global scope</span>
+<span class="token punctuation">}</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs 'Hammad'</span></code></pre>
+<p>ECMAScript 6 introduced the <code>let</code> and <code>const</code> keywords. These keywords can be used in place of the <code>var</code> keyword.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> likes <span class="token operator">=</span> <span class="token string">'Coding'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> skills <span class="token operator">=</span> <span class="token string">'Javascript and PHP'</span><span class="token punctuation">;</span></code></pre>
+<p>Contrary to the <code>var</code> keyword, the <code>let</code> and <code>const</code> keywords support the declaration of local scope inside block statements.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// this 'if' conditional block doesn't create a scope</span>
+
+    <span class="token comment">// name is in the global scope because of the 'var' keyword</span>
+    <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span>
+    <span class="token comment">// likes is in the local scope because of the 'let' keyword</span>
+    <span class="token keyword">let</span> likes <span class="token operator">=</span> <span class="token string">'Coding'</span><span class="token punctuation">;</span>
+    <span class="token comment">// skills is in the local scope because of the 'const' keyword</span>
+    <span class="token keyword">const</span> skills <span class="token operator">=</span> <span class="token string">'JavaScript and PHP'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs 'Hammad'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>likes<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Uncaught ReferenceError: likes is not defined</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>skills<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Uncaught ReferenceError: skills is not defined</span></code></pre>
+<blockquote>
+<p>Global scope lives as long as your application lives. Local Scope lives as long as your functions are called and executed.</p>
+</blockquote>
+<h2 id="toc-context">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-context">Context</a>
+</h2>
+<p>Many developers often confuse scope and context as if they equally refer to the same concepts. But this is not the case. Scope is what we discussed above and <em>Context</em> is used to refer to the value of <code>this</code> in some particular part of your code. Scope refers to the visibility of variables and context refers to the value of <code>this</code> in the same scope. We can also change the context using function methods, which we will discuss later. In the global scope context is always the Window object.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token comment">// logs: Window {speechSynthesis: SpeechSynthesis, caches: CacheStorage, localStorage: Storage…}</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">logFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// logs: Window {speechSynthesis: SpeechSynthesis, caches: CacheStorage, localStorage: Storage…}</span>
+<span class="token comment">// because logFunction() is not a property of an object</span>
+<span class="token function">logFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
+<p>If scope is in the method of an object, context will be the object the method is part of.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+    <span class="token function">logName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">logName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs User {}</span></code></pre>
+<blockquote>
+<p>(new User).logName() is a short way of storing your object in a variable and then calling the <em>logName</em> function on it. Here, you don't need to create a new variable.</p>
+</blockquote>
+<p>One thing you'll notice is that the value of context behaves differently if you call your functions using the <code>new</code> keyword. The context will then be set to the instance of the called function. Consider one of the examples above with the function called with the <code>new</code> keyword.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">logFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">new</span> <span class="token class-name">logFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs logFunction {}</span></code></pre>
+<blockquote>
+<p>When a function is called in <strong>Strict Mode</strong>, the context will default to undefined.</p>
+</blockquote>
+<h2 id="toc-execution-context">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-execution-context">Execution Context</a>
+</h2>
+<p>To remove all confusions and from what we studied above, the word <em>context</em> in <strong>Execution Context</strong> refers to scope and not context. This is a weird naming convention but because of the JavaScipt specification, we are tied to it. </p>
+<p>JavaScript is a single-threaded language so it can only execute a single task at a time. The rest of the tasks are queued in the Execution Context. As I told you earlier that when the JavaScript interpreter starts to execute your code, the context (scope) is by default set to be global. This global context is appended to your execution context which is actually the first context that starts the execution context. </p>
+<p>After that, each function call (invocation) would append its context to the execution context. The same thing happens when an another function is called inside that function or somewhere else. </p>
+<blockquote>
+<p>Each function creates its own execution context. </p>
+</blockquote>
+<p>Once the browser is done with the code in that context, that context will then be popped off from the execution context and the state of the <em>current</em> context in the execution context will be transferred to the parent context. The browser always executes the execution context that is at the top of the execution stack (which is actually the innermost level of scope in your code).</p>
+<blockquote>
+<p>There can only be one global context but any number of function contexts.</p>
+</blockquote>
+<p>The execution context has two phases of creation and code execution. </p>
+<h3 id="toc-creation-phase">Creation Phase</h3>
+<p>The first phase that is the creation phase is present when a function is called but its code is not yet executed. Three main things that happen in the creation phase are:</p>
+<ul>
+<li>Creation of the Variable (Activation) Object,</li>
+<li>Creation of the Scope Chain, and</li>
+<li>Setting of the value of context (<code>this</code>)</li>
+</ul>
+<h4 id="toc-variable-object">Variable Object</h4>
+<p>The Variable Object, also known as the activation object, contains all of the variables, functions and other declarations that are defined in a particular branch of the execution context. When a function is called, the interpreter scans it for all resources including function arguments, variables, and other declarations. Everything, when packed into a single object, becomes the the Variable Object.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token string">'variableObject'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// contains function arguments, inner variable and function declarations</span>
+<span class="token punctuation">}</span></code></pre>
+<h4 id="toc-scope-chain">Scope Chain</h4>
+<p>In the creation phase of the execution context, the scope chain is created after the variable object. The scope chain itself contains the variable object. The Scope Chain is used to resolve variables. When asked to resolve a variable, JavaScript always starts at the innermost level of the code nest and keeps jumping back to the parent scope until it finds the variable or any other resource it is looking for. The scope chain can simply be defined as an object containing the variable object of its own execution context and all the other execution contexts of it parents, an object having a bunch of other objects.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token string">'scopeChain'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// contains its own variable object and other variable objects of the parent execution contexts</span>
+<span class="token punctuation">}</span></code></pre>
+<h4 id="toc-the-execution-context-object">The Execution Context Object</h4>
+<p>The execution context can be represented as an abstract object like this:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript">executionContextObject <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'scopeChain'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment">// contains its own variableObject and other variableObject of the parent execution contexts</span>
+    <span class="token string">'variableObject'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment">// contains function arguments, inner variable and function declarations</span>
+    <span class="token string">'this'</span><span class="token punctuation">:</span> valueOfThis
+<span class="token punctuation">}</span></code></pre>
+<h3 id="toc-code-execution-phase">Code Execution Phase</h3>
+<p>In the second phase of the execution context, that is the code execution phase, other values are assigned and the code is finally executed.</p>
+<h2 id="toc-lexical-scope">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-lexical-scope">Lexical Scope</a>
+</h2>
+<p>Lexical Scope means that in a nested group of functions, the inner functions have access to the variables and other resources of their parent scope. This means that the child functions are lexically bound to the execution context of their parents. Lexical scope is sometimes also referred to as Static Scope.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">grandfather</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span>
+    <span class="token comment">// likes is not accessible here</span>
+    <span class="token keyword">function</span> <span class="token function">parent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// name is accessible here</span>
+        <span class="token comment">// likes is not accessible here</span>
+        <span class="token keyword">function</span> <span class="token function">child</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Innermost level of the scope chain</span>
+            <span class="token comment">// name is also accessible here</span>
+            <span class="token keyword">var</span> likes <span class="token operator">=</span> <span class="token string">'Coding'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>The thing you will notice about lexical scope is that it works forward, meaning <code>name</code> can be accessed by its children's execution contexts. But it doesn't work backward to its parents, meaning that the variable <code>likes</code> cannot be accessed by its parents. This also tells us that variables having the same name in different execution contexts gain precedence from top to bottom of the execution stack. A variable, having a name similar to another variable, in the innermost function (topmost context of the execution stack) will have higher precedence.</p>
+<h2 id="toc-closures">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-closures">Closures</a>
+</h2>
+<p>The concept of closures is closely related to Lexical Scope, which we studied above. A Closure is created when an inner function tries to access the scope chain of its outer function meaning the variables outside of the immediate lexical scope. Closures contain their own scope chain, the scope chain of their parents and the global scope. </p>
+<blockquote>
+<p>A closure can not only access the variables defined in its outer function but also the arguments of the outer function. </p>
+</blockquote>
+<p>A closure can also access the variables of its outer function even after the function has returned. This allows the returned function to maintain access to all the resources of the outer function.</p>
+<p>When you return an inner function from a function, that returned function will not be called when you try to call the outer function. You must first save the invocation of the outer function in a separate variable and then call the variable as a function. Consider this example:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hi '</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// nothing happens, no errors</span>
+
+<span class="token comment">// the returned function from greet() gets saved in greetLetter</span>
+greetLetter <span class="token operator">=</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment">// calling greetLetter calls the returned function from the greet() function</span>
+<span class="token function">greetLetter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs 'Hi Hammad'</span></code></pre>
+<p>The key thing to note here is <code>that greetLetter</code> function can access the name variable of the greet function even after it has been returned. One way to call the returned function from the <code>greet</code> function without variable assignment is by using parentheses <code>()</code> two times <code>()()</code> like this:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name <span class="token operator">=</span> <span class="token string">'Hammad'</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hi '</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// logs 'Hi Hammad'</span></code></pre>
+<h2 id="toc-public-and-private-scope">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-public-and-private-scope">Public and Private Scope</a>
+</h2>
+<p>In many other programming languages, you can set the visibility of properties and methods of classes using public, private and protected scopes. Consider this example using the PHP language:</p>
+<pre class="language-php" data-title="php"><code class="language-php"><span class="token comment">// Public Scope</span>
+<span class="token keyword">public</span> <span class="token variable">$property</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Private Sccpe</span>
+<span class="token keyword">private</span> <span class="token variable">$property</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">function</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Protected Scope</span>
+<span class="token keyword">protected</span> <span class="token variable">$property</span><span class="token punctuation">;</span>
+<span class="token keyword">protected</span> <span class="token keyword">function</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Encapsulating functions from the public (global) scope saves them from vulnerable attacks. But in JavaScript, there is no such thing as public or private scope. However, we can emulate this feature using closures. To keep everything separate from the global we must first encapsulate our functions within a function like this:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// private scope</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>The parenthesis at the end of the function tells the interpreter to execute it as soon as it reads it without invocation. We can add functions and variables in it and they will not accessible outside. But what if we want to access them outside, meaning we want some of them to be public and some of them to be private? One type of closure, we can use, is called the Module Pattern which allows us to scope our functions using both public and private scopes in an object.</p>
+<h3 id="toc-the-module-pattern">The Module Pattern</h3>
+<p>The Module Pattern looks like this:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">var</span> Module <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">function</span> <span class="token function">privateMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// do something</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        publicMethod<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// can call privateMethod();</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>The return statement of the Module contains our public functions. The private functions are just those that are not returned. Not returning functions makes them inaccessible outside of the Module namespace. But our public functions can access our private functions which make them handy for helper functions, AJAX calls, and other things.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript">Module<span class="token punctuation">.</span><span class="token function">publicMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// works</span>
+Module<span class="token punctuation">.</span><span class="token function">privateMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Uncaught ReferenceError: privateMethod is not defined</span></code></pre>
+<p>One convention is to begin private functions with an underscore, and returning an anonymous object containing our public functions. This makes them easy to manage in a long object. This is how it looks:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">var</span> Module <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">function</span> <span class="token function">_privateMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// do something</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">function</span> <span class="token function">publicMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// do something</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        publicMethod<span class="token punctuation">:</span> publicMethod<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="toc-immediately-invoked-function-expression-iife-">Immediately-Invoked Function Expression (IIFE)</h3>
+<p>Another type of closure is the Immediately-Invoked Function Expression (IIFE). This is a self-invoked anonymous function called in the context of window, meaning that the value of <code>this</code> is set <code>window</code>. This exposes a single global interface to interact with. This is how it looks:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do anything</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="toc-changing-context-with-call-apply-and-bind-">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-changing-context-with-call-apply-and-bind-">Changing Context with .call(), .apply() and .bind()</a>
+</h2>
+<p>Call and Apply functions are used to change the context while calling a function. This gives you incredible programming capabilities (and some ultimate powers to <strong>Rule The World</strong>). To use the call or apply function, you just need to call it on the function instead of invoking the function using a pair of parenthesis and pass the context as the first argument. The function's own arguments can be passed after the context.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// the way you usually call it</span>
+hello<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// here you can pass the context(value of this) as the first argument</span>
+hello<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// here you can pass the context(value of this) as the first argument</span></code></pre>
+<p>The difference between <code>.call()</code> and <code>.apply()</code> is that in Call, you pass the rest of the arguments as a list separated by a comma while apply allows you to pass the arguments in an array.</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">introduce</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> interest<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hi! I\'m '</span><span class="token operator">+</span> name <span class="token operator">+</span><span class="token string">' and I like '</span><span class="token operator">+</span> interest <span class="token operator">+</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'The value of this is '</span><span class="token operator">+</span> <span class="token keyword">this</span> <span class="token operator">+</span><span class="token string">'.'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">introduce</span><span class="token punctuation">(</span><span class="token string">'Hammad'</span><span class="token punctuation">,</span> <span class="token string">'Coding'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// the way you usually call it</span>
+introduce<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>window<span class="token punctuation">,</span> <span class="token string">'Batman'</span><span class="token punctuation">,</span> <span class="token string">'to save Gotham'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// pass the arguments one by one after the contextt</span>
+introduce<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token string">'Hi'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'Bruce Wayne'</span><span class="token punctuation">,</span> <span class="token string">'businesses'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// pass the arguments in an array after the context</span>
+
+<span class="token comment">// Output:</span>
+<span class="token comment">// Hi! I'm Hammad and I like Coding.</span>
+<span class="token comment">// The value of this is [object Window].</span>
+<span class="token comment">// Hi! I'm Batman and I like to save Gotham.</span>
+<span class="token comment">// The value of this is [object Window].</span>
+<span class="token comment">// Hi! I'm Bruce Wayne and I like businesses.</span>
+<span class="token comment">// The value of this is Hi.</span></code></pre>
+<blockquote>
+<p><em>Call</em> is slightly faster in performance than <em>Apply</em>.</p>
+</blockquote>
+<p>The following example takes a list of items in the document and logs them to the console one by one.</p>
+<pre class="language-html" data-title="html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Things to learn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Things to Learn to Rule the World<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn PHP<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn Laravel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn JavaScript<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn VueJS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn CLI<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn Git<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Learn Astral Projection<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+        // Saves a NodeList of all list items on the page in listItems
+        var listItems = document.querySelectorAll('ul li');
+        // Loops through each of the Node in the listItems NodeList and logs its content
+        for (var i = 0; i &lt; listItems.length; i++) {
+          (function () {
+            console.log(this.innerHTML);
+          }).call(listItems[i]);
+        }
+
+        // Output logs:
+        // Learn PHP
+        // Learn Laravel
+        // Learn JavaScript
+        // Learn VueJS
+        // Learn CLI
+        // Learn Git
+        // Learn Astral Projection
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>The HTML only contains an unordered list of items. The JavaScript then selects all of them from the DOM. The list is looped over till the end of the items in the list. Inside the loop, we log the content of the list item to the console. </p>
+<p>This log statement is wrapped in a function wrapped in parentheses on which the <code>call</code> function is called. The corresponding list item is passed to the call function so that the <code>the</code> keyword in the console statement logs the innerHTML of the correct object.</p>
+<p>Objects can have methods, likewise functions being objects can also have methods. In fact, a JavaScript function comes with four built-in methods which are:</p>
+<ul>
+<li>Function.prototype.apply()</li>
+<li>Function.prototype.bind() (Introduced in <em>ECMAScript 5 (ES5)</em>)</li>
+<li>Function.prototype.call()</li>
+<li>Function.prototype.toString()</li>
+</ul>
+<blockquote>
+<p>Function.prototype.toString() returns a string representation of the source code of the function.</p>
+</blockquote>
+<p>Till now, we have discussed <code>.call()</code>, <code>.apply()</code>, and <code>toString()</code>. Unlike Call and Apply, Bind doesn't itself call the function, it can only be used to bind the value of context and other arguments before calling the function. Using Bind in one of the examples from above:</p>
+<pre class="language-javascript" data-title="javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">introduce</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> interest<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hi! I\'m '</span><span class="token operator">+</span> name <span class="token operator">+</span><span class="token string">' and I like '</span><span class="token operator">+</span> interest <span class="token operator">+</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'The value of this is '</span><span class="token operator">+</span> <span class="token keyword">this</span> <span class="token operator">+</span><span class="token string">'.'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>window<span class="token punctuation">,</span> <span class="token string">'Hammad'</span><span class="token punctuation">,</span> <span class="token string">'Cosmology'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// logs:</span>
+<span class="token comment">// Hi! I'm Hammad and I like Cosmology.</span>
+<span class="token comment">// The value of this is [object Window].</span></code></pre>
+<p>Bind is like the <code>call</code> function, it allows you pass the rest of the arguments one by one separated by a comma and not like <code>apply</code>, in which you pass the arguments in an array.</p>
+<h2 id="toc-conclusion">
+<a href="https://scotch.io/tutorials/understanding-scope-in-javascript#toc-conclusion">Conclusion</a>
+</h2>
+<p>These concepts are radical to JavaScript and important to understand if you want to approach more advanced topics. I hope you got a better understanding of JavaScript Scope and things around it. If something just didn't click, feel free to ask in the comments below.</p>
+<p>Scope up your code and till then, Happy Coding!</p>
+<p class="m-t-md">
+Like this article?
+<a href="https://twitter.com/shammadahmed" title="Follow @shammadahmed on Twitter">
+Follow @shammadahmed on Twitter
+</a>
+</p>
+</div>
+<div class="related-posts-container">
+<h4 class="title is-5 up-next">Read next...</h4>
+<div class="related-posts">
+</div>
+</div>
+<div class="m-t-lg">
+<div id="comments" class="article-comments" style="
+        background: #faf8f4;
+        padding: 0 25px;
+        border-radius: 10px;
+        border: solid 1px #f8f2e8;
+        box-shadow: 0 0px 3px 0 rgba(88, 88, 102, .07);
+    ">
+<div class="inject-comments" data-post-url="https://scotch.io/tutorials/understanding-scope-in-javascript" data-post-id="4650">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="column is-narrow is-right ">
+<div class="article-inner">
+<div class="article-sidebar">
+<div class="sidebar-sticky">
+<div class="sidebar-item" style="height: 20%; top: 0">
+<div class="make-me-sticky">
+<div class="react-syndicate" data-take="1" data-is-sidebar="true"><div class="sc-AykKD"></div></div>
+<div class="m-t">
+<div class="is-hidden-with-subscription has-text-centered">
+<div id="bsa-zone_1537909991-1_123456"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-item" style="height: 40%; top: 21%">
+<div class="make-me-sticky">
+<div class="is-hidden-with-subscription has-text-centered">
+<div id="bsa-zone_1537909991-2_123456"></div>
+</div>
+</div>
+</div>
+<div class="sidebar-item" style="height: 30%; top: 62%">
+<div class="make-me-sticky">
+<div class="react-syndicate m-b" data-take="1" data-is-sidebar="true"><div class="sc-AykKD"></div></div>
+<div class="is-hidden-with-subscription has-text-centered">
+<div id="bsa-zone_1537909991-3_123456"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div class="article-end">
+<div class="section is-small" style="background: #fff">
+<div data-spotim-module="recirculation" data-spot-id="sp_D7GE1sbz"></div>
+</div>
+<section class="section is-author p-y-xl" style="background: #CBCED4">
+<div class="container">
+<div class="columns">
+<div class="column">
+<div class="article-author is-large is-horizontal">
+<a href="https://scotch.io/@shammadahmed" class="author-avatar image " title="Hammad Ahmed&#39;s Avatar">
+<img class="lazy" data-src="https://scotch-res.cloudinary.com/image/upload/w_auto,h_auto,q_auto:good,f_auto,c_fill,g_face/v1535726478/eqlcdoctwiwl7ilzmt3x.jpg" alt="Hammad Ahmed" style="max-width: 200px;">
+</a>
+<h3 class="title is-5">
+<a href="https://scotch.io/@shammadahmed" title="Hammad Ahmed">Hammad Ahmed</a>
+</h3>
+<div class="m-b-sm">
+<a href="https://twitter.com/intent/follow?screen_name=shammadahmed" class="button is-info is-small ">
+Follow @shammadahmed
+</a>
+</div>
+<div class="author-bio"><p>Developer, Writer &amp; Blogger</p></div>
+<div class="links">
+<div class="author-links">
+<a href="https://twitter.com/shammadahmed" target="_blank" rel="noopener noreferrer" title="Twitter @shammadahmed">
+<span class="icon color-twitter">
+ <svg class="svg-inline--fa fa-twitter fa-w-16 fa-2x" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg><!-- <i class="fab fa-twitter fa-2x"></i> -->
+</span>
+</a>
+<a href="https://github.com/shammadahmed" target="_blank" rel="noopener noreferrer" title="GitHub">
+<span class="icon icon-github has-text-grey-dark">
+<svg class="svg-inline--fa fa-github-alt fa-w-15 fa-2x" data-fa-transform="down-0.75" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512" data-fa-i2svg="" style="transform-origin: 0.46875em 0.546875em;"><g transform="translate(240 256)"><g transform="translate(0, 24)  scale(1, 1)  rotate(0 0 0)"><path fill="currentColor" d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z" transform="translate(-240 -256)"></path></g></g></svg><!-- <i class="fab fa-github-alt fa-2x" data-fa-transform="down-0.75"></i> -->
+</span>
+</a>
+<a href="https://hammad.blog/" target="_blank" rel="noopener noreferrer" title="Website https://hammad.blog">
+<span class="icon has-text-primary">
+<svg class="svg-inline--fa fa-browser fa-w-16 fa-2x" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="browser" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM32 80c0-8.8 7.2-16 16-16h48v64H32V80zm448 352c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V160h448v272zm0-304H128V64h336c8.8 0 16 7.2 16 16v48z"></path></svg><!-- <i class="fal fa-browser fa-2x"></i> -->
+</span>
+</a>
+</div>
+</div>
+<div class="author-action m-t-sm m-b-0">
+<a href="https://scotch.io/@shammadahmed" title="View Hammad Ahmed&#39;s Profile" class="button is-dark is-rounded is-fullwidth">
+View My 8 Posts
+</a>
+</div>
+</div>
+</div>
+<div class="column is-narrow is-hidden-touch" style="align-self: center; flex-basis: 500px">
+<div class="card is-scotch  ">
+<a class="card-image" href="https://scotch.io/tutorials/getting-started-with-css-grid-layout" title="Getting Started with CSS Grid Layout">
+<div class="image is-2by1 lazy" data-src="https://scotch-res.cloudinary.com/image/upload/w_auto,q_auto:good,f_auto/media/2526/HrrZwWInSniLurPcLMza_css%20grid%20layout.png.jpg">
+</div>
+</a>
+<div class="card-content">
+<h2 class="title is-4">
+<a href="https://scotch.io/tutorials/getting-started-with-css-grid-layout">Getting Started with CSS Grid Layout</a>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</footer>
+</article>
+</main>
+
+<footer id="scotchy-footer" class="section is-small p-t-xs p-b-sm">
+<div class="footer__projects is-hidden-mobile is-hidden-tablet-only">
+<div class="container">
+<div class="columns center-flex-v">
+<div class="column is-8">
+<div class="footer__about">
+<div class="about__title">
+<div class="logo center-flex-v" style="padding-bottom: 80px; padding-top: 80px;">
+<img data-src="https://scotch-res.cloudinary.com/image/upload/v1582140584/scotch-do-logo_gytvv1.png" class="lazy" width="70">
+</div>
+<h4 style="display: flex; align-items: center;">Scotch <span style="font-size: 14px; margin-left: 8px;">by</span> <a href="https://twitter.com/chrisoncode" class="has-text-light" style="
+                                background: #1e99e6;
+                                border-radius: 3px;
+                                color: #fff;
+                                font-size: 14px;
+                                display: inline-block;
+                                padding: 3px 6px;
+                                letter-spacing: 0.5px;
+                                margin-left: 9px;
+                                ">@chris__sev</a> <span style="font-size: 14px; margin-left: 8px;">at</span> <a href="https://twitter.com/digitalocean" class="has-text-light" style="
+                                margin-left: 9px; margin-bottom: 2px;
+                                "><img class="lazy" data-src="/img/logos/digital-ocean.png" alt="Digital Ocean" style="padding-top: 4px; width: 125px;"></a></h4>
+</div>
+<p class="p-r-lg m-b-xs">Top shelf learning. Dev tutorials explaining the code <strong style="color: #DDD">and the choices behind it all.</strong></p>
+<p>Made with 💖 by <a href="https://twitter.com/chris__sev" class="has-text-grey">@chris__sev</a> and <a href="https://twitter.com/whatnicktweets" class="has-text-grey">Nick</a>.</p>
+<ul class="footer-social-links list-unstyled">
+<li><a href="https://twitter.com/scotch_io" class="icon-twitter" title="Follow Scotch on Twitter">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 410.155 410.155" style="enable-background:new 0 0 410.155 410.155;" xml:space="preserve" width="50" height="50">
+<path style="fill:#23A0F2;" d="M403.632,74.18c-9.113,4.041-18.573,7.229-28.28,9.537c10.696-10.164,18.738-22.877,23.275-37.067
+	l0,0c1.295-4.051-3.105-7.554-6.763-5.385l0,0c-13.504,8.01-28.05,14.019-43.235,17.862c-0.881,0.223-1.79,0.336-2.702,0.336
+	c-2.766,0-5.455-1.027-7.57-2.891c-16.156-14.239-36.935-22.081-58.508-22.081c-9.335,0-18.76,1.455-28.014,4.325
+	c-28.672,8.893-50.795,32.544-57.736,61.724c-2.604,10.945-3.309,21.9-2.097,32.56c0.139,1.225-0.44,2.08-0.797,2.481
+	c-0.627,0.703-1.516,1.106-2.439,1.106c-0.103,0-0.209-0.005-0.314-0.015c-62.762-5.831-119.358-36.068-159.363-85.14l0,0
+	c-2.04-2.503-5.952-2.196-7.578,0.593l0,0C13.677,65.565,9.537,80.937,9.537,96.579c0,23.972,9.631,46.563,26.36,63.032
+	c-7.035-1.668-13.844-4.295-20.169-7.808l0,0c-3.06-1.7-6.825,0.485-6.868,3.985l0,0c-0.438,35.612,20.412,67.3,51.646,81.569
+	c-0.629,0.015-1.258,0.022-1.888,0.022c-4.951,0-9.964-0.478-14.898-1.421l0,0c-3.446-0.658-6.341,2.611-5.271,5.952l0,0
+	c10.138,31.651,37.39,54.981,70.002,60.278c-27.066,18.169-58.585,27.753-91.39,27.753l-10.227-0.006
+	c-3.151,0-5.816,2.054-6.619,5.106c-0.791,3.006,0.666,6.177,3.353,7.74c36.966,21.513,79.131,32.883,121.955,32.883
+	c37.485,0,72.549-7.439,104.219-22.109c29.033-13.449,54.689-32.674,76.255-57.141c20.09-22.792,35.8-49.103,46.692-78.201
+	c10.383-27.737,15.871-57.333,15.871-85.589v-1.346c-0.001-4.537,2.051-8.806,5.631-11.712c13.585-11.03,25.415-24.014,35.16-38.591
+	l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"></path>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</a></li>
+<li><a href="https://facebook.com/scotchdevelopment" class="icon-facebook" title="Follow Scotch on Facebook">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="50" height="50" viewBox="0 0 96.124 96.123" style="enable-background:new 0 0 96.124 96.123;" xml:space="preserve">
+<g>
+<path d="M72.089,0.02L59.624,0C45.62,0,36.57,9.285,36.57,23.656v10.907H24.037c-1.083,0-1.96,0.878-1.96,1.961v15.803   c0,1.083,0.878,1.96,1.96,1.96h12.533v39.876c0,1.083,0.877,1.96,1.96,1.96h16.352c1.083,0,1.96-0.878,1.96-1.96V54.287h14.654   c1.083,0,1.96-0.877,1.96-1.96l0.006-15.803c0-0.52-0.207-1.018-0.574-1.386c-0.367-0.368-0.867-0.575-1.387-0.575H56.842v-9.246   c0-4.444,1.059-6.7,6.848-6.7l8.397-0.003c1.082,0,1.959-0.878,1.959-1.96V1.98C74.046,0.899,73.17,0.022,72.089,0.02z" fill="#FFFFFF"></path>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</a></li>
+<li><a href="https://github.com/scotch-io" class="icon-github" title="Follow Scotch on GitHub">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="50" height="50" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<g>
+<path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M408.027,408.027   c-19.76,19.759-42.756,35.267-68.354,46.094c-6.502,2.75-13.105,5.164-19.801,7.246V423c0-20.167-6.916-35-20.75-44.5   c8.668-0.833,16.625-2,23.875-3.5s14.918-3.667,23-6.5c8.084-2.833,15.334-6.208,21.75-10.125c6.418-3.917,12.584-9,18.5-15.25   c5.918-6.25,10.875-13.333,14.875-21.25s7.168-17.417,9.5-28.5c2.334-11.083,3.5-23.292,3.5-36.625c0-25.833-8.416-47.833-25.25-66   c7.668-20,6.834-41.75-2.5-65.25l-6.25-0.75c-4.332-0.5-12.125,1.333-23.375,5.5s-23.875,11-37.875,20.5   c-19.832-5.5-40.416-8.25-61.749-8.25c-21.5,0-42,2.75-61.5,8.25c-8.833-6-17.208-10.958-25.125-14.875s-14.25-6.583-19-8   s-9.167-2.292-13.25-2.625s-6.708-0.417-7.875-0.25s-2,0.333-2.5,0.5c-9.333,23.667-10.167,45.417-2.5,65.25   c-16.833,18.167-25.25,40.167-25.25,66c0,13.333,1.167,25.542,3.5,36.625s5.5,20.583,9.5,28.5s8.958,15,14.875,21.25   s12.083,11.333,18.5,15.25s13.667,7.292,21.75,10.125s15.75,5,23,6.5s15.208,2.667,23.875,3.5c-13.667,9.333-20.5,24.167-20.5,44.5   v39.115c-7.549-2.247-14.99-4.902-22.3-7.994c-25.597-10.827-48.594-26.335-68.353-46.094   c-19.758-19.758-35.267-42.756-46.093-68.354C46.679,313.195,41,285.043,41,256s5.679-57.195,16.879-83.675   c10.827-25.597,26.335-48.594,46.093-68.353c19.758-19.759,42.756-35.267,68.353-46.093C198.805,46.679,226.957,41,256,41   s57.195,5.679,83.676,16.879c25.598,10.827,48.594,26.335,68.354,46.093c19.758,19.758,35.266,42.756,46.092,68.353   C465.32,198.805,471,226.957,471,256s-5.68,57.195-16.879,83.675C443.295,365.271,427.785,388.27,408.027,408.027z" fill="#FFFFFF"></path>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</a></li>
+<li><a href="https://www.youtube.com/channel/UCmXVXfidLZQkppLPaATcHag" class="icon-github" title="Follow Scotch on YouTube">
+<svg class="svg-inline--fa fa-youtube fa-w-18 fa-fw has-text-danger" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg><!-- <i class="fab fa-fw fa-youtube has-text-danger"></i> -->
+</a></li>
+</ul>
+</div>
+</div>
+<div class="column is-4 has-text-right">
+<style>
+                        .proudly { color: #3273dc !important }
+                        .proudly:hover { color: #5691f2 !important }
+                    </style>
+<a href="https://do.co/doscotch50">
+<span class="proudly">Proudly hosted by<span><br>
+<img class="lazy" data-src="/img/logos/digital-ocean.png" alt="Digital Ocean" style="padding-top: 4px; width: 250px;">
+</span></span></a>
+<nav class="m-t-md">
+<ul class="list-unstyled" style="display: flex; align-items: center; justify-content: center; height: 100%">
+<li><a href="https://discover.buysellads.com/scotch-io" style="color: #aaa; margin-right: 8px;">Sponsor</a></li>
+<li><a href="https://scotch.io/privacy" style="color: #aaa; margin-right: 8px;">Privacy</a></li>
+<li><a href="https://scotch.io/terms" style="color: #aaa; margin-right: 8px;">Terms</a></li>
+<li><a href="https://scotch.io/rules" style="color: #aaa; margin-right: 8px;">Rules</a></li>
+<li>© 2021 DigitalOcean, LLC</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/monetization.js.download" data-cfasync="false"></script>
+<script type="text/javascript" defer="">
+    (function(){
+        var bsa_optimize=document.createElement('script');
+        bsa_optimize.type='text/javascript';bsa_optimize.async=true;
+        bsa_optimize.src='https://cdn-s2s.buysellads.net/pub/scotch.js?'+(new Date()-new Date()%600000);
+        (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa_optimize);
+    })();
+</script>
+<script>
+    if (window.bsa_targeting !== undefined) {
+        window.bsa_targeting.push(['scotchio_section', ['single-post']]);
+        window.bsa_targeting.push(['scotchio_postid', ['4650']]);
+    }
+</script>
+<script>
+    if (window.bsa_targeting !== undefined) {
+            }
+</script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/polyfill.min.js.download" defer=""></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-36045075-1', 'auto');
+ga('set', 'transport', 'beacon');
+ga('send', 'pageview');
+</script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/perlin.min.js.download"></script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/resize-detector.min.js.download"></script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/svg-blob.min.js.download"></script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/manifest.js.download" defer=""></script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/vendor.js.download" defer=""></script>
+<script>
+    // used to lazyload spot im in lazyload-comments.js
+    window.scotchy = window.scotchy || {};
+    window.scotchy.articleId =  "4650";
+    window.scotchy.articleUrl = "https://scotch.io/tutorials/understanding-scope-in-javascript";
+</script>
+<script src="./Understanding Scope in JavaScript ― Scotch.io_files/app.js.download" defer=""></script>
+<script>
+                    // published at
+            if (window.ga !== undefined)
+                window.ga('set', 'dimension4', 'February 15, 2017');
+        
+        
+        // author
+        if (window.ga !== undefined) {
+            window.ga('set', 'contentGroup1', "Hammad Ahmed")
+            window.ga('set', 'dimension1', "Hammad Ahmed")
+        }
+    </script>
+<script>
+    const twitchBanner = document.getElementById('twitch-banner');
+
+    fetch('/api/twitch/check')
+        .then(function(resp) {
+            return resp.json()
+        })
+        .then(function(data) {
+            if (data.is_streaming) {
+                twitchBanner.style.display = 'block';
+                document.getElementById('tag-nav').style.display = 'none'
+                document.getElementById('tag-nav-placeholder').style.display = 'none'
+                document.getElementById('react-graphql-banner').style.display = 'none'
+            }
+        })
+        .catch(function(err) {});
+</script>
+<style>
+    #_stickybox_ {
+        left: 20px;
+        right: auto !important;
+    }
+</style>
+<script>
+    (function() {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            setTimeout(function() {
+                _bsa.init('stickybox', 'CKYIT277', 'placement:scotchio'); // STICKYBOX
+            }, 20000);
+
+            // _bsa.init('flexbar', 'CKYIT27N', 'placement:scotchio'); // FLEXBAR
+        }
+    })();
+</script>
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '736265310632354');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=736265310632354&ev=PageView&noscript=1"
+/></noscript>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "@id": "https://scotch.io#organization",
+    "name": "Scotch.io",
+    "url": "https://scotch.io",
+    "sameAs": [
+        "http://www.facebook.com/scotchdevelopment",
+        "http://twitter.com/scotch_io",
+        "http://instagram.com/scotch_io",
+        "http://www.linkedin.com/in/scotch_io",
+        "http://plus.google.com/scotch_io"
+    ],
+    "legalName": "Scotch.io, LLC",
+    "logo": {
+        "@type": "ImageObject",
+        "url": "https://scotch.io/img/school-logo-sticker.png",
+        "width": 37,
+        "height": 60
+    },
+    "founder": {
+        "@type": "Person",
+        "name": "Chris Sevilleja",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://scotch-res.cloudinary.com/image/upload/w_300,q_auto:good,f_auto,c_fill,g_face/media/1/w7Vhk81SyClJPlDQPMLh_17795826_10154678250924582_8102840950354615336_n.jpg",
+            "width": 300,
+            "height": 300
+        }
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "@id": "https://scotch.io#website",
+    "url": "https://scotch.io",
+    "name": "Scotch",
+    "alternateName": "Scotch.io",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://scotch.io/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    "author": {
+        "@id": "https://scotch.io#organization"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "https://scotch.io/tutorials/understanding-scope-in-javascript",
+    "url": "https://scotch.io/tutorials/understanding-scope-in-javascript",
+
+        "headline": "Understanding Scope in JavaScript",
+    
+    "description": "In this tutorial, we will learn everything there is to JavaScript Scope. So, come along.",
+
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://scotch.io/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+
+    "publisher": {
+        "@id": "https://scotch.io#organization"
+    },
+
+    
+        "dateCreated": "2017-01-22 00:48:01",
+    
+        "datePublished": "2017-02-15 09:36:48",
+    
+    
+        "dateModified": "2019-07-08 13:12:15",
+    
+        "commentCount": 37,
+    
+    "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@id": "https://scotch.io",
+                    "name": "Home"
+                }
+            },
+
+                            {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                        "@id": "https://scotch.io/tutorials",
+                        "name": "Tutorials"
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "item": {
+                        "@id": "https://scotch.io/tutorials/understanding-scope-in-javascript",
+                        "name": "Understanding Scope in JavaScript"
+                    }
+                }
+                    ]
+    },
+    
+    "sourceOrganization": {
+        "@id": "https://scotch.io#organization"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "TechArticle",
+    "@id": "https://scotch.io/tutorials/understanding-scope-in-javascript#article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://scotch.io/tutorials/understanding-scope-in-javascript"
+    },
+    "url": "https://scotch.io/tutorials/understanding-scope-in-javascript",
+    "headline": "Understanding Scope in JavaScript",
+    "wordCount": 3347,
+    "description": "In this tutorial, we will learn everything there is to JavaScript Scope. So, come along.",
+    "audience": "web developers and designers",
+    "discussionUrl": "https://scotch.io/tutorials/understanding-scope-in-javascript#comments",
+
+        "proficiencyLevel": "",
+    
+        "image": {
+        "@type": "ImageObject",
+        "url": "https://scotch-res.cloudinary.com/image/upload/w_1500,q_auto:good,f_auto/media/2526/ZHb3nTeORoCOFOiwXfk1_javascript-uderstanding-scope.png.jpg",
+        "height": 750,
+        "width": 1500
+    },
+    
+        "keywords": "",
+    
+        "dateCreated": "2017-01-22 00:48:01",
+    
+        "datePublished": "2017-02-15 09:36:48",
+    
+    
+        "dateModified": "2019-07-08 13:12:15",
+    
+        "articleSection": "Tutorials",
+    
+        "commentCount": 37,
+    
+        "author": {
+        "@type": "Person",
+        "name": "Hammad Ahmed",
+
+                "image": {
+            "@type": "ImageObject",
+            "url": "https://scotch-res.cloudinary.com/image/upload/w_300,h_300,q_auto:good,f_auto,c_fill,g_face/v1535726478/eqlcdoctwiwl7ilzmt3x.jpg",
+            "height": 300,
+            "width": 300
+        },
+        
+        "url": "https://scotch.io/@shammadahmed"
+    },
+    
+    "publisher": {
+        "@id": "https://scotch.io#organization"
+    }
+}
+</script>
+<script>
+(function(m,a,i,l,e,r){ m['MailerLiteObject']=e;function f(){
+var c={ a:arguments,q:[]};var r=this.push(c);return "number"!=typeof r?r:f.bind(c.q);}
+f.q=f.q||[];m[e]=m[e]||f.bind(f.q);m[e].q=m[e].q||f.q;r=a.createElement(i);
+var _=a.getElementsByTagName(i)[0];r.async=1;r.src=l+'?v'+(~~(new Date().getTime()/1000000));
+_.parentNode.insertBefore(r,_);})(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
+
+var ml_account = ml('accounts', '758636', 'y5e6w4v2p6', 'load');
+</script>
+<iframe src="./Understanding Scope in JavaScript ― Scotch.io_files/saved_resource.html" height="1" width="1" style="height: 1px; width: 1px; position: absolute; bottom: 0px; right: 0px;"></iframe>
+
+
+<script async="" src="./Understanding Scope in JavaScript ― Scotch.io_files/lazyload.min.js.download"></script><script type="text/javascript" id="">function getCookie(d){d+="\x3d";var b=decodeURIComponent(document.cookie);b=b.split(";");for(var c=0;c<b.length;c++){for(var a=b[c];" "==a.charAt(0);)a=a.substring(1);if(0==a.indexOf(d))return a.substring(d.length,a.length)}return""}function setCookie(d,b,c){var a=new Date;a.setTime(a.getTime()+6E4*c);document.cookie=d+"\x3d"+escape(b)+(null==c?"":";expires\x3d"+a.toGMTString())}
+if(""==getCookie("sessionID")){var randomNumberString=Math.floor(1E7*Math.random()+1).toString();setCookie("sessionID",randomNumberString,30)}else{var sessionID=getCookie("sessionID");setCookie("sessionID",sessionID,30)};</script><script type="text/javascript" id="">window.addEventListener("cookieconsent_statuschange",function(){window.dataLayer.push({event:"cc_dismiss"})});function getCookie(a){var b="; "+document.cookie;a=b.split("; "+a+"\x3d");if(2==a.length)return a.pop().split(";").shift()}getCookie("cookieconsent_status")&&window.dataLayer.push({event:"cc_dismiss"});</script></body></html>

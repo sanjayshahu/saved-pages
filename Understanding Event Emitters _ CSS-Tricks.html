@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://css-tricks.com/understanding-event-emitters/ -->
+<html lang="en" id="top-of-site" class="jetpack-lazy-images-js-enabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width">
+<title>
+    Understanding Event Emitters | CSS-Tricks  </title>
+<link rel="icon" href="https://css-tricks.com/favicon.ico">
+<link rel="icon" href="https://css-tricks.com/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="https://css-tricks.com/apple-touch-icon.png">
+<link rel="manifest" href="https://css-tricks.com/manifest.webmanifest">
+<meta name="theme-color" content="rgb(255, 122, 24)">
+<meta name="monetization" content="$ilp.uphold.com/biyqg2MkQKbe">
+<link rel="search" type="application/opensearchdescription+xml" href="https://css-tricks.com/opensearch.xml" title="CSS-Tricks Search">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://css-tricks.com/feed/">
+<link rel="stylesheet" href="./Understanding Event Emitters _ CSS-Tricks_files/fonts.css">
+<link rel="stylesheet" href="./Understanding Event Emitters _ CSS-Tricks_files/style.css">
+<link rel="preconnect" href="https://s3.buysellads.com/">
+<link rel="dns-prefetch" href="https://s3.buysellads.com/">
+<link rel="preconnect" href="https://srv.buysellads.com/">
+<link rel="dns-prefetch" href="https://srv.buysellads.com/">
+<link rel="preconnect" href="https://res.cloudinary.com/">
+<link rel="dns-prefetch" href="https://res.cloudinary.com/">
+<link rel="preconnect" href="https://static.codepen.io/">
+<link rel="dns-prefetch" href="https://static.codepen.io/">
+<script async="" src="./Understanding Event Emitters _ CSS-Tricks_files/analytics.js.download"></script><script>window._wca = window._wca || [];</script><style></style>
+
+<meta name="description" content="Consider, a DOM Event: const button = document.querySelector(&quot;button&quot;); button.addEventListener(&quot;click&quot;, (event) =&gt; /* do something with the event */) We">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://css-tricks.com/understanding-event-emitters/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Understanding Event Emitters | CSS-Tricks">
+<meta property="og:description" content="Consider, a DOM Event: const button = document.querySelector(&quot;button&quot;); button.addEventListener(&quot;click&quot;, (event) =&gt; /* do something with the event */) We">
+<meta property="og:url" content="https://css-tricks.com/understanding-event-emitters/">
+<meta property="og:site_name" content="CSS-Tricks">
+<meta property="article:publisher" content="https://www.facebook.com/CSSTricks">
+<meta property="article:published_time" content="2019-03-26T01:07:19+00:00">
+<meta property="og:image" content="https://i1.wp.com/css-tricks.com/wp-content/uploads/2019/03/button-click-boom.jpg?fit=1200%2C600&amp;ssl=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@charlespeters">
+<meta name="twitter:site" content="@CSS">
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Charles Peters">
+<meta name="twitter:label2" content="Est. reading time">
+<meta name="twitter:data2" content="8 minutes">
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://css-tricks.com/#organization","name":"CSS-Tricks","url":"https://css-tricks.com/","sameAs":["https://www.facebook.com/CSSTricks","https://www.instagram.com/real_css_tricks/","https://www.youtube.com/channel/UCADyUOnhyEoQqrw_RrsGleA","https://twitter.com/CSS"],"logo":{"@type":"ImageObject","@id":"https://css-tricks.com/#logo","inLanguage":"en-US","url":"https://i0.wp.com/css-tricks.com/wp-content/uploads/2019/06/akqRGyta_400x400.jpg?fit=%2C&ssl=1","caption":"CSS-Tricks"},"image":{"@id":"https://css-tricks.com/#logo"}},{"@type":"WebSite","@id":"https://css-tricks.com/#website","url":"https://css-tricks.com/","name":"CSS-Tricks","description":"Tips, Tricks, and Techniques on using Cascading Style Sheets.","publisher":{"@id":"https://css-tricks.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":"https://css-tricks.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://css-tricks.com/understanding-event-emitters/#primaryimage","inLanguage":"en-US","url":"https://i1.wp.com/css-tricks.com/wp-content/uploads/2019/03/button-click-boom.jpg?fit=1200%2C600&ssl=1","width":1200,"height":600},{"@type":"WebPage","@id":"https://css-tricks.com/understanding-event-emitters/#webpage","url":"https://css-tricks.com/understanding-event-emitters/","name":"Understanding Event Emitters | CSS-Tricks","isPartOf":{"@id":"https://css-tricks.com/#website"},"primaryImageOfPage":{"@id":"https://css-tricks.com/understanding-event-emitters/#primaryimage"},"datePublished":"2019-03-26T01:07:19+00:00","dateModified":"2019-03-26T01:07:19+00:00","description":"Consider, a DOM Event: const button = document.querySelector(\"button\"); button.addEventListener(\"click\", (event) => /* do something with the event */) We","breadcrumb":{"@id":"https://css-tricks.com/understanding-event-emitters/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://css-tricks.com/understanding-event-emitters/"]}]},{"@type":"BreadcrumbList","@id":"https://css-tricks.com/understanding-event-emitters/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://css-tricks.com/","url":"https://css-tricks.com/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://css-tricks.com/understanding-event-emitters/","url":"https://css-tricks.com/understanding-event-emitters/","name":"Understanding Event Emitters"}}]},{"@type":"Article","@id":"https://css-tricks.com/understanding-event-emitters/#article","isPartOf":{"@id":"https://css-tricks.com/understanding-event-emitters/#webpage"},"author":{"@id":"https://css-tricks.com/#/schema/person/ca6836282d41c783575a6c532aee4cdf"},"headline":"Understanding Event Emitters","datePublished":"2019-03-26T01:07:19+00:00","dateModified":"2019-03-26T01:07:19+00:00","mainEntityOfPage":{"@id":"https://css-tricks.com/understanding-event-emitters/#webpage"},"commentCount":11,"publisher":{"@id":"https://css-tricks.com/#organization"},"image":{"@id":"https://css-tricks.com/understanding-event-emitters/#primaryimage"},"keywords":"JavaScript","articleSection":"Article","inLanguage":"en-US"},{"@type":"Person","@id":"https://css-tricks.com/#/schema/person/ca6836282d41c783575a6c532aee4cdf","name":"Charles Peters","image":{"@type":"ImageObject","@id":"https://css-tricks.com/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/b86f7822f560488a0b8436ce11bb6fa2?s=96&d=retro&r=pg","caption":"Charles Peters"},"sameAs":["https://charlespeters.net/","https://twitter.com/charlespeters"]}]}</script>
+
+<link rel="dns-prefetch" href="https://stats.wp.com/">
+<link rel="dns-prefetch" href="https://i0.wp.com/">
+<link rel="dns-prefetch" href="https://i1.wp.com/">
+<link rel="dns-prefetch" href="https://i2.wp.com/">
+<link rel="alternate" type="application/rss+xml" title="CSS-Tricks » Understanding Event Emitters Comments Feed" href="https://css-tricks.com/understanding-event-emitters/feed/">
+<style id="woocommerce-inline-inline-css" type="text/css">
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel="stylesheet" id="jetpack-instant-search-css" href="./Understanding Event Emitters _ CSS-Tricks_files/jp-search-main.bundle.css" type="text/css" media="all">
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/jquery-3.5.1.min.js.download" id="jquery-js"></script>
+<script type="text/javascript" id="jetpack_related-posts-js-extra">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/related-posts.min.js.download" id="jetpack_related-posts-js"></script>
+<script defer="" src="./Understanding Event Emitters _ CSS-Tricks_files/s-202109.js.download" id="woocommerce-analytics-js"></script>
+<link rel="https://api.w.org/" href="https://css-tricks.com/wp-json/"><link rel="alternate" type="application/json" href="https://css-tricks.com/wp-json/wp/v2/posts/284463"><link rel="shortlink" href="https://css-tricks.com/?p=284463">
+<link rel="alternate" type="application/json+oembed" href="https://css-tricks.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcss-tricks.com%2Funderstanding-event-emitters%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://css-tricks.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcss-tricks.com%2Funderstanding-event-emitters%2F&amp;format=xml">
+
+<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+<style type="text/css">
+				/* If html does not have either class, do not show lazy loaded images. */
+				html:not( .jetpack-lazy-images-js-enabled ):not( .js ) .jetpack-lazy-image {
+					display: none;
+				}
+			</style>
+<script>
+				document.documentElement.classList.add(
+					'jetpack-lazy-images-js-enabled'
+				);
+			</script>
+<style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed, .fluid-width-video-wrapper video {position:absolute;top:0;left:0;width:100%;height:100% !important;}</style><script async="" src="./Understanding Event Emitters _ CSS-Tricks_files/adblocker-chromeglobalinjectjs.js.download"></script><script id="_carbonads_projs" type="text/javascript" src="./Understanding Event Emitters _ CSS-Tricks_files/CK7DK2QU.json"></script></head>
+<body class="post-template-default single single-post postid-284463 single-format-standard theme-CSS-Tricks-18 woocommerce-js category-article" data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed=""><div id="top-of-site-pixel-anchor"></div>
+<header class="site-header" id="site-header">
+<a id="skip-nav" class="skip-nav screen-reader-text" href="https://css-tricks.com/understanding-event-emitters/#maincontent">Skip to main content</a>
+<div class="logo">
+<a href="https://css-tricks.com/">
+<div class="screen-reader-text">CSS-Tricks</div>
+<svg class="icon-logo-star" width="35px" height="35px" viewBox="0 0 362.62 388.52" data-spin-me="false">
+<path d="M156.58,239l-88.3,64.75c-10.59,7.06-18.84,11.77-29.43,11.77-21.19,0-38.85-18.84-38.85-40C0,257.83,14.13,244.88,27.08,239l103.6-44.74L27.08,148.34C13,142.46,0,129.51,0,111.85,0,90.66,18.84,73,40,73c10.6,0,17.66,3.53,28.25,11.77l88.3,64.75L144.81,44.74C141.28,20,157.76,0,181.31,0s40,18.84,36.5,43.56L206,149.52l88.3-64.75C304.93,76.53,313.17,73,323.77,73a39.2,39.2,0,0,1,38.85,38.85c0,18.84-12.95,30.61-27.08,36.5L231.93,194.26,335.54,239c14.13,5.88,27.08,18.83,27.08,37.67,0,21.19-18.84,38.85-40,38.85-9.42,0-17.66-4.71-28.26-11.77L206,239l11.77,104.78c3.53,24.72-12.95,44.74-36.5,44.74s-40-18.84-36.5-43.56Z"></path>
+</svg>
+<svg class="icon-logo-text" width="214px" height="35px" viewBox="0 0 474.15 58.26">
+<path d="M46 42.57a4.5 4.5 0 0 0-3 1.13c-4.1 3.46-8.13 5.39-14.08 5.39-10.78 0-18.58-8.93-18.58-20v-.09c0-11 7.88-19.87 18.58-19.87a20.42 20.42 0 0 1 13.48 5.03 4.95 4.95 0 0 0 7.88-3.86 4.94 4.94 0 0 0-1.93-3.94c-4.91-3.79-10.62-6.36-19.35-6.36-17 0-29 13.12-29 29.13v.16c0 16.17 12.23 29 28.64 29 9.09 0 15.12-2.9 20.43-7.56a4.76 4.76 0 0 0 1.61-3.54 4.71 4.71 0 0 0-4.68-4.62zm36.86-17.95c-10.86-2.62-13.43-4.5-13.43-8.85v-.16c0-3.7 3.38-6.68 9.17-6.68 4.43 0 8.61 1.45 13 4.26a4.78 4.78 0 0 0 2.57.72 4.6 4.6 0 0 0 4.67-4.59 4.47 4.47 0 0 0-2.17-3.94 31 31 0 0 0-17.91-5.22c-11.18 0-19.23 6.68-19.23 16.34v.16c0 10.38 6.76 13.92 18.74 16.82 10.46 2.41 12.73 4.58 12.73 8.6v.16c0 4.18-3.86 7.08-10 7.08a24.42 24.42 0 0 1-15.77-5.79 4.79 4.79 0 0 0-7.56 3.7 4.64 4.64 0 0 0 1.94 3.77 35.05 35.05 0 0 0 21.16 7.1c11.83 0 20.11-6.28 20.11-16.82v-.16c0-9.34-6.11-13.6-18.02-16.5zm49.88 0c-10.86-2.57-13.43-4.51-13.43-8.85v-.16c0-3.7 3.38-6.68 9.17-6.68 4.42 0 8.61 1.45 13 4.26a4.78 4.78 0 0 0 2.57.72 4.6 4.6 0 0 0 4.67-4.59 4.47 4.47 0 0 0-2.17-3.94 31 31 0 0 0-17.91-5.22c-11.18 0-19.23 6.68-19.23 16.33v.16c0 10.38 6.76 13.92 18.74 16.82 10.46 2.41 12.71 4.59 12.71 8.61v.16c0 4.18-3.86 7.08-10 7.08a24.42 24.42 0 0 1-15.77-5.79 4.79 4.79 0 0 0-7.56 3.7 4.64 4.64 0 0 0 1.96 3.77 35.05 35.05 0 0 0 21.16 7.08c11.83 0 20.11-6.28 20.11-16.82v-.16c0-9.32-6.11-13.58-18.02-16.48zm45.62 3.22h-15.13a4.79 4.79 0 0 0 0 9.58h15.12a4.79 4.79 0 0 0 0-9.58zm45.64-26.84h-37.45a4.59 4.59 0 0 0 0 9.17h13.68v42.62a5 5 0 0 0 10 0v-42.65h13.77a4.59 4.59 0 0 0 0-9.14zm38.86 0h-20.15a4.91 4.91 0 0 0-5 5v46.79a4.95 4.95 0 0 0 9.89 0v-15.13h12.47l13.68 17.46a5.65 5.65 0 0 0 4.83 2.58 4.67 4.67 0 0 0 4.75-4.59 5.74 5.74 0 0 0-1.61-3.78l-10.78-13.6c7.56-2.33 12.79-7.81 12.79-16.82v-.16a17 17 0 0 0-4.66-12.15c-3.62-3.54-9.17-5.6-16.25-5.6zm10.86 18.51c0 5.71-4.51 9.41-11.58 9.41h-14.53v-18.92h14.39c7.32 0 11.67 3.3 11.67 9.33zm27-18.91a4.89 4.89 0 0 0-5 4.91v47.28a4.95 4.95 0 0 0 9.89 0v-47.32a4.88 4.88 0 0 0-4.98-4.91zm62.67 42a4.5 4.5 0 0 0-3 1.13c-4.1 3.46-8.13 5.39-14.08 5.39-10.78 0-18.58-8.93-18.58-20v-.12c0-11 7.88-19.87 18.58-19.87a20.42 20.42 0 0 1 13.44 5.07 4.95 4.95 0 0 0 7.88-3.86 4.94 4.94 0 0 0-1.93-3.94c-4.98-3.83-10.7-6.4-19.38-6.4-17.06 0-29 13.12-29 29.13v.16c0 16.17 12.23 29 28.64 29 9.09 0 15.12-2.9 20.43-7.56a4.76 4.76 0 0 0 1.61-3.58 4.71 4.71 0 0 0-4.7-4.58zm41-16.82l17.54-16.9a4.81 4.81 0 0 0 1.77-3.7 4.53 4.53 0 0 0-4.7-4.62 5.2 5.2 0 0 0-4.1 1.85l-26.66 26.88v-23.82a4.95 4.95 0 0 0-9.9 0v47.32a4.95 4.95 0 0 0 9.9 0v-11.67l9.17-8.85 18.1 23.09a5 5 0 0 0 4.18 2.33 4.83 4.83 0 0 0 5-4.83 5.36 5.36 0 0 0-1.37-3.54zm51.8-1.13c-10.92-2.65-13.49-4.53-13.49-8.88v-.16c0-3.7 3.38-6.68 9.17-6.68 4.42 0 8.61 1.45 13 4.26a4.78 4.78 0 0 0 2.57.72 4.6 4.6 0 0 0 4.67-4.59 4.47 4.47 0 0 0-2.17-3.94 31 31 0 0 0-17.94-5.22c-11.15 0-19.2 6.68-19.2 16.34v.16c0 10.38 6.76 13.92 18.74 16.82 10.46 2.41 12.71 4.59 12.71 8.61v.16c0 4.18-3.86 7.08-10 7.08a24.42 24.42 0 0 1-15.77-5.79 4.79 4.79 0 0 0-7.56 3.7 4.64 4.64 0 0 0 1.96 3.76 35.05 35.05 0 0 0 21.12 7.1c11.83 0 20.11-6.28 20.11-16.82v-.16c.04-9.34-6.11-13.6-17.98-16.5z"></path>
+</svg> </a>
+</div>
+<div class="header-middle-area">
+<nav class="main-nav" id="main-nav">
+<ul>
+<li class="articles">
+<a href="https://css-tricks.com/archives/">
+<span>Articles</span>
+</a>
+</li>
+<li class="videos">
+<a href="https://css-tricks.com/video-screencasts/">
+<span>Videos</span>
+</a>
+</li>
+<li class="almanac">
+<a href="https://css-tricks.com/almanac/">
+<span>Almanac</span>
+</a>
+</li>
+<li class="newsletter">
+<a href="https://css-tricks.com/newsletters/">
+<span>Newsletter</span>
+</a>
+</li>
+<li class="guides">
+<a href="https://css-tricks.com/guides/">
+<span>Guides</span>
+</a>
+</li>
+<li class="books">
+<a href="https://css-tricks.com/books/">
+<span>Books</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="search-and-account">
+<a href="https://www.google.com/search?q=site:css-tricks.com%20layout" class="jetpack-search-filter__link">
+<span class="screen-reader-text">Search</span>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.0726 10.4326C12.4801 10.4326 10.4 12.5451 10.4 15.1053C10.4 17.6978 12.5125 19.7779 15.0726 19.7779C17.6651 19.7779 19.7453 17.6654 19.7453 15.1053C19.744 12.544 17.664 10.4326 15.0726 10.4326Z" fill="white"></path>
+<path d="M16.0327 0.447479C7.42401 0.447479 0.447693 7.4238 0.447693 16.0324C0.447693 24.6398 7.42401 31.6161 16.0314 31.6161C24.64 31.6161 31.6163 24.6398 31.6163 16.0324C31.6163 7.4238 24.64 0.447479 16.0327 0.447479ZM23.6163 24.0324C23.3926 24.2562 23.0401 24.385 22.6563 24.385C22.2726 24.385 21.9526 24.2575 21.6963 24.0324L18.7526 21.0887L18.4651 21.2487C17.4088 21.825 16.2576 22.145 15.0724 22.145C11.1998 22.145 8.06509 19.0087 8.06509 15.1376C8.06509 11.265 11.2013 8.13023 15.0724 8.13023C18.9451 8.13023 22.0798 11.2665 22.0798 15.1376C22.0798 16.5138 21.6961 17.8251 20.9273 18.9776L20.7348 19.2976L23.6473 22.2101C23.8711 22.4664 24.0311 22.7864 24.0311 23.1376C23.9998 23.4563 23.8723 23.7763 23.616 24.0326L23.6163 24.0324Z" fill="white"></path>
+</svg>
+</a>
+<a href="https://css-tricks.com/product/membership/">
+<span class="screen-reader-text">Account</span>
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17 1.7C11.5335 1.7 6.48243 4.61655 3.74917 9.35C1.0172 14.0835 1.0172 19.9165 3.74917 24.65C6.48246 29.3835 11.5335 32.3 17 32.3C20.4918 32.3133 23.8809 31.1193 26.5917 28.9199C29.9014 26.2557 31.9559 22.3365 32.2602 18.0984C32.5657 13.8603 31.0954 9.68748 28.2003 6.57682C25.3063 3.46636 21.249 1.69986 17.0003 1.69986L17 1.7ZM27.9956 24.411C27.2651 22.1412 25.014 20.2514 21.9925 19.2447C20.7069 20.6405 18.8967 21.4361 17 21.4361C15.1021 21.4347 13.292 20.6405 12.0074 19.2447C8.98463 20.2514 6.73335 22.1413 6.00439 24.411C4.20212 21.7388 3.43579 18.5008 3.8475 15.3041C4.25921 12.1073 5.82242 9.17082 8.24234 7.04174C10.6622 4.91276 13.7752 3.7387 16.9987 3.7387C20.2221 3.7387 23.3353 4.91276 25.7564 7.04041C28.1763 9.16939 29.7395 12.1057 30.1513 15.3027C30.563 18.4995 29.7966 21.7376 27.9957 24.411L27.9956 24.411Z" fill="white"></path>
+<path d="M22.5049 13.6092C22.5049 16.9919 20.0399 19.736 17 19.736C13.9586 19.736 11.4937 16.9921 11.4937 13.6092C11.4937 10.2251 13.9587 7.48236 17 7.48236C20.0401 7.48236 22.5049 10.2249 22.5049 13.6092Z" fill="white"></path>
+</svg>
+</a>
+</div>
+</div>
+</header>
+<div class="page-wrap">
+<script>
+  var articleYear = 2019;
+  var articleAuthor = "137380";
+  var articleType = "post";
+</script>
+<div class="articles-and-sidebar">
+<main id="post-284463">
+<article>
+<header class="mega-header">
+<style>
+    body::after {
+      opacity: 0.91;
+    }
+    body::before {
+      content: "";
+      background-image: 
+        url(https://css-tricks.com/wp-content/uploads/2019/03/button-click-boom.jpg);
+    }
+  </style>
+<div class="tags">
+<a href="https://css-tricks.com/tag/javascript/" rel="tag">JavaScript</a> </div>
+<h1 class="article-title">
+Understanding Event Emitters </h1>
+<div class="author-row">
+<a href="https://css-tricks.com/author/charlespeters/" aria-label="Author page of Charles Peters">
+<img alt="Avatar of Charles Peters" src="./Understanding Event Emitters _ CSS-Tricks_files/b86f7822f560488a0b8436ce11bb6fa2.png" srcset="https://secure.gravatar.com/avatar/b86f7822f560488a0b8436ce11bb6fa2?s=160&amp;d=retro&amp;r=pg 2x" class="avatar avatar-80 photo skip-lazy" height="80" width="80" loading="lazy"><noscript><img alt='Avatar of Charles Peters' src='https://secure.gravatar.com/avatar/b86f7822f560488a0b8436ce11bb6fa2?s=80&#038;d=retro&#038;r=pg' srcset='https://secure.gravatar.com/avatar/b86f7822f560488a0b8436ce11bb6fa2?s=160&#038;d=retro&#038;r=pg 2x' class='avatar avatar-80 photo skip-lazy' height='80' width='80' loading='lazy'/></noscript> </a>
+<div>
+<a class="author-name" href="https://css-tricks.com/author/charlespeters/">
+Charles Peters </a>
+on
+<time datetime="">
+Mar 25, 2019 </time>
+</div>
+</div>
+</header>
+<div class="article-sponsor">
+<div>
+<p>
+Grow sales with <a href="http://srv.buysellads.com/ads/long/x/TF62A5ZTTTTTTT4W3TXNTTTTTTTDIC3XKTTTTTTTK3UILYTTTTTTTJ3JQTSFCAI3QQUHT73J53NWWRSDQMI66W7WCQME">Customer Journey Smarts</a>
+<img src="./Understanding Event Emitters _ CSS-Tricks_files/B25110421.296887735" alt="Mailchimp tracking pixel">
+</p>
+</div>
+</div>
+<div class="article-content">
+<p>Consider, a DOM Event:</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">const</span> button <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"button"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token comment">/* do something with the event */</span><span class="token punctuation">)</span></code></pre>
+<p>We added a listener to a button click. We’ve <em>subscribed</em> to an event being <em>emitted</em> and we fire a callback when it does. Every time we click that button, that event is emitted and our callback fires with the event.</p>
+<p>There may be times you want to fire a custom event when you’re working in an existing codebase. Not specifically a DOM event like clicking a button, but let’s say you want to emit an event based on some other trigger and have an event respond. We need a custom <em>event emitter</em> to do that.</p>
+<p>An event emitter is a pattern that listens to a named event, fires a callback, then emits that event with a value. Sometimes this is referred to as a “pub/sub” model, or listener. It’s referring to the same thing.</p>
+<p><span id="more-284463"></span></p>
+<p>In JavaScript, an implementation of it might work like this:</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">let</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> event <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+event<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"THUNDER_ON_THE_MOUNTAIN"</span><span class="token punctuation">,</span> <span class="token parameter">value</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+event<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">"THUNDER_ON_THE_MOUNTAIN"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// n: 18</span>
+
+event<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">"THUNDER_ON_THE_MOUNTAIN"</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// n: 5</span></code></pre>
+<p>In this example, we’ve subscribed to an event called <code>“THUNDER_ON_THE_MOUNTAIN”</code> and when that event is emitted our callback <code>value =&gt; (n = value)</code> will be fired. To emit that event, we call <code>emit()</code>.</p>
+<p>This is useful when working with async code and a value needs to be updated somewhere that isn’t co-located with the current module.</p>
+<p>A really macro-level example of this is <a href="https://react-redux.js.org/">React Redux</a>. Redux needs a way to externally share that its internal store has updated so that React knows those values have changed, allowing it to call <code>setState()</code> and re-render the UI. This happens through an event emitter. The Redux store has a subscribe function, and it takes a callback that provides the new store and, in that function, calls React Redux’s <code>&lt;Provider&gt;</code> component, which calls <code>setState()</code> with the new store value. You can look through the whole implementation <a href="https://github.com/reduxjs/react-redux/blob/master/src/components/Provider.js#L36">here</a>.</p>
+<p>Now we have two different parts of our application: the React UI and the Redux store. Neither one can tell the other about events that have been fired.</p>
+<h3><a href="https://css-tricks.com/understanding-event-emitters/#implementation" aria-hidden="true" class="aal_anchor" id="implementation"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Implementation</h3>
+<p>Let’s look at building a simple event emitter. We’ll use a class, and in that class, track the events:</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">class</span> <span class="token class-name">EventEmitter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> events<span class="token punctuation">:</span> Events<span class="token punctuation">;</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">events<span class="token operator">?</span><span class="token punctuation">:</span> Events</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>events <span class="token operator">=</span> events <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h4><a href="https://css-tricks.com/understanding-event-emitters/#events" aria-hidden="true" class="aal_anchor" id="events"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Events</h4>
+<p>We’ll define our <strong>events</strong> interface. We will store a plain object, where each key will be the named event and its respective value being an array of the callback functions.</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">interface</span> <span class="token class-name">Events</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>key<span class="token punctuation">:</span> string<span class="token punctuation">]</span><span class="token punctuation">:</span> Function<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+{
+  "event": [fn],
+  "event_two": [fn]
+}
+*/</span></code></pre>
+<p>We’re using an array because there could be more than one subscriber for each event. Imagine the number of times you’d call <code>element.addEventLister("click")</code> in an application… probably more than once.</p>
+<h4><a href="https://css-tricks.com/understanding-event-emitters/#subscribe" aria-hidden="true" class="aal_anchor" id="subscribe"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Subscribe</h4>
+<p>Now we need to deal with <strong>subscribing</strong> to a named event. In our simple example, the <code>subscribe()</code> function takes two parameters: a name and a callback to fire.</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript">event<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"named event"</span><span class="token punctuation">,</span> <span class="token parameter">value</span> <span class="token operator">=&gt;</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Let’s define that method so our class can take those two parameters. All we’ll do with those values is attach them to the <code>this.events</code> we’re tracking internally in our class.</p>
+<pre rel="TypeScript" data-line="8" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">class</span> <span class="token class-name">EventEmitter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> events<span class="token punctuation">:</span> Events<span class="token punctuation">;</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">events<span class="token operator">?</span><span class="token punctuation">:</span> Events</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>events <span class="token operator">=</span> events <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token function">subscribe</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token punctuation">:</span> Function<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><div aria-hidden="true" data-range="8" class=" line-highlight" data-start="8" style="top: 196px;"> 
+</div></code></pre>
+<h4><a href="https://css-tricks.com/understanding-event-emitters/#emit" aria-hidden="true" class="aal_anchor" id="emit"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Emit</h4>
+<p>Now we can subscribe to events. Next up, we need to fire those callbacks when a new event emits. When it happen, we’ll use event name we’re storing (<code>emit("event")</code>) and any value we want to pass with the callback (<code>emit("event", value)</code>). Honestly, we don’t want to assume anything about those values. We’ll simply pass any parameter to the callback after the first one.</p>
+<pre rel="TypeScript" data-line="12" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">class</span> <span class="token class-name">EventEmitter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> events<span class="token punctuation">:</span> Events<span class="token punctuation">;</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">events<span class="token operator">?</span><span class="token punctuation">:</span> Events</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>events <span class="token operator">=</span> events <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token function">subscribe</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token punctuation">:</span> Function<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token function">emit</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">:</span> any<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">fn</span> <span class="token operator">=&gt;</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><div aria-hidden="true" data-range="12" class=" line-highlight" data-start="12" style="top: 308px;"> 
+</div></code></pre>
+<p>Since we know which event we’re looking to emit, we can look it up using JavaScript’s object bracket syntax (i.e. <code>this.events[name]</code>). This gives us the array of callbacks that have been stored so we can iterate through each one and apply all of the values we’re passing along.</p>
+<h4><a href="https://css-tricks.com/understanding-event-emitters/#unsubscribing" aria-hidden="true" class="aal_anchor" id="unsubscribing"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unsubscribing</h4>
+<p>We’ve got the main pieces solved so far. We can subscribe to an event and emit that event. That’s the big stuff.</p>
+<p>Now we need to be able to <strong>unsubscribe</strong> from an event.</p>
+<p>We already have the name of the event and the callback in the <code>subscribe()</code> function. Since we could have many subscribers to any one event, we’ll want to remove callbacks individually:</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token function">subscribe</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token punctuation">:</span> Function<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">unsubscribe</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>This returns an object with an <code>unsubscribe</code> method. We use an arrow function (<code>() =&gt;</code>) to get the scope of this parameters that are passed to the parent of the object. In this function, we’ll find the index of the callback we passed to the parent and use the bitwise operator (<code>&gt;&gt;&gt;</code>). The bitwise operator has a long and complicated history (<a href="https://stackoverflow.com/questions/1822350/what-is-the-javascript-operator-and-how-do-you-use-it">which you can read all about</a>). Using one here ensures we’ll always get a real number every time we call <code>splice()</code> on our array of callbacks, even if <code>indexOf()</code> doesn’t return a number.</p>
+<p>Anyway, it’s available to us and we can use it like this:</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">const</span> subscription <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"event"</span><span class="token punctuation">,</span> <span class="token parameter">value</span> <span class="token operator">=&gt;</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+subscription<span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Now we’re out of that particular subscription while all other subscriptions can keep chugging along.</p>
+<h3><a href="https://css-tricks.com/understanding-event-emitters/#all-together-now" aria-hidden="true" class="aal_anchor" id="all-together-now"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>All Together Now!</h3>
+<p>Sometimes it helps to put all the little pieces we’ve discussed together to see how they relate to one another.</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">interface</span> <span class="token class-name">Events</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>key<span class="token punctuation">:</span> string<span class="token punctuation">]</span><span class="token punctuation">:</span> Function<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">EventEmitter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> events<span class="token punctuation">:</span> Events<span class="token punctuation">;</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">events<span class="token operator">?</span><span class="token punctuation">:</span> Events</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>events <span class="token operator">=</span> events <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token function">subscribe</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token punctuation">:</span> Function<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token function-variable function">unsubscribe</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token function">emit</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">:</span> any<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">fn</span> <span class="token operator">=&gt;</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3><a href="https://css-tricks.com/understanding-event-emitters/#demo" aria-hidden="true" class="aal_anchor" id="demo"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Demo</h3>
+<div class="cp_embed_wrapper resizable" style="height: 265px;"><iframe allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="cp_embed_iframe " frameborder="0" height="265" width="100%" name="cp_embed_1" scrolling="no" src="./Understanding Event Emitters _ CSS-Tricks_files/gEoErR.html" style="width: 100%; overflow: hidden; display: block; height: 100%;" title="Understanding Event Emitters" loading="lazy" id="cp_embed_gEoErR"></iframe><div class="win-size-grip" style="touch-action: none;"></div></div>
+<p>We’re doing a few thing in this example. First, we’re using an event emitter in another event callback. In this case, an event emitter is being used to clean up some logic. We’re selecting a repository on GitHub, fetching details about it, caching those details, and updating the DOM to reflect those details. Instead of putting that all in one place, we’re fetching a result in the subscription callback from the network or the cache and updating the result. We’re able to do this because we’re giving the callback a random repo from the list when we emit the event</p>
+<p>Now let’s consider something a little less contrived. Throughout an application, we might have lots of application states that are driven by whether we’re logged in and we may want multiple subscribers to handle the fact that the user is attempting to log out. Since we’ve emitted an event with <code>false</code>, every subscriber can use that value, and whether we need to redirect the page, remove a cookie or disable a form.</p>
+<pre rel="JavaScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">const</span> events <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+events<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">"authentication"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+events<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"authentication"</span><span class="token punctuation">,</span> <span class="token parameter">isLoggedIn</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  buttonEl<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"disabled"</span><span class="token punctuation">,</span> <span class="token operator">!</span>isLogged<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+events<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"authentication"</span><span class="token punctuation">,</span> <span class="token parameter">isLoggedIn</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  window<span class="token punctuation">.</span>location<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token operator">!</span>isLoggedIn <span class="token operator">?</span> <span class="token string">"/login"</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+events<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"authentication"</span><span class="token punctuation">,</span> <span class="token parameter">isLoggedIn</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token operator">!</span>isLoggedIn <span class="token operator">&amp;&amp;</span> cookies<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">"auth_token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code>
+</pre>
+<h3><a href="https://css-tricks.com/understanding-event-emitters/#gotchas" aria-hidden="true" class="aal_anchor" id="gotchas"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Gotchas</h3>
+<p>As with anything, there are a few things to consider when putting emitters to work.</p>
+<ul>
+<li>We need to use <code>forEach</code> or <code>map</code> in our <code>emit()</code> function to make sure we’re creating new subscriptions or unsubscribing from a subscription if we’re in that callback.</li>
+<li>We can pass pre-defined events following our <code>Events</code> interface when a new instance of our <code>EventEmitter</code> class has been instantiated, but I haven’t really found a use case for that.</li>
+<li>We don’t need to use a class for this and it’s largely a personal preference whether or not you do use one. I personally use one because it makes it very clear where events are stored.</li>
+</ul>
+<p>As long as we’re speaking practicality, we could do all of this with a function:</p>
+<pre rel="TypeScript" class=" language-javascript"><code class=" language-javascript"><span class="token keyword">function</span> <span class="token function">emitter</span><span class="token punctuation">(</span><span class="token parameter">e<span class="token operator">?</span><span class="token punctuation">:</span> Events</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> events<span class="token punctuation">:</span> Events <span class="token operator">=</span> e <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    events<span class="token punctuation">,</span>
+    <span class="token function-variable function">subscribe</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token function-variable function">cb</span><span class="token punctuation">:</span> Function<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">(</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">(</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token function-variable function">unsubscribe</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> events<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">emit</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">:</span> any<span class="token punctuation">[</span><span class="token punctuation">]</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">(</span>events<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">fn</span> <span class="token operator">=&gt;</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Bottom line: a class is just a preference. Storing events in an object is also a preference. We could just as easily have worked with a <code>Map()</code> instead. Roll with what makes you most comfortable.</p>
+<hr>
+<p>I decided to write this post for two reasons. First, I always felt I understood the concept of emitters made well, but writing one from scratch was never something I thought I could do but now I know I can — and I hope you now feel the same way! Second, emitters are make frequent appearances in job interviews. I find it really hard to talk coherently in those types of situations, and jotting it down like this makes it easier to capture the main idea and illustrate the key points.</p>
+<p>I’ve set all this up in a <a href="https://github.com/charliewilco/cyclops">GitHub repo</a> if you want to pull the code and play with it. And, of course, hit me up with questions in the comments if anything pops up!</p>
+</div>
+</article>
+</main>
+<div class="entry-unrelated sidebar">
+<div id="all-modules">
+<div id="scroll-ad-position"></div>
+<div id="sticky-sidebar-stuff" class="showing">
+<div class="fem-conditional-message">
+<div class="fem-ad fem-sidebar-ad">
+<div class="fem-header">
+<div class="fem-header-inner">
+<div class="fem-learning-partner">
+Our Learning Partner
+</div>
+<a href="https://frontendmasters.com/learn/javascript/?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar"><img src="./Understanding Event Emitters _ CSS-Tricks_files/FEM-sidebar-JavaScript_de4tql.png" alt="Frontend Masters logo" class="fem-logo"></a>
+<div class="fem-title">
+Frontend Masters
+</div>
+</div>
+</div>
+<div class="fem-message">
+<h4>It's time to take your JavaScript to the next level</h4>
+<p><a href="https://frontendmasters.com/?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar">Frontend Masters</a> is the best place on the web to really learn JavaScript. They have <a href="https://frontendmasters.com/learn/javascript/?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar">a complete learning course</a> from the biggest and best teachers in JavaScript to help you make the most out of the web's biggest language.</p>
+</div>
+</div>
+</div> </div>
+</div>
+</div>
+</div>
+<div class="related-ads-comments-wrap">
+<div class="related-ads-comments">
+<div class="end-of-article-ads">
+<div class="bsap-doubles side-by-side">
+<div id="bsap_1250418" class="bsarocks bsap_3469a2a501a9e18091036aa0c89f9dcb"></div>
+</div>
+<div class="fem-conditional-message">
+<div class="fem-ad fem-footer-ad">
+<div class="fem-header">
+<div class="fem-header-inner">
+<a href="https://frontendmasters.com/learn/javascript/?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar"><img src="./Understanding Event Emitters _ CSS-Tricks_files/FEM-footer-JavaScript_a9sxzu.png" alt="Frontend Masters logo" class="fem-logo-large"></a>
+</div>
+</div>
+<div class="fem-message">
+<div>
+<h4>It's time to take your JavaScript to the next level</h4>
+<p><a href="https://frontendmasters.com/?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar">Frontend Masters</a> is the best place on the web to really learn JavaScript. They have <a href="https://frontendmasters.com/learn/javascript/?utm_source=css-tricks&amp;utm_medium=website&amp;utm_campaign=css-tricks-tags-sidebar">a complete learning course</a> from the biggest and best teachers in JavaScript to help you make the most out of the web's biggest language.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="respond-area">
+<h2 class="comments-title" id="comments">
+<span>Comments</span>
+</h2>
+<ol class="commentlist" id="commentlist">
+<li class="comment even thread-even depth-1" id="li-comment-1681460">
+<div class="comment-wrap" id="comment-1681460">
+<div class="comment-author-wrap">
+<div class="comment-author">Josh</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1681460"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-25T20:59:14-07:00">March 25, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>I just set up a React app that connects to the backend over WebSockets. This might be a really nice way to build a type-safe interface between the two. That way, DOM events can be handled the same way as network events: “online”, “click”, “user-connected”. They’re all just events to be emitted, right?</p>
+<p>Thanks for the write-up, Charles!</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1681498">
+<div class="comment-wrap" id="comment-1681498">
+<div class="comment-author-wrap">
+<div class="comment-author">Benny Powers</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1681498"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-25T22:34:05-07:00">March 25, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>Why not use <code>CustomEvent</code>?</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-charlespeters bypostauthor even depth-2" id="li-comment-1681703">
+<div class="comment-wrap" id="comment-1681703">
+<div class="comment-author-wrap">
+<div class="comment-author">Charles Peters</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1681703"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-26T07:52:08-07:00">March 26, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>good question, main reason, is this is just a common pattern to work with and it’s tied to any specific environment. so it’ll work in both the browser and the server.</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+<li class="comment odd alt depth-2" id="li-comment-1682057">
+<div class="comment-wrap" id="comment-1682057">
+<div class="comment-author-wrap">
+<div class="comment-author">blokche</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1682057"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-26T23:28:41-07:00">March 26, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>CustomEvent is a DOM thing. The Pub/Sub model here can be used anywhere.</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment even thread-even depth-1" id="li-comment-1681586">
+<div class="comment-wrap" id="comment-1681586">
+<div class="comment-author-wrap">
+<div class="comment-author">Matt Kimek</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1681586"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-26T01:52:58-07:00">March 26, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>Hi Charles,<br>
+It is a great article ! However still I don’t catch emmiter pattern. For me getRepo looks like normal function (<a href="https://codepen.io/kimek/pen/RdOjbX" rel="nofollow ugc">https://codepen.io/kimek/pen/RdOjbX</a>). What’s is the advantages in using emitter there ?<br>
+Going to authentication scenario – isn’t just emitter rewriting authentication functionality there ? I’ve get listeners and observers however not emmiters :(</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-charlespeters bypostauthor odd alt depth-2" id="li-comment-1681704">
+<div class="comment-wrap" id="comment-1681704">
+<div class="comment-author-wrap">
+<div class="comment-author">Charles Peters</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1681704"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-26T07:56:33-07:00">March 26, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>the emitter is saying, “hey, do this thing now” so that the subscriber can call back to it. in the authentication example, lots of pieces of our app can be <em>subscribed</em> to a <code>logout</code> event and deal with their own logic. so that when we emit the <code>logout</code> event each piece deals with itself. it’s away to broadcast to every subscriber something has happened.</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="li-comment-1681738">
+<div class="comment-wrap" id="comment-1681738">
+<div class="comment-author-wrap">
+<div class="comment-author">Laxman</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1681738"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-26T10:13:11-07:00">March 26, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>I’m not trying to be rude or anything but, you wrote an article to explain some basic stuff like “<em>event emitters</em>” likely targeted towards beginners in “<em>Typescript</em>“!?</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-charlespeters bypostauthor odd alt depth-2" id="li-comment-1682379">
+<div class="comment-wrap" id="comment-1682379">
+<div class="comment-author-wrap">
+<div class="comment-author">Charles Peters</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1682379"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-27T12:01:01-07:00">March 27, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>no not rude at all, that’s a fair criticism. the only real thing typescript is used for here is to annotate what shape the class holds the events in and to show which methods you can use from that class. but given the aggressive upswing in popularity of typescript, maybe css-tricks should add a typescript for beginner’s post?</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+<li class="comment even depth-2" id="li-comment-1687988">
+<div class="comment-wrap" id="comment-1687988">
+<div class="comment-author-wrap">
+<div class="comment-author">Andres</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1687988"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-04-07T03:44:56-07:00">April 7, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>Nice article!</p>
+<p>Maybe I am missing something, but, in order to keep it simple, and make honor to SRP, what do you think about using only one event kind by emitter?</p>
+<p>I mean, avoiding the event names and simply storing an array of functions in place of a dictionary based on event names.</p>
+<p>Thoughts?</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment odd alt thread-even depth-1" id="li-comment-1682439">
+<div class="comment-wrap" id="comment-1682439">
+<div class="comment-author-wrap">
+<div class="comment-author">Behnam</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1682439"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-03-27T15:06:41-07:00">March 27, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>It’s great, and very like <a href="https://css-tricks.com/understanding-event-emitters/npmjs.com/package/jetemit" rel="nofollow"><strong>jetemit</strong></a></p>
+<p>Link:<br>
+<a href="https://css-tricks.com/understanding-event-emitters/npmjs.com/package/jetemit" rel="nofollow">npmjs.com/package/jetemit</a></p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="li-comment-1692005">
+<div class="comment-wrap" id="comment-1692005">
+<div class="comment-author-wrap">
+<div class="comment-author">Westbrook Johnson</div> <div class="comment-time"><a href="https://css-tricks.com/understanding-event-emitters/#comment-1692005"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2019-04-15T05:27:21-07:00">April 15, 2019</time></div>
+</div>
+<div class="comment-content">
+<p>Nice introduction to event buses! Would love to see a follow up with some of your favorite use cases for the event/pubsub technique.</p>
+<p>Being <code>EventTarget</code> and <code>EventEmitter</code> are native DOM and Node.js concepts/APIs respectively, would you see value in revisiting this as an abstraction of the two to better leverage the capabilities already present in the environments in which you work?</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+</ol>
+<div class="comments-closed">
+This comment thread is closed. If you have important information to share, please <a href="https://css-tricks.com/contact/">contact us</a>.
+</div>
+</section> <div class="related-posts">
+<div id="jp-relatedposts" class="jp-relatedposts">
+<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-visual jp-relatedposts-grid "><div class="jp-relatedposts-post jp-relatedposts-post0 jp-relatedposts-post-thumbs" data-post-id="330593" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://css-tricks.com/lets-create-a-lightweight-native-event-bus-in-javascript/" title="Let’s Create a Lightweight Native Event Bus in JavaScript" data-origin="284463" data-position="0"><img class="jp-relatedposts-post-img" src="./Understanding Event Emitters _ CSS-Tricks_files/event-bus-js-vw.jpg" width="350" alt=""></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://css-tricks.com/lets-create-a-lightweight-native-event-bus-in-javascript/" title="Let’s Create a Lightweight Native Event Bus in JavaScript" data-origin="284463" data-position="0">Let’s Create a Lightweight Native Event Bus in JavaScript</a></h4><p class="jp-relatedposts-post-excerpt">An event bus is a design pattern (and while we’ll be talking about JavaScript here, it’s a design pattern in any language) that can be used to simplify communications between different components. It can also be thought of as publish/subscribe or pubsub. The idea is that components can listen to…</p><time class="jp-relatedposts-post-date" datetime="December 11, 2020" style="display: block;">December 11, 2020</time><p class="jp-relatedposts-post-context">In "Article"</p></div><div class="jp-relatedposts-post jp-relatedposts-post1 jp-relatedposts-post-thumbs" data-post-id="286888" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://css-tricks.com/the-thinking-behind-simplifying-event-handlers/" title="The Thinking Behind Simplifying Event Handlers" data-origin="284463" data-position="1"><img class="jp-relatedposts-post-img" src="./Understanding Event Emitters _ CSS-Tricks_files/event-handlers.png" width="350" alt=""></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://css-tricks.com/the-thinking-behind-simplifying-event-handlers/" title="The Thinking Behind Simplifying Event Handlers" data-origin="284463" data-position="1">The Thinking Behind Simplifying Event Handlers</a></h4><p class="jp-relatedposts-post-excerpt">Events are used to respond when a user clicks somewhere, focuses on a link with their keyboard, and changes the text in a form. When I first started learning JavaScript, I wrote complicated event listeners. More recently, I've learned how to reduce both the amount of code I write and…</p><time class="jp-relatedposts-post-date" datetime="May 9, 2019" style="display: block;">May 9, 2019</time><p class="jp-relatedposts-post-context">In "Article"</p></div><div class="jp-relatedposts-post jp-relatedposts-post2 jp-relatedposts-post-thumbs" data-post-id="332292" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://css-tricks.com/3-approaches-to-integrate-react-with-custom-elements/" title="3 Approaches to Integrate React with Custom Elements" data-origin="284463" data-position="2"><img class="jp-relatedposts-post-img" src="./Understanding Event Emitters _ CSS-Tricks_files/react-recompose-hand.png" width="350" alt=""></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://css-tricks.com/3-approaches-to-integrate-react-with-custom-elements/" title="3 Approaches to Integrate React with Custom Elements" data-origin="284463" data-position="2">3 Approaches to Integrate React with Custom Elements</a></h4><p class="jp-relatedposts-post-excerpt">In my role as a web developer who sits at the intersection of design and code, I am drawn to Web Components because of their portability. It makes sense: custom elements are fully-functional HTML elements that work in all modern browsers, and the shadow DOM encapsulates the right styles with…</p><time class="jp-relatedposts-post-date" datetime="January 15, 2021" style="display: block;">January 15, 2021</time><p class="jp-relatedposts-post-context">In "Article"</p></div></div></div> <div class="jetpack-sponsored-posts-message">
+<img src="./Understanding Event Emitters _ CSS-Tricks_files/jetpack-logo_cegyqg.svg" alt="Jetpack Logo">
+<p>The related posts above were algorithmically generated and displayed here without any load on our servers at all, <a href="https://jetpack.com/support/related-posts/?aff=8638">thanks to Jetpack</a>.</p>
+</div>
+</div> </div>
+</div>
+</div>
+<footer class="site-footer">
+<svg class="icon-logo-star" width="35px" height="35px" viewBox="0 0 362.62 388.52" data-spin-me="false">
+<path d="M156.58,239l-88.3,64.75c-10.59,7.06-18.84,11.77-29.43,11.77-21.19,0-38.85-18.84-38.85-40C0,257.83,14.13,244.88,27.08,239l103.6-44.74L27.08,148.34C13,142.46,0,129.51,0,111.85,0,90.66,18.84,73,40,73c10.6,0,17.66,3.53,28.25,11.77l88.3,64.75L144.81,44.74C141.28,20,157.76,0,181.31,0s40,18.84,36.5,43.56L206,149.52l88.3-64.75C304.93,76.53,313.17,73,323.77,73a39.2,39.2,0,0,1,38.85,38.85c0,18.84-12.95,30.61-27.08,36.5L231.93,194.26,335.54,239c14.13,5.88,27.08,18.83,27.08,37.67,0,21.19-18.84,38.85-40,38.85-9.42,0-17.66-4.71-28.26-11.77L206,239l11.77,104.78c3.53,24.72-12.95,44.74-36.5,44.74s-40-18.84-36.5-43.56Z"></path>
+</svg>
+<div class="footer-inside">
+<div class="footer-message-and-form">
+<p class="colophon">
+CSS-Tricks is created by <a href="https://chriscoyier.net/">Chris</a> and a <a href="https://css-tricks.com/about">team</a> of swell&nbsp;people.
+</p>
+<div class="footer-form-wrap">
+<form action="https://chriscoyier.us2.list-manage.com/subscribe/post?u=155f5a9ccc4e24c318130cace&amp;id=197f127a68" method="post" id="mc-embedded-subscribe-form">
+<h4>Keep up to date on web dev</h4>
+<p>with our hand-crafted weekly newsletter</p>
+<div class="footer-form">
+<label for="mce-EMAIL" class="screen-reader">Email Address</label>
+<input type="email" name="EMAIL" class="required email mailchimp-email-input" id="mce-EMAIL" placeholder="smart@cookie.com" required="">
+<input type="submit" value="Subscribe" name="Subscribe" id="mc-embedded-subscribe" class="button subscribe-button">
+</div>
+</form>
+</div> </div>
+<div class="link-grid">
+<div>
+<div>
+<h5>
+Tech
+</h5>
+<ul>
+<li><a href="https://wordpress.org/">WordPress</a> <span>(CMS)</span></li>
+<li><a href="https://css-tricks.com/jetpack/">Jetpack</a> <span>(Search, Backup)</span></li>
+<li><a href="https://woocommerce.com/?aff=8638">WooCommerce</a> <span>(eCommerce)</span></li>
+<li><a href="https://localwp.com/">Local</a> <span>(Development)</span></li>
+</ul>
+</div>
+<div>
+<h5>Hosting</h5>
+<ul>
+<li><a href="https://share.getf.ly/k96n2f">Flywheel</a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h5>Family</h5>
+<ul>
+<li><a href="https://codepen.io/">CodePen</a></li>
+<li><a href="https://shoptalkshow.com/">ShopTalk Show</a></li>
+</ul>
+</div>
+<div>
+<h5>Minisites</h5>
+<ul>
+<li><a href="https://serverless.css-tricks.com/">The Power of Serverless</a></li>
+<li><a href="https://conferences.css-tricks.com/">Upcoming Conferences</a></li>
+<li><a href="https://coding-fonts.css-tricks.com/">Coding Fonts</a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h5>Contact</h5>
+<ul>
+<li><a href="mailto:team@css-tricks.com">Email</a></li>
+<li><a href="https://www.notion.so/csstricks/Sponsorship-Possibilities-cb5b33a3f6f64c239220547fe7965d78">Sponsorship Info</a></li>
+<li><a href="https://css-tricks.com/guest-posting/">Guest Writing</a></li>
+</ul>
+</div>
+<div>
+<h5>Buy</h5>
+<ul>
+<li><a href="https://css-tricks.com/shop/">Posters &amp; Swag</a></li>
+<li><a href="https://css-tricks.com/product/mvp-supporter/">Membership</a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h5>Follow</h5>
+<ul>
+<li><a href="https://twitter.com/css">Twitter</a></li>
+<li><a href="https://www.instagram.com/real_css_tricks/">Instagram</a></li>
+<li><a href="https://www.youtube.com/user/realcsstricks">YouTube</a></li>
+<li><a href="https://codepen.io/team/css-tricks">CodePen</a></li>
+<li><a href="https://github.com/CSS-Tricks">GitHub</a></li>
+<li><a href="https://podcasts.apple.com/us/podcast/css-tricks-screencasts/id273881728">iTunes</a></li>
+<li><a href="https://css-tricks.com/feed/">RSS</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<a href="https://css-tricks.com/understanding-event-emitters/#top-of-site" class="top-of-site-link" data-visible="true">
+<span class="screen-reader-text">Back to Top</span>
+<svg width="32" height="32" viewBox="0 0 100 100">
+<path fill="white" d="m50 0c-13.262 0-25.98 5.2695-35.355 14.645s-14.645 22.094-14.645 35.355 5.2695 25.98 14.645 35.355 22.094 14.645 35.355 14.645 25.98-5.2695 35.355-14.645 14.645-22.094 14.645-35.355-5.2695-25.98-14.645-35.355-22.094-14.645-35.355-14.645zm20.832 62.5-20.832-22.457-20.625 22.457c-1.207 0.74219-2.7656 0.57812-3.7891-0.39844-1.0273-0.98047-1.2695-2.5273-0.58594-3.7695l22.918-25c0.60156-0.61328 1.4297-0.96094 2.2891-0.96094 0.86328 0 1.6914 0.34766 2.293 0.96094l22.918 25c0.88672 1.2891 0.6875 3.0352-0.47266 4.0898-1.1562 1.0508-2.9141 1.0859-4.1133 0.078125z"></path>
+</svg>
+</a>
+</footer>
+
+<script type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})()
+	</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/photon.min.js.download" id="jetpack-photon-js"></script>
+<script type="text/javascript" id="jetpack-live-comment-markdown-js-extra">
+/* <![CDATA[ */
+var markdownify = {"ajax_url":"\/wp-admin\/admin-ajax.php","nonce":"d1ba6f30f4"};
+/* ]]> */
+</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/markdownify.js.download" id="jetpack-live-comment-markdown-js"></script>
+<script id="jetpack-instant-search-ie11-js-before">
+var JetpackInstantSearchIe11PolyfillPath=decodeURIComponent("https%3A%2F%2Fcss-tricks.com%2Fwp-content%2Fplugins%2Fjetpack%2F_inc%2Fbuild%2Finstant-search%2Fjp-search-ie11-polyfill-payload.bundle.js");
+</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/jp-search-ie11-polyfill-loader.bundle.js.download" id="jetpack-instant-search-ie11-js"></script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/wp-polyfill.min.js.download" id="wp-polyfill-js"></script>
+<script id="wp-polyfill-js-after">
+( 'fetch' in window ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );
+</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/i18n.min.js.download" id="wp-i18n-js"></script>
+<script id="jetpack-instant-search-js-translations">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "jetpack", { "locale_data": { "messages": { "": {} } } } );
+</script>
+<script id="jetpack-instant-search-js-before">
+var JetpackInstantSearchOptions=JSON.parse(decodeURIComponent("%7B%22overlayOptions%22%3A%7B%22colorTheme%22%3A%22dark%22%2C%22enableInfScroll%22%3Atrue%2C%22enableSort%22%3Atrue%2C%22highlightColor%22%3A%22%23f4af38%22%2C%22opacity%22%3A97%2C%22overlayTrigger%22%3A%22immediate%22%2C%22resultFormat%22%3A%22minimal%22%2C%22showPoweredBy%22%3Atrue%7D%2C%22homeUrl%22%3A%22https%3A%5C%2F%5C%2Fcss-tricks.com%22%2C%22locale%22%3A%22en-US%22%2C%22postsPerPage%22%3A11%2C%22siteId%22%3A45537868%2C%22postTypes%22%3A%7B%22post%22%3A%7B%22singular_name%22%3A%22Post%22%2C%22name%22%3A%22Posts%22%7D%2C%22page%22%3A%7B%22singular_name%22%3A%22Page%22%2C%22name%22%3A%22Pages%22%7D%2C%22attachment%22%3A%7B%22singular_name%22%3A%22Media%22%2C%22name%22%3A%22Media%22%7D%2C%22product%22%3A%7B%22singular_name%22%3A%22Product%22%2C%22name%22%3A%22Products%22%7D%2C%22screenshot%22%3A%7B%22singular_name%22%3A%22Screenshot%22%2C%22name%22%3A%22Screenshots%22%7D%2C%22guides%22%3A%7B%22singular_name%22%3A%22Guide%22%2C%22name%22%3A%22Guides%22%7D%2C%22newsletters%22%3A%7B%22singular_name%22%3A%22Newsletter%22%2C%22name%22%3A%22Newsletters%22%7D%2C%22chapters%22%3A%7B%22singular_name%22%3A%22Chapter%22%2C%22name%22%3A%22Chapters%22%7D%7D%2C%22webpackPublicPath%22%3A%22https%3A%5C%2F%5C%2Fcss-tricks.com%5C%2Fwp-content%5C%2Fplugins%5C%2Fjetpack%5C%2F_inc%5C%2Fbuild%5C%2Finstant-search%5C%2F%22%2C%22apiRoot%22%3A%22https%3A%5C%2F%5C%2Fcss-tricks.com%5C%2Fwp-json%5C%2F%22%2C%22apiNonce%22%3A%22f2d2dc50c7%22%2C%22isPrivateSite%22%3Afalse%2C%22isWpcom%22%3Afalse%2C%22defaultSort%22%3A%22relevance%22%2C%22excludedPostTypes%22%3A%5B%22attachment%22%2C%22screenshot%22%5D%2C%22hasOverlayWidgets%22%3Atrue%2C%22widgets%22%3A%5B%7B%22filters%22%3A%5B%7B%22name%22%3A%22Post%20Types%22%2C%22type%22%3A%22post_type%22%2C%22count%22%3A5%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%2C%22filter_id%22%3A%22post_type_1%22%7D%2C%7B%22name%22%3A%22Year%22%2C%22type%22%3A%22date_histogram%22%2C%22count%22%3A1%2C%22field%22%3A%22post_date%22%2C%22interval%22%3A%22year%22%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%2C%22filter_id%22%3A%22date_histogram_2%22%7D%2C%7B%22name%22%3A%22Tags%22%2C%22type%22%3A%22taxonomy%22%2C%22taxonomy%22%3A%22post_tag%22%2C%22count%22%3A5%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%2C%22filter_id%22%3A%22taxonomy_3%22%7D%5D%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%7D%5D%2C%22widgetsOutsideOverlay%22%3A%5B%7B%22filters%22%3A%5B%7B%22name%22%3A%22Tags%22%2C%22type%22%3A%22taxonomy%22%2C%22taxonomy%22%3A%22post_tag%22%2C%22count%22%3A5%2C%22widget_id%22%3A%22jetpack-search-filters-3%22%2C%22filter_id%22%3A%22taxonomy_0%22%7D%5D%2C%22widget_id%22%3A%22jetpack-search-filters-3%22%7D%5D%2C%22adminQueryFilter%22%3A%7B%22bool%22%3A%7B%22should%22%3A%5B%7B%22term%22%3A%7B%22post_type%22%3A%22post%22%7D%7D%2C%7B%22term%22%3A%7B%22post_type%22%3A%22page%22%7D%7D%2C%7B%22term%22%3A%7B%22post_type%22%3A%22newsletters%22%7D%7D%2C%7B%22term%22%3A%7B%22post_type%22%3A%22chapters%22%7D%7D%5D%7D%7D%7D"));
+</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/jp-search-main.bundle.js.download" id="jetpack-instant-search-js"></script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/w.js.download" id="jp-tracks-js"></script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/intersectionobserver-polyfill.min.js.download" id="jetpack-lazy-images-polyfill-intersectionobserver-js"></script>
+<script type="text/javascript" id="jetpack-lazy-images-js-extra">
+/* <![CDATA[ */
+var jetpackLazyImagesL10n = {"loading_warning":"Images are still loading. Please cancel your print and try again."};
+/* ]]> */
+</script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/lazy-images.min.js.download" id="jetpack-lazy-images-js"></script>
+<script>
+    window.activeMember = false;
+  </script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/global-concat.min.js.download"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68528-29', 'auto');
+
+  if (typeof articleYear !== "undefined") {
+    ga('set', 'dimension1', articleYear);
+  }
+  if (typeof articleAuthor !== "undefined") {
+    ga('set', 'dimension2', articleAuthor);
+  }
+  if (typeof articleType !== "undefined") {
+    ga('set', 'dimension3', articleType);
+  }
+
+  ga('send', 'pageview');
+</script>
+<script async="" src="./Understanding Event Emitters _ CSS-Tricks_files/ei.js.download"></script>
+<script src="./Understanding Event Emitters _ CSS-Tricks_files/3.0.0" type="module" defer="" integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<svg width="0" height="0" class="screen-reader">
+<defs>
+<lineargradient id="orange-to-pink" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#ff7a18"></stop>
+<stop offset="40%" stop-color="#af002d"></stop>
+<stop offset="100%" stop-color="#319197"></stop>
+</lineargradient>
+<filter id="duotone_orange_pink">
+<fecolormatrix type="matrix" result="grayscale" values="1 0 0 0 0
+                  1 0 0 0 0
+                  1 0 0 0 0
+                  0 0 0 1 0">
+</fecolormatrix>
+<fecomponenttransfer color-interpolation-filters="sRGB" result="duotone">
+<fefuncr type="table" tableValues="0.7411764706 0.9882352941"></fefuncr>
+<fefuncg type="table" tableValues="0.0431372549 0.7333333333"></fefuncg>
+<fefuncb type="table" tableValues="0.568627451 0.05098039216"></fefuncb>
+<fefunca type="table" tableValues="0 1"></fefunca>
+</fecomponenttransfer>
+</filter>
+</defs>
+</svg>
+<script defer="" src="./Understanding Event Emitters _ CSS-Tricks_files/beacon.min.js.download" data-cf-beacon="{&quot;si&quot;:10,&quot;version&quot;:&quot;2021.2.0&quot;,&quot;rayId&quot;:&quot;6298e1e11b49e26c&quot;}"></script>
+
+<div aria-labelledby="jetpack-instant-search__overlay-title" class="jetpack-instant-search__overlay jetpack-instant-search__overlay--dark  is-hidden" role="dialog" style="opacity: 0;"><h1 id="jetpack-instant-search__overlay-title" class="screen-reader-text">Search results</h1><main aria-hidden="false" aria-live="polite" class="jetpack-instant-search__search-results"><button class="jetpack-instant-search__overlay-close" tabindex="0" aria-label="Close search results"><svg class="gridicon gridicons-cross " focusable="false" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height: 24px; width: 24px;"><title>Close search results</title><g><path d="M18.36 19.78L12 13.41l-6.36 6.37-1.42-1.42L10.59 12 4.22 5.64l1.42-1.42L12 10.59l6.36-6.36 1.41 1.41L13.41 12l6.36 6.36z"></path></g></svg></button><div class="jetpack-instant-search__search-results-primary"><style>
+							.jetpack-instant-search__search-results .jetpack-instant-search__search-results-primary mark { 
+								color: black;
+								background-color: #f4af38;
+							}
+						</style><form autocomplete="off" role="search" class="jetpack-instant-search__search-results-search-form"><div class="jetpack-instant-search__search-form"><div class="jetpack-instant-search__box"><label class="jetpack-instant-search__box-label" for="jetpack-instant-search__box-input-1"><span class="screen-reader-text assistive-text">Site Search</span><div class="jetpack-instant-search__box-gridicon"><svg class="gridicon gridicons-search " focusable="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 24px; width: 24px;"><title>Search</title><g><path d="M21 19l-5.154-5.154C16.574 12.742 17 11.42 17 10c0-3.866-3.134-7-7-7s-7 3.134-7 7 3.134 7 7 7c1.42 0 2.742-.426 3.846-1.154L19 21l2-2zM5 10c0-2.757 2.243-5 5-5s5 2.243 5 5-2.243 5-5 5-5-2.243-5-5z"></path></g></svg></div><input autocomplete="off" id="jetpack-instant-search__box-input-1" class="search-field jetpack-instant-search__box-input" inputmode="search" placeholder="Search…" type="search"><button class="screen-reader-text assistive-text">Search</button></label></div><div class="jetpack-instant-search__box-filter-area"><div role="button" tabindex="0" class="jetpack-instant-search__box-filter-button">Filters<svg class="gridicon gridicons-chevron-down " focusable="true" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height: 16px; width: 16px;"><g><path d="M20 9l-8 8-8-8 1.414-1.414L12 14.172l6.586-6.586"></path></g></svg><span class="screen-reader-text assistive-text">Show filters</span></div><div class="jetpack-instant-search__box-filter-order"><div class="screen-reader-text">Sort by: </div><a class="jetpack-instant-search__box-filter-option is-selected" data-value="relevance" role="button" tabindex="0">Relevance</a><a class="jetpack-instant-search__box-filter-option " data-value="newest" role="button" tabindex="0">Newest</a><a class="jetpack-instant-search__box-filter-option " data-value="oldest" role="button" tabindex="0">Oldest</a></div></div></div></form><div class="jetpack-instant-search__search-results-title">Found 7,196 results</div><ol class="jetpack-instant-search__search-results-list is-format-minimal"><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/what-beautiful-html-code-looks-like/" rel="noopener noreferrer" target="_blank">What Beautiful HTML Code Looks Like</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" rel="noopener noreferrer" target="_blank">A Complete Guide to Flexbox</a></h3><div class="jetpack-instant-search__search-result-minimal-content">Our comprehensive guide to CSS flexbox layout. This complete guide explains everything about flexbox, focusing on all the different possible properties for the parent element (the flex container) and the child elements (the flex items). It also includes history, demos, patterns, and a browser support chart.</div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/almanac/selectors/n/not/" rel="noopener noreferrer" target="_blank">:not()</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-tags"><li class="jetpack-instant-search__search-result-minimal-tag"><svg class="gridicon gridicons-tag " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Tag</title><g><path d="M20 2.007h-7.087c-.53 0-1.04.21-1.414.586L2.592 11.5c-.78.78-.78 2.046 0 2.827l7.086 7.086c.78.78 2.046.78 2.827 0l8.906-8.906c.376-.374.587-.883.587-1.413V4.007c0-1.105-.895-2-2-2zM17.007 9c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z"></path></g></svg>:not</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/how-do-you-structure-javascript-the-module-pattern-edition/" rel="noopener noreferrer" target="_blank">How Do You Structure JavaScript? The Module Pattern Edition</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/snippets/css/media-queries-for-standard-devices/" rel="noopener noreferrer" target="_blank">Media Queries for Standard Devices</a></h3><div class="jetpack-instant-search__search-result-minimal-content">This page lists a ton of different devices and media queries that would specifically target that device. That's probably not generally a great practice, but it is helpful to know what the dimensions for all these devices are in a CSS context.</div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/all-about-floats/" rel="noopener noreferrer" target="_blank">All About Floats</a></h3><div class="jetpack-instant-search__search-result-minimal-content">Float is a CSS positioning property. To understand its purpose and origin, we can look to print design. In a print layout, images may be set into the page such that text wraps around them as needed. This is commonly and appropriately called "text wrap".</div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/style-a-list-with-one-pixel/" rel="noopener noreferrer" target="_blank">Style a List with One Pixel</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/snippets/css/css-hacks-targeting-firefox/" rel="noopener noreferrer" target="_blank">CSS Hacks Targeting Firefox</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/snippets/css/clear-fix/" rel="noopener noreferrer" target="_blank">The Clearfix: Force an Element To Self-Clear its Children</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/snippets/css/using-font-face/" rel="noopener noreferrer" target="_blank">Using @font-face</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li><li class="jetpack-instant-search__search-result-minimal"><h3 class="jetpack-instant-search__search-result-minimal-title"><svg class="gridicon gridicons-pages " focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><g><path d="M16 8H8V6h8v2zm0 2H8v2h8v-2zm4-6v12l-6 6H6c-1.105 0-2-.895-2-2V4c0-1.105.895-2 2-2h12c1.105 0 2 .895 2 2zm-2 10V4H6v16h6v-4c0-1.105.895-2 2-2h4z"></path></g></svg><a class="jetpack-instant-search__search-result-minimal-title-link" href="https://css-tricks.com/snippets/css/css-box-shadow/" rel="noopener noreferrer" target="_blank">CSS Box Shadow</a></h3><div class="jetpack-instant-search__search-result-minimal-content"><ul class="jetpack-instant-search__search-result-minimal-cats"><li class="jetpack-instant-search__search-result-minimal-cat"><svg class="gridicon gridicons-folder  needs-offset" focusable="true" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" style="height: 18px; width: 18px;"><title>Category</title><g><path d="M18 19H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2h7c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2z"></path></g></svg>Article</li></ul></div></li></ol><div class="jetpack-instant-search__search-pagination"><button class="jetpack-instant-search__scroll-button"><span>Load more</span></button></div></div><div class="jetpack-instant-search__search-results-secondary"><div class="jetpack-instant-search__sidebar"><div class="jetpack-instant-search__widget-area-container"><div class="jetpack-instant-search__widget-area" style="">
+<div id="media_image-3" class="widget widget_media_image"><a href="https://jetpack.com/upgrade/search/?aff=8638"><img width="600" height="444" src="./Understanding Event Emitters _ CSS-Tricks_files/Jetpack-Search-on-CSS-Tricks-Instant-Search.png" class="image wp-image-321694  attachment-full size-full jetpack-lazy-image" alt="" loading="lazy" style="max-width: 100%; height: auto;" data-lazy-srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?w=600&amp;ssl=1 600w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?resize=300%2C222&amp;ssl=1 300w" data-lazy-sizes="(min-width: 735px) 864px, 96vw" data-lazy-src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?fit=600%2C444&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></a></div><div id="jetpack-search-filters-5" class="widget jetpack-filters widget_search"> <div id="jetpack-search-filters-5-wrapper" class="jetpack-instant-search-wrapper"><div id="jetpack-search-filters-5-portaled-wrapper" class="jetpack-instant-search__portaled-wrapper"><div class="jetpack-instant-search__filters"><div><h4 class="jetpack-instant-search__filter-sub-heading">Post Types</h4><div class="jetpack-instant-search__filter-list"><div><input id="jetpack-instant-search__filter-2-post-types-post" name="post" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-2-post-types-post" class="jetpack-instant-search__filter-list-label">Post (5413)</label></div><div><input id="jetpack-instant-search__filter-2-post-types-page" name="page" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-2-post-types-page" class="jetpack-instant-search__filter-list-label">Page (1524)</label></div><div><input id="jetpack-instant-search__filter-2-post-types-newsletters" name="newsletters" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-2-post-types-newsletters" class="jetpack-instant-search__filter-list-label">Newsletter (240)</label></div><div><input id="jetpack-instant-search__filter-2-post-types-chapters" name="chapters" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-2-post-types-chapters" class="jetpack-instant-search__filter-list-label">Chapter (19)</label></div></div></div><div><h4 class="jetpack-instant-search__filter-sub-heading">Year</h4><div class="jetpack-instant-search__filter-list"><div><input id="jetpack-instant-search__filter-3-dates-year_post_date-2021-01-01 00:00:00" name="2021-01-01 00:00:00" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-3-dates-year_post_date-2021-01-01 00:00:00" class="jetpack-instant-search__filter-list-label">2021 (153)</label></div></div></div><div><h4 class="jetpack-instant-search__filter-sub-heading">Tags</h4><div class="jetpack-instant-search__filter-list"><div><input id="jetpack-instant-search__filter-4-taxonomies-svg" name="svg" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-4-taxonomies-svg" class="jetpack-instant-search__filter-list-label">SVG (182)</label></div><div><input id="jetpack-instant-search__filter-4-taxonomies-accessibility" name="accessibility" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-4-taxonomies-accessibility" class="jetpack-instant-search__filter-list-label">accessibility (139)</label></div><div><input id="jetpack-instant-search__filter-4-taxonomies-javascript" name="javascript" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-4-taxonomies-javascript" class="jetpack-instant-search__filter-list-label">JavaScript (131)</label></div><div><input id="jetpack-instant-search__filter-4-taxonomies-wordpress" name="wordpress" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-4-taxonomies-wordpress" class="jetpack-instant-search__filter-list-label">WordPress (119)</label></div><div><input id="jetpack-instant-search__filter-4-taxonomies-animation" name="animation" type="checkbox" class="jetpack-instant-search__filter-list-input"><label for="jetpack-instant-search__filter-4-taxonomies-animation" class="jetpack-instant-search__filter-list-label">animation (105)</label></div></div></div></div></div></div></div> </div></div><div class="jetpack-instant-search__jetpack-colophon"><a href="https://jetpack.com/search?utm_source=poweredby" rel="external noopener noreferrer nofollow" target="_blank" class="jetpack-instant-search__jetpack-colophon-link"><svg class="jetpack-instant-search__jetpack-colophon-logo" height="12" width="12" viewBox="0 0 32 32"><path class="jetpack-logo__icon-circle" fill="#2fb41f" d="M16,0C7.2,0,0,7.2,0,16s7.2,16,16,16s16-7.2,16-16S24.8,0,16,0z"></path><polygon class="jetpack-logo__icon-triangle" fill="#fff" points="15,19 7,19 15,3 "></polygon><polygon class="jetpack-logo__icon-triangle" fill="#fff" points="17,29 17,13 25,13 "></polygon></svg><span class="jetpack-instant-search__jetpack-colophon-text">Search powered by Jetpack</span></a></div></div></div></main></div><script src="./Understanding Event Emitters _ CSS-Tricks_files/carbon.js.download" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42JJCESDPKQJCAYLYKQNC6BDPK7JF6SDPZ3JCYYIV2QLFTYD453KC6YICKJMCABDCKJWCVBDP53JCA7DTK3JHEYIKKQWCYSDE23ECTNCYBZ52K?segment=placement:csstrickscom;" class="carbon-img" target="_blank" rel="noopener sponsored"><img src="./Understanding Event Emitters _ CSS-Tricks_files/1525189943-38523.png" alt="ads via Carbon" border="0" height="100" width="130" style="max-width: 130px;"></a><a href="https://srv.carbonads.net/ads/click/x/GTND42JJCESDPKQJCAYLYKQNC6BDPK7JF6SDPZ3JCYYIV2QLFTYD453KC6YICKJMCABDCKJWCVBDP53JCA7DTK3JHEYIKKQWCYSDE23ECTNCYBZ52K?segment=placement:csstrickscom;" class="carbon-text" target="_blank" rel="noopener sponsored">Limited time offer: Get 10 free Adobe Stock images.</a></span><a href="http://carbonads.net/?utm_source=csstrickscom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener sponsored">ads via Carbon</a></span></div></body></html>

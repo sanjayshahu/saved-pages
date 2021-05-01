@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)https://zellwk.com/blog/es6/ -->
+<html lang="en" class="wf-freightsanspro-n4-active wf-freightsanspro-i4-active wf-freightsanspro-n5-active wf-freightsanspro-n6-active wf-freightsanspro-i6-active wf-freighttextpro-n4-active wf-freighttextpro-i4-active wf-freighttextpro-n5-active wf-freightdisplaypro-n5-active wf-firamono-n4-active wf-freightsanscondensedpro-n5-active wf-freightsanscondensedpro-n6-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Introduction to commonly used ES6 features | Zell Liew</title>
+<meta name="description" content="
+  JavaScript has progressed a ton in the recent years. If you&#39;re learning JavaScript in 2017 and you haven&#39;t touched ES6, you&#39;re missing out on an easier way to read and write JavaScript. Don&#39;t worry if you&#39;re not a master at JavaScript yet. You don&#39;t need to be awesome at JavaScript to take">
+<link rel="canonical" href="https://zellwk.com/blog/es6/">
+<link rel="stylesheet" href="./Introduction to commonly used ES6 features _ Zell Liew_files/styles-min-c2487ce387.css">
+
+<script async="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/analytics.js.download"></script><script src="./Introduction to commonly used ES6 features _ Zell Liew_files/tsd8lrs.js.download" async=""></script><script>
+  (function(d) {
+    var config = {
+      kitId: 'tsd8lrs',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script><style></style>
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://zellwk.com/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zellwk.com/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zellwk.com/favicons/favicon-16x16.png">
+<link rel="manifest" href="https://zellwk.com/favicons/manifest.json">
+<link rel="mask-icon" href="https://zellwk.com/favicons/safari-pinned-tab.svg" color="#fd256e">
+<link rel="shortcut icon" href="https://zellwk.com/favicons/favicon.ico">
+<meta name="msapplication-config" content="/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+  
+  <meta property="og:image" content="https://zellwk.com/images/zell-profile-pic.jpg">
+  <meta name="twitter:image" content="https://zellwk.com/images/zell-profile-pic.jpg">
+  <meta property="og:image:alt" content="Page image for Introduction to commonly used ES6 features | Zell Liew">
+  <meta name="twitter:image:alt" content="Page image for Introduction to commonly used ES6 features | Zell Liew">
+
+
+
+  <meta name="twitter:creator" content="@zellwk">
+
+<link rel="alternate" type="application/rss+xml" title="Feed for articles" href="https://zellwk.com/feed.xml"><style type="text/css">.tk-freight-sans-pro{font-family:"freight-sans-pro",sans-serif;}.tk-freight-text-pro{font-family:"freight-text-pro",serif;}.tk-freight-display-pro{font-family:"freight-display-pro",serif;}.tk-fira-mono{font-family:"fira-mono",monospace;}.tk-freight-sans-condensed-pro{font-family:"freight-sans-condensed-pro",sans-serif;}</style><style type="text/css">@font-face{font-family:tk-freight-sans-pro-n4;src:url(https://use.typekit.net/af/442215/000000000000000000010b5a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/442215/000000000000000000010b5a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/442215/000000000000000000010b5a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-sans-pro-i4;src:url(https://use.typekit.net/af/3df5fe/000000000000000000010b5b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/3df5fe/000000000000000000010b5b/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/3df5fe/000000000000000000010b5b/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;font-display:auto;}@font-face{font-family:tk-freight-sans-pro-n5;src:url(https://use.typekit.net/af/8dd886/000000000000000000010b5c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/8dd886/000000000000000000010b5c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/8dd886/000000000000000000010b5c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-sans-pro-n6;src:url(https://use.typekit.net/af/cef9f3/000000000000000000010b5e/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/cef9f3/000000000000000000010b5e/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/cef9f3/000000000000000000010b5e/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-sans-pro-i6;src:url(https://use.typekit.net/af/2a72d2/000000000000000000010b5f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3) format("woff2"),url(https://use.typekit.net/af/2a72d2/000000000000000000010b5f/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3) format("woff"),url(https://use.typekit.net/af/2a72d2/000000000000000000010b5f/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3) format("opentype");font-weight:600;font-style:italic;font-display:auto;}@font-face{font-family:tk-freight-text-pro-n4;src:url(https://use.typekit.net/af/ac6334/000000000000000000012059/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/ac6334/000000000000000000012059/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/ac6334/000000000000000000012059/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-text-pro-i4;src:url(https://use.typekit.net/af/5464d5/00000000000000000001205a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/5464d5/00000000000000000001205a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/5464d5/00000000000000000001205a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;font-display:auto;}@font-face{font-family:tk-freight-text-pro-n5;src:url(https://use.typekit.net/af/6469f1/000000000000000000012108/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/6469f1/000000000000000000012108/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/6469f1/000000000000000000012108/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-display-pro-n5;src:url(https://use.typekit.net/af/52559e/0000000000000000000132d3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/52559e/0000000000000000000132d3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/52559e/0000000000000000000132d3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:tk-fira-mono-n4;src:url(https://use.typekit.net/af/f654d3/000000000000000000014766/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/f654d3/000000000000000000014766/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/f654d3/000000000000000000014766/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-sans-condensed--n5;src:url(https://use.typekit.net/af/57785c/00000000000000000001776e/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/57785c/00000000000000000001776e/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/57785c/00000000000000000001776e/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:tk-freight-sans-condensed--n6;src:url(https://use.typekit.net/af/501d74/000000000000000000017771/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/501d74/000000000000000000017771/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/501d74/000000000000000000017771/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;font-display:auto;}</style>
+<script async="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/hotjar-500360.js.download"></script><script src="./Introduction to commonly used ES6 features _ Zell Liew_files/CKJS4.js.download" id="_ck_js_tag"></script><style type="text/css">@font-face{font-family:freight-sans-pro;src:url(https://use.typekit.net/af/442215/000000000000000000010b5a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/442215/000000000000000000010b5a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/442215/000000000000000000010b5a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;font-display:auto;}@font-face{font-family:freight-sans-pro;src:url(https://use.typekit.net/af/3df5fe/000000000000000000010b5b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/3df5fe/000000000000000000010b5b/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/3df5fe/000000000000000000010b5b/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;font-display:auto;}@font-face{font-family:freight-sans-pro;src:url(https://use.typekit.net/af/8dd886/000000000000000000010b5c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/8dd886/000000000000000000010b5c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/8dd886/000000000000000000010b5c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:freight-sans-pro;src:url(https://use.typekit.net/af/cef9f3/000000000000000000010b5e/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/cef9f3/000000000000000000010b5e/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/cef9f3/000000000000000000010b5e/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;font-display:auto;}@font-face{font-family:freight-sans-pro;src:url(https://use.typekit.net/af/2a72d2/000000000000000000010b5f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3) format("woff2"),url(https://use.typekit.net/af/2a72d2/000000000000000000010b5f/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3) format("woff"),url(https://use.typekit.net/af/2a72d2/000000000000000000010b5f/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3) format("opentype");font-weight:600;font-style:italic;font-display:auto;}@font-face{font-family:freight-text-pro;src:url(https://use.typekit.net/af/ac6334/000000000000000000012059/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/ac6334/000000000000000000012059/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/ac6334/000000000000000000012059/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;font-display:auto;}@font-face{font-family:freight-text-pro;src:url(https://use.typekit.net/af/5464d5/00000000000000000001205a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/5464d5/00000000000000000001205a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/5464d5/00000000000000000001205a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;font-display:auto;}@font-face{font-family:freight-text-pro;src:url(https://use.typekit.net/af/6469f1/000000000000000000012108/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/6469f1/000000000000000000012108/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/6469f1/000000000000000000012108/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:freight-display-pro;src:url(https://use.typekit.net/af/52559e/0000000000000000000132d3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/52559e/0000000000000000000132d3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/52559e/0000000000000000000132d3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:fira-mono;src:url(https://use.typekit.net/af/f654d3/000000000000000000014766/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/f654d3/000000000000000000014766/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/f654d3/000000000000000000014766/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;font-display:auto;}@font-face{font-family:freight-sans-condensed-pro;src:url(https://use.typekit.net/af/57785c/00000000000000000001776e/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/57785c/00000000000000000001776e/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/57785c/00000000000000000001776e/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;font-display:auto;}@font-face{font-family:freight-sans-condensed-pro;src:url(https://use.typekit.net/af/501d74/000000000000000000017771/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/501d74/000000000000000000017771/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/501d74/000000000000000000017771/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;font-display:auto;}</style><script async="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/adblocker-chromeglobalinjectjs.js.download"></script><script type="text/javascript" src="./Introduction to commonly used ES6 features _ Zell Liew_files/jquery.min.js.download"></script></head>
+
+  <body class="" data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed="" style="">
+    <div class="c-site-container">
+        <header>
+  <div class="l-wrap">
+    <nav class="c-main-nav l-wrap__full">
+      <div>
+        <a class="c-main-nav__logo" href="https://zellwk.com/about">
+          <div class="o-zell"><svg id="zell" viewBox="0 0 90 30">
+  <title> Zell </title>
+  <g>
+    <g class="z">
+      <path class="o-zell__bar" d="M0 0v6.332h24.336L24.384 0z"></path>
+      <path class="o-zell__text" d="M24.336 6.332h-8.154L0 23.425v6.332h24.336v-6.38H9.562z"></path>
+    </g>
+    <path class="e o-zell__text" d="M45.706 29.757v-5.34H34.657v-3.614h9.194v-4.941h-9.194V12.28h11.05V6.956H27.893v22.801z"></path>
+    <path class="l1 o-zell__text" d="M68.124 29.757v-5.9H57.938V6.956h-7.275v22.801z"></path>
+    <path class="l2 o-zell__text" d="M89.646 29.757v-5.9H79.461V6.956h-7.276v22.801z"></path>
+  </g>
+</svg>
+</div>
+        </a>
+      </div><div class="main-nav jsNavContainer">
+    <a href="https://learnjavascript.today/" class="o-navlink">Learn JavaScript</a>
+    <a href="https://zellwk.com/about" class="o-navlink">About</a>
+    <a href="https://zellwk.com/blog" class="o-navlink">Articles</a>
+    <a href="https://zellwk.com/contact" class="o-navlink">Contact</a>
+    <a href="https://zellwk.com/newsletter" class="o-navlink">Newsletter</a>
+
+    <button class="button c-main-nav__toggle jsOffsiteLauncher">Menu</button>
+  </div>
+    </nav>
+  </div>
+</header>
+
+
+      <main><div class="l-wrap">
+  <article class="o-content post-layout">
+    <h1>Introduction to commonly used ES6 features</h1>
+    <span class="post-layout__date">10th May 2017</span>
+
+    
+    
+<p>JavaScript has progressed a ton in the recent years. If you’re learning JavaScript in 2017 and you haven’t touched ES6, you’re missing out on an easier way to read and write JavaScript.</p>
+<p>Don’t worry if you’re not a master at JavaScript yet. You don’t need to be awesome at JavaScript to take advantage of the added bonuses ES6 gives you. In this article, I want to share with you eight ES6 features I use daily as a developer to help you ease into the new syntax.</p>
+<!--more-->
+<h2 id="a-list-of-es6-features">A list of ES6 features</h2>
+<p>First off, ES6 is a huge update to JavaScript. Here’s a <a href="https://github.com/lukehoban/es6features">big list of features</a> if you’re curious about what’s new, thanks to <a href="https://twitter.com/lukehoban?lang=en">Luke Hoban</a>:</p>
+<ul>
+<li>Arrows</li>
+<li>Classes</li>
+<li>Enhanced object literals</li>
+<li>Template strings</li>
+<li>Destructuring</li>
+<li>Default + rest + spread</li>
+<li>Let + const</li>
+<li>Iterators + for…of</li>
+<li>Generators</li>
+<li>Unicode</li>
+<li>Modules</li>
+<li>Module loaders</li>
+<li>Map + set + weakmap + weakset</li>
+<li>Proxies</li>
+<li>Symbols</li>
+<li>Subclassable built-ins</li>
+<li>Promises</li>
+<li>Math + number + string + array + object apis</li>
+<li>Binary and octal literals</li>
+<li>Reflect api</li>
+<li>Tail calls</li>
+</ul>
+<p>Don’t let this big list of features scare you away from ES6. You don’t need to know everything right away. I’m going to share with you eight of these features that I use on a daily basis. They are:</p>
+<ol>
+<li><a href="https://zellwk.com/blog/es6/#let-and-const">Let and const</a></li>
+<li><a href="https://zellwk.com/blog/es6/#arrow-functions">Arrow functions</a></li>
+<li><a href="https://zellwk.com/blog/es6/#default-parameters">Default parameters</a></li>
+<li><a href="https://zellwk.com/blog/es6/#destructuring">Destructuring</a></li>
+<li><a href="https://zellwk.com/blog/es6/#the-rest-parameter-and-spread-operator">Rest parameter and spread operator</a></li>
+<li><a href="https://zellwk.com/blog/es6/#enhanced-object-literals">Enhanced object literals</a></li>
+<li><a href="https://zellwk.com/blog/es6/#template-literals">Template literals</a></li>
+<li><a href="https://zellwk.com/blog/js-promises">Promises</a></li>
+</ol>
+<p>We’ll go through the eight features in the follow sections. For now, I’ll go through the first five features. I’ll add the rest as I go along in the next couple of weeks.</p>
+<p>By the way, browser support for ES6 is amazing. <a href="https://kangax.github.io/compat-table/es6/">Almost everything is supported natively</a> if you code for the latest browsers (Edge, and latest versions of FF, Chrome and Safari).</p>
+<p>You don’t need fancy tooling like Webpack if you wanted to write ES6. If browser support is lacking in your case, you can always fall back on polyfills created by the community. Just google them :)</p>
+<p>With that, let’s jump into the first feature.</p>
+<h2 id="let-and-const">Let and const</h2>
+<p>In ES5 (the old JavaScript), we’re used to declaring variables with the <code>var</code> keyword. In ES6, this <code>var</code> keyword can be replaced by <code>let</code> and <code>const</code>, two powerful keywords that make developing simpler.</p>
+<p>Let’s first look at the difference between <code>let</code> and <code>var</code> to understand why <code>let</code> and <code>const</code> are better.</p>
+<h3 id="let-vs-var">Let vs var</h3>
+<p>Let’s talk about <code>var</code> first since we’re familiar with it.</p>
+<p>First of all, we can declare variables with the <code>var</code> keyword. Once declared, this variable can be used anywhere in the current scope.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Zell'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span> <span class="token comment">// Zell</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In the example above, I’ve declared <code>me</code> as a global variable. This global <code>me</code> variable can also be used in a function, like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Zell'</span>
+<span class="token keyword">function</span> <span class="token function">sayMe</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">sayMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Zell</span>
+</code></pre><div class="toolbar"></div></div>
+<p>However, the reverse is not true. If I declare a variable in a function, I cannot use it outside the function.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">sayMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Zell'</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">sayMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Zell</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span> <span class="token comment">// Uncaught ReferenceError: me is not defined</span>
+</code></pre><div class="toolbar"></div></div>
+<p>So, we can say that <code>var</code> is <strong>function-scoped</strong>. This means whenever a variable is created with <code>var</code> in a function, <strong>it will only exist within the function</strong>.</p>
+<p>If the variable is created outside of the function, it’ll exist in the outer scope.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Zell'</span> <span class="token comment">// global scope</span>
+
+<span class="token keyword">function</span> <span class="token function">sayMe</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Sleepy head'</span> <span class="token comment">// local scope</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">sayMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Sleepy head</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span> <span class="token comment">// Zell</span>
+</code></pre><div class="toolbar"></div></div>
+<p><code>let</code>, on the other hand, is <strong>block-scoped</strong>. This means whenever a variable is created with <code>let</code>, it will only exist within its block.</p>
+<p>But wait, what’s a block?</p>
+<p>A block in JavaScript is anything within a pair of curly braces. The following are examples of blocks.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token punctuation">{</span>
+  <span class="token comment">// new scope block</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// new scope block</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// new scope block</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// new block scope</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>The difference between block-scope and function-scoped variables are huge. When you use a function-scoped variable, you may accidentally overwrite a variable without intending to do so. Here’s an example:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Zell'</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> me <span class="token operator">=</span> <span class="token string">'Sleepy head'</span>
+<span class="token punctuation">}</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>me<span class="token punctuation">)</span> <span class="token comment">// 'Sleepy head'</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In this example, you can see that <code>me</code> becomes <code>Sleepy head</code> after running through the <code>if</code> block. This example will likely not cause any problems for you since you probably won’t be declaring variables with the same name.</p>
+<p>But anyone who works with <code>var</code> in a <code>for</code> loop situation may run into some weirdness because of the way variables are scoped. Consider the following code that logs the variable <code>i</code> four times, then logs <code>i</code> again with a <code>setTimeout</code> function.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="toolbar"></div></div>
+<p>What would you expect this code to do? Here’s what actually happens</p>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/loop-wrong.png" alt="i was logged as 5 four times in the timeout function">
+  <figcaption>i was logged as 5 four times in the timeout function</figcaption>
+</figure>
+<p>How the heck did <code>i</code> become <code>5</code> for four times inside the timeout function? Well, turns out, because <code>var</code> is function-scoped, the value of <code>i</code> became <code>4</code> even before the timeout function runs.</p>
+<p>To get the correct <code>i</code> value within <code>setTimeout</code>, which executes later, we need to create another function, say <code>logLater</code>, to ensure the <code>i</code> value doesn’t get changed by the <code>for</code> loop before <code>setTimeout</code> executes:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">logLater</span> <span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token function">logLater</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/loop-right.png" alt="i was correctly logged as 1, 2 3 and 4">
+  <figcaption>i was correctly logged as 1, 2 3 and 4</figcaption>
+</figure>
+<p>(By the way, this is called a closure).</p>
+<p>The good news is, function-scoped weirdness like the for loop example I’ve just shown you doesn’t happen with <code>let</code>. The same timeout example we’ve written earlier could be written as this, and it’ll work right out of the box without writing additional functions:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/loop-right.png" alt="i was correctly logged as 1, 2 3 and 4">
+  <figcaption>i was correctly logged as 1, 2 3 and 4</figcaption>
+</figure>
+<p>As you can see, <strong>block-scoped</strong> variables make development much simpler by removing common gotchas with <strong>function-scoped</strong> variables. To make life simple, I recommend you use <code>let</code> over <code>var</code> whenever you declare JavaScript variables from now on. (ES6 is the new JavaScript already 😎).</p>
+<p>Now we know what <code>let</code> does, let’s move on to the difference between <code>let</code> and <code>const</code>.</p>
+<h3 id="let-vs-const">Let vs const</h3>
+<p>Like <code>let</code>, <code>const</code> is also <strong>blocked-scoped</strong>. The difference is that <code>const</code> cannot be reassigned once declared.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">'Zell'</span>
+name <span class="token operator">=</span> <span class="token string">'Sleepy head'</span> <span class="token comment">// TypeError: Assignment to constant variable.</span>
+
+<span class="token keyword">let</span> name1 <span class="token operator">=</span> <span class="token string">'Zell'</span>
+name1 <span class="token operator">=</span> <span class="token string">'Sleepy head'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name1<span class="token punctuation">)</span> <span class="token comment">// 'Sleepy head'</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Since <code>const</code> cannot be reassigned, they’re <strong>good for variables would not change</strong>.</p>
+<p>Let’s say I have a button that launches a modal on my website. I know that there’s only going to be one button, and it wouldn’t change. In this case, I can use <code>const</code>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> modalLauncher <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.jsModalLauncher'</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>When declaring variables, I always <strong>prefer</strong> <code>const</code> <strong>over</strong> <code>let</code> whenever possible because I receive the extra cue that the variable would not get reassigned. Then, I use <code>let</code> for <strong>all other situations</strong>.</p>
+<p>Next, let’s move on and talk about arrow functions.</p>
+<h2 id="arrow-functions">Arrow Functions</h2>
+<p>Arrow functions are denoted by the fat arrow (<code>=&gt;</code>) you see everywhere in ES6 code. It’s a shorthand to make anonymous functions. They can be used anywhere the <code>function</code> keyword is used. For example:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+<span class="token comment">// ES5 way</span>
+<span class="token keyword">var</span> moreThan20 <span class="token operator">=</span> array<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">num</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> num <span class="token operator">&gt;</span> <span class="token number">20</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// ES6 way</span>
+<span class="token keyword">let</span> moreThan20 <span class="token operator">=</span> array<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">num</span> <span class="token operator">=&gt;</span> num <span class="token operator">&gt;</span> <span class="token number">20</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Arrow functions are pretty cool. They help make code shorter, which gives fewer room for errors to hide. They also help you write code that’s easier to understand once you get used to the syntax.</p>
+<p>Let’s dive into the nitty-gritty of arrow functions so you learn to recognize and use them.</p>
+<h3 id="the-nitty-gritty-of-arrow-functions">The nitty-gritty of arrow functions</h3>
+<p>First off, let’s talk about creating functions. In JavaScript, you’re probably used to creating functions this way:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">namedFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// using the function</span>
+<span class="token function">namedFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>There’s a second method to create functions. You can create an anonymous function and assign it to a variable. To create an anonymous function, we leave its name out of the function declaration.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> <span class="token function-variable function">namedFunction</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>A third way to create functions is to create them directly as an argument to another function or method. This third use case is the most common one for anonymous functions. Here’s an example:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// Using an anonymous function in a callback</span>
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Since ES6 arrow functions are shorthand for anonymous functions, you can substitute arrow functions anywhere you create an anonymous function.</p>
+<p>Here’s what it looks like:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// Normal Function</span>
+<span class="token keyword">const</span> <span class="token function-variable function">namedFunction</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">arg1<span class="token punctuation">,</span> arg2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* do your stuff */</span><span class="token punctuation">}</span>
+
+<span class="token comment">// Arrow Function</span>
+<span class="token keyword">const</span> <span class="token function-variable function">namedFunction2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">arg1<span class="token punctuation">,</span> arg2</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* do your stuff */</span><span class="token punctuation">}</span>
+
+<span class="token comment">// Normal function in a callback</span>
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// Arrow function in a callback</span>
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>See the similarity here? Basically, you remove the <code>function</code> keyword and replace it with <code>=&gt;</code> at a slightly different location.</p>
+<p>But what’s the big deal with arrow functions? Aren’t we just substituting <code>function</code> with <code>=&gt;</code>?</p>
+<p>Well, it turns out that we’re not just substituting <code>function</code> with <code>=&gt;</code>. An arrow function’s syntax can change depending on two factors:</p>
+<ol>
+<li>The <strong>number of arguments</strong> required</li>
+<li>Whether you’d like an <strong>implicit return</strong>.</li>
+</ol>
+<p>The <strong>first factor</strong> is the <strong>number of arguments</strong> supplied to the arrow function. If you only supply one argument, you can remove the parenthesis that surrounds the arguments. If no arguments are required, you can substitute the parenthesis (<code>()</code>) for an underscore (<code>_</code>).</p>
+<p>All of the following are valid arrow functions.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> <span class="token function-variable function">zeroArgs</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* do something */</span><span class="token punctuation">}</span>
+<span class="token keyword">const</span> <span class="token function-variable function">zeroWithUnderscore</span> <span class="token operator">=</span> <span class="token parameter">_</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* do something */</span><span class="token punctuation">}</span>
+<span class="token keyword">const</span> <span class="token function-variable function">oneArg</span> <span class="token operator">=</span> <span class="token parameter">arg1</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* do something */</span><span class="token punctuation">}</span>
+<span class="token keyword">const</span> <span class="token function-variable function">oneArgWithParenthesis</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">arg1</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* do something */</span><span class="token punctuation">}</span>
+<span class="token keyword">const</span> <span class="token function-variable function">manyArgs</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">arg1<span class="token punctuation">,</span> arg2</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* do something */</span><span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>The <strong>second factor</strong> for arrow functions is whether you’d like an <strong>implicit return</strong>. Arrow functions, by default, automatically create a <code>return</code> keyword if the <strong>code only takes up one line</strong>, and is <strong>not enclosed in a block</strong>.</p>
+<p>So, these two are equivalent:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> <span class="token function-variable function">sum1</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">num1<span class="token punctuation">,</span> num2</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> num1 <span class="token operator">+</span> num2
+<span class="token keyword">const</span> <span class="token function-variable function">sum2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">num1<span class="token punctuation">,</span> num2</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> num1 <span class="token operator">+</span> num2 <span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>These two factors are the reason why you can write shorter code like the <code>moreThan20</code> you’ve seen above:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+<span class="token comment">// ES5 way</span>
+<span class="token keyword">var</span> moreThan20 <span class="token operator">=</span> array<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">num</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> num <span class="token operator">&gt;</span> <span class="token number">20</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// ES6 way</span>
+<span class="token keyword">let</span> moreThan20 <span class="token operator">=</span> array<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">num</span> <span class="token operator">=&gt;</span> num <span class="token operator">&gt;</span> <span class="token number">20</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In summary, arrow functions are pretty cool. They take a bit of time to get used to, so give it a try and you’ll be using it everywhere pretty soon.</p>
+<p>But before you jump onto the arrow functions FTW bandwagon, I want to let you know about another nitty-gritty feature of the ES6 arrow function that cause a lot of confusion – <strong>the lexical</strong> <code>this</code>.</p>
+<h3 id="the-lexical-this">The lexical this</h3>
+<p><code>this</code> is a unique keyword whose value changes depending on how it is called. When it’s called <strong>outside of any function</strong>, <code>this</code> defaults to the <code>Window</code> object in the browser.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// Window</span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/window.png" alt="This defaults to window object in browsers">
+  <figcaption>This defaults to window object in browsers</figcaption>
+</figure>
+<p>When <code>this</code> is called in a <strong>simple function call</strong>, <code>this</code> is set to the global object. In the case of browsers, <code>this</code> will always be <code>Window</code>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">hello</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Window</span>
+</code></pre><div class="toolbar"></div></div>
+<p>JavaScript always sets <code>this</code> to the window object within a simple function call. This explains why the <code>this</code> value within functions like <code>setTimeout</code> is always <code>Window</code>.</p>
+<p>When <code>this</code> is called in an <strong>object method</strong>, <code>this</code> would be the object itself:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">sayThis</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+o<span class="token punctuation">.</span><span class="token function">sayThis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// o</span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/object.png" alt="This refers to the object when the function is called in an object method.">
+  <figcaption>This refers to the object when the function is called in an object method.</figcaption>
+</figure>
+<p>When the function is called as a <strong>constructor</strong>, <code>this</code> refers to the <strong>newly constructed object</strong>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">Person</span> <span class="token punctuation">(</span><span class="token parameter">age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> greg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token number">22</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> thomas <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>greg<span class="token punctuation">)</span> <span class="token comment">// this.age = 22</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>thomas<span class="token punctuation">)</span> <span class="token comment">// this.age = 24</span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/constructor.png" alt="This refers to the constructed object called with the new keyword or Object.create().">
+  <figcaption>This refers to the constructed object called with the new keyword or Object.create().</figcaption>
+</figure>
+<p>When used in an event listener, <code>this</code> is set to the element that fired the event.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> button <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span>
+
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// button</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>As you can see in the above situations, the value of <code>this</code> is set by the function that calls it. Every function defines it’s own <code>this</code> value.</p>
+<p>In <strong>fat arrow functions</strong>, <code>this</code> <strong>never gets bound to a new value</strong>, no matter how the function is called. <code>this</code> will always be the same <code>this</code> value as its surrounding code. (By the way, lexical means relating to, which I guess, is how the lexical <code>this</code> got its name).</p>
+<p>Okay, that sounds confusing, so let’s go through a few real examples.</p>
+<p>First, you <strong>never want to use arrow functions to declare object methods</strong>, because you can’t reference the object with <code>this</code> anymore.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Don't do this</span>
+  <span class="token function-variable function">notThis</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// Window</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">objectThis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Uncaught TypeError: this.objectThis is not a function</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// Do this</span>
+  <span class="token function-variable function">objectThis</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// o</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// Or this, which is a new shorthand</span>
+  <span class="token function">objectThis2</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// o</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Second, you <em>may not</em> want to use arrow functions to create event listeners because <code>this</code> no longer binds to the element you attached your event listener to.</p>
+<p>However, you can always get the right <code>this</code> context with <code>event.currentTarget</code>. Which is why I said <em>may not</em>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js">button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// button</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token parameter">e</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// Window</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>currentTarget<span class="token punctuation">)</span> <span class="token comment">// button</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Third, you <strong>may want</strong> to use the lexical <code>this</code> in places where the <code>this</code> <strong>binding changes without you wanting it to</strong>. An example is the timeout function, so you never have to deal with the <code>this</code>, <code>that</code> or <code>self</code> nonsense.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Old way</span>
+  <span class="token function-variable function">oldDoSthAfterThree</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> that <span class="token operator">=</span> <span class="token keyword">this</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// Window</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>that<span class="token punctuation">)</span> <span class="token comment">// o</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// Arrow function way</span>
+  <span class="token function-variable function">doSthAfterThree</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// o</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>This use case is particularly helpful if you needed to add or remove a class after some time has elapsed:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+  button<span class="token operator">:</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span>
+  <span class="token function-variable function">endAnimation</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>button<span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'is-closing'</span><span class="token punctuation">)</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>button<span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">'is-closing'</span><span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>button<span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">'is-open'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Finally, feel free to use the fat arrow function anywhere else to help make your code neater and shorter, like the <code>moreThan20</code> example we had above:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> moreThan20 <span class="token operator">=</span> array<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">num</span> <span class="token operator">=&gt;</span> num <span class="token operator">&gt;</span> <span class="token number">20</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Let’s move on.</p>
+<h2 id="default-parameters">Default Parameters</h2>
+<p>Default parameters in ES6… well, gives us a way to specify default parameters when we define functions. Let’s go through an example and you’ll see how helpful it is.</p>
+<p>Let’s say we’re creating a function that announces the name of a player from a team. If you write this function in ES5, it’ll be similar to the following:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">announcePlayer</span> <span class="token punctuation">(</span><span class="token parameter">firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">,</span> teamName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> lastName <span class="token operator">+</span> <span class="token string">', '</span> <span class="token operator">+</span> teamName<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Stephen'</span><span class="token punctuation">,</span> <span class="token string">'Curry'</span><span class="token punctuation">,</span> <span class="token string">'Golden State Warriors'</span><span class="token punctuation">)</span>
+<span class="token comment">// Stephen Curry, Golden State Warriors</span>
+</code></pre><div class="toolbar"></div></div>
+<p>At first glance, this code looks ok. But what if we had to announce a player that’s unaffiliated with any team?</p>
+<p>The current code fails embarrassingly if we left <code>teamName</code> out:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Zell'</span><span class="token punctuation">,</span> <span class="token string">'Liew'</span><span class="token punctuation">)</span>
+<span class="token comment">// Zell Liew, undefined</span>
+</code></pre><div class="toolbar"></div></div>
+<p>I’m pretty sure undefined isn’t a team 😉.</p>
+<p>If the player is unaffiliated, announcing <code>Zell Liew, unaffiliated</code> would make more sense that <code>Zell Liew, undefined</code>. Don’t you agree?</p>
+<p>To get <code>announcePlayer</code> to announce <code>Zell Liew, unaffiliated</code>, we one way is to pass the <code>unaffiliated</code> string as the <code>teamName</code>:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Zell'</span><span class="token punctuation">,</span> <span class="token string">'Liew'</span><span class="token punctuation">,</span> <span class="token string">'unaffiliated'</span><span class="token punctuation">)</span>
+<span class="token comment">// Zell Liew, unaffiliated</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Although this works, we can do better by refactoring <code>unaffiliated</code> into <code>announcePlayer</code> by checking if <code>teamName</code> is defined.</p>
+<p>In the ES5 version, you can refactor the code to something like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">announcePlayer</span> <span class="token punctuation">(</span><span class="token parameter">firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">,</span> teamName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>teamName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    teamName <span class="token operator">=</span> <span class="token string">'unaffiliated'</span>
+  <span class="token punctuation">}</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> lastName <span class="token operator">+</span> <span class="token string">', '</span> <span class="token operator">+</span> teamName<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Zell'</span><span class="token punctuation">,</span> <span class="token string">'Liew'</span><span class="token punctuation">)</span>
+<span class="token comment">// Zell Liew, unaffiliated</span>
+
+<span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Stephen'</span><span class="token punctuation">,</span> <span class="token string">'Curry'</span><span class="token punctuation">,</span> <span class="token string">'Golden State Warriors'</span><span class="token punctuation">)</span>
+<span class="token comment">// Stephen Curry, Golden State Warriors</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Or, if you’re savvier with ternary operators, you could have chosen a terser version:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">announcePlayer</span> <span class="token punctuation">(</span><span class="token parameter">firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">,</span> teamName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> team <span class="token operator">=</span> teamName <span class="token operator">?</span> teamName <span class="token operator">:</span> <span class="token string">'unaffiliated'</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> lastName <span class="token operator">+</span> <span class="token string">', '</span> <span class="token operator">+</span> team<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In ES6, with default parameters, we can add an equal sign (<code>=</code>) whenever we define a parameter. If we do so, ES6 automatically defaults to that value when the parameter is undefined.</p>
+<p>So, in this code below, when <code>teamName</code> is undefined, it defaults to <code>unaffiliated</code>:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> announcePlayer <span class="token operator">=</span> <span class="token punctuation">(</span>firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">,</span> teamName <span class="token operator">=</span> <span class="token string">'unaffiliated'</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> lastName <span class="token operator">+</span> <span class="token string">', '</span> <span class="token operator">+</span> teamName<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Zell'</span><span class="token punctuation">,</span> <span class="token string">'Liew'</span><span class="token punctuation">)</span>
+<span class="token comment">// Zell Liew, unaffiliated</span>
+
+<span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Stephen'</span><span class="token punctuation">,</span> <span class="token string">'Curry'</span><span class="token punctuation">,</span> <span class="token string">'Golden State Warriors'</span><span class="token punctuation">)</span>
+<span class="token comment">// Stephen Curry, Golden State Warriors</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Pretty cool, isn’t it? :)</p>
+<p>One more thing. If you want to invoke the default value, you can pass in <code>undefined</code> manually. This manual passing in of <code>undefined</code> helps when your default parameter isn’t the last argument of a function.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token function">announcePlayer</span><span class="token punctuation">(</span><span class="token string">'Zell'</span><span class="token punctuation">,</span> <span class="token string">'Liew'</span><span class="token punctuation">,</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span>
+<span class="token comment">// Zell Liew, unaffiliated</span>
+</code></pre><div class="toolbar"></div></div>
+<p>That’s all you need to know about default parameters. It’s simple and very useful :)</p>
+<h2 id="destructuring">Destructuring</h2>
+<p>Destructuring is a <strong>convenient way to get values out of arrays and objects</strong>. There are minor differences between destructuring array and objects, so let’s talk about them separately.</p>
+<h3 id="destructuring-objects">Destructuring objects</h3>
+<p>Let’s say you have the following object:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> Zell <span class="token operator">=</span> <span class="token punctuation">{</span>
+  firstName<span class="token operator">:</span> <span class="token string">'Zell'</span><span class="token punctuation">,</span>
+  lastName<span class="token operator">:</span> <span class="token string">'Liew'</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>To get the <code>firstName</code> and <code>lastName</code> from <code>Zell</code>, you had to create two variables, then assign each variable to a value, like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> firstName <span class="token operator">=</span> Zell<span class="token punctuation">.</span>firstName <span class="token comment">// Zell</span>
+<span class="token keyword">let</span> lastName <span class="token operator">=</span> Zell<span class="token punctuation">.</span>lastName <span class="token comment">// Liew</span>
+</code></pre><div class="toolbar"></div></div>
+<p>With destructuring, you can create and assign these variables with a single line of code. Here’s how you destructure objects:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> <span class="token punctuation">{</span> firstName<span class="token punctuation">,</span> lastName <span class="token punctuation">}</span> <span class="token operator">=</span> Zell
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName<span class="token punctuation">)</span> <span class="token comment">// Zell</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>lastName<span class="token punctuation">)</span> <span class="token comment">// Liew</span>
+</code></pre><div class="toolbar"></div></div>
+<p>See what happened here? By adding <strong>curly brackets</strong> (<code>{}</code>) while declaring variables, we’re telling JavaScript to create the aforementioned variables, then assign <code>Zell.firstName</code> to <code>firstName</code> and <code>Zell.lastName</code> to <code>lastName</code> respectively.</p>
+<p>This is what’s going under the hood:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// What you write</span>
+<span class="token keyword">let</span> <span class="token punctuation">{</span> firstName<span class="token punctuation">,</span> lastName <span class="token punctuation">}</span> <span class="token operator">=</span> Zell
+
+<span class="token comment">// ES6 does this automatically</span>
+<span class="token keyword">let</span> firstName <span class="token operator">=</span> Zell<span class="token punctuation">.</span>firstName
+<span class="token keyword">let</span> lastName <span class="token operator">=</span> Zell<span class="token punctuation">.</span>lastName
+</code></pre><div class="toolbar"></div></div>
+<p>Now, if a variable name is already used, we cannot declare the variable again (especially if you use <code>let</code> or <code>const</code>).</p>
+<p>The following fails to work:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'Zell Liew'</span>
+<span class="token keyword">let</span> course <span class="token operator">=</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'JS Fundamentals for Frontend Developers'</span>
+  <span class="token comment">// ... other properties</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> <span class="token punctuation">{</span> name <span class="token punctuation">}</span> <span class="token operator">=</span> course <span class="token comment">// Uncaught SyntaxError: Identifier 'name' has already been declared</span>
+</code></pre><div class="toolbar"></div></div>
+<p>If you run into situations like the above, you can <strong>rename variables while destructuring with a colon</strong> (<code>:</code>).</p>
+<p>In this example below, I’m creating a <code>courseName</code> variable and assigning <code>course.name</code> to it.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> courseName <span class="token punctuation">}</span> <span class="token operator">=</span> course
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>courseName<span class="token punctuation">)</span> <span class="token comment">// JS Fundamentals for Frontend Developers</span>
+
+<span class="token comment">// What ES6 does under the hood:</span>
+<span class="token keyword">let</span> courseName <span class="token operator">=</span> course<span class="token punctuation">.</span>name
+</code></pre><div class="toolbar"></div></div>
+<p>One more thing.</p>
+<p>Don’t worry if you try to destructure a variable that’s not contained within an object. It will just return <code>undefined</code>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> course <span class="token operator">=</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'JS Fundamentals for Frontend Developers'</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> <span class="token punctuation">{</span> <span class="token keyword">package</span> <span class="token punctuation">}</span> <span class="token operator">=</span> course
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">package</span><span class="token punctuation">)</span> <span class="token comment">// undefined</span>
+</code></pre><div class="toolbar"></div></div>
+<p>But wait, that’s not all. Remember <a href="https://zellwk.com/blog/es6/#default-parameters">default parameters</a>?</p>
+<p>You can write default parameters for your destructured variables as well. The syntax is the same as that when you define functions.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> course <span class="token operator">=</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'JS Fundamentals for Frontend Developers'</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> <span class="token punctuation">{</span> <span class="token keyword">package</span> <span class="token operator">=</span> <span class="token string">'full course'</span> <span class="token punctuation">}</span> <span class="token operator">=</span> course
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">package</span><span class="token punctuation">)</span> <span class="token comment">// full course</span>
+</code></pre><div class="toolbar"></div></div>
+<p>You can even rename variables while providing defaults. Just combine the two. It’ll look a little funny at the beginning, but you’ll get used to it if you use it often:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> course <span class="token operator">=</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'JS Fundamentals for Frontend Developers'</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> <span class="token punctuation">{</span> <span class="token keyword">package</span><span class="token operator">:</span> packageName <span class="token operator">=</span> <span class="token string">'full course'</span> <span class="token punctuation">}</span> <span class="token operator">=</span> course
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>packageName<span class="token punctuation">)</span> <span class="token comment">// full course</span>
+</code></pre><div class="toolbar"></div></div>
+<p>That’s it for destructuring objects. Let’s move on and talk about destructuring arrays 😄.</p>
+<h3 id="destructuring-arrays">Destructuring arrays</h3>
+<p>Destructuring arrays and destructuring objects are similar. We use <strong>square brackets</strong> (<code>[]</code>) instead of curly brackets (<code>{}</code>).</p>
+<p>When you destructure an array,</p>
+<ul>
+<li>Your <em>first variable</em> is the <em>first item</em> in the array.</li>
+<li>Your <em>second variable</em> is the <em>second item</em> in the array.</li>
+<li>and so on…</li>
+</ul>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> <span class="token punctuation">[</span>one<span class="token punctuation">,</span> two<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>one<span class="token punctuation">)</span> <span class="token comment">// 1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>two<span class="token punctuation">)</span> <span class="token comment">// 2</span>
+</code></pre><div class="toolbar"></div></div>
+<p>It is possible to destructure so many variables that you exceed the number of items in the given array. When this happens, the extra destructured variable will just be <code>undefined</code>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> <span class="token punctuation">[</span>one<span class="token punctuation">,</span> two<span class="token punctuation">,</span> three<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>one<span class="token punctuation">)</span> <span class="token comment">// 1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>two<span class="token punctuation">)</span> <span class="token comment">// 2</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>three<span class="token punctuation">)</span> <span class="token comment">// undefined</span>
+</code></pre><div class="toolbar"></div></div>
+<p>When destructuring arrays, we often destructure only the variables we need. If you need the rest of the array, you can use the rest operator (<code>...</code>), like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> scores <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'98'</span><span class="token punctuation">,</span> <span class="token string">'95'</span><span class="token punctuation">,</span> <span class="token string">'93'</span><span class="token punctuation">,</span> <span class="token string">'90'</span><span class="token punctuation">,</span> <span class="token string">'87'</span><span class="token punctuation">,</span> <span class="token string">'85'</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">,</span> third<span class="token punctuation">,</span> <span class="token operator">...</span>rest<span class="token punctuation">]</span> <span class="token operator">=</span> scores
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span> <span class="token comment">// 98</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>second<span class="token punctuation">)</span> <span class="token comment">// 95</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>third<span class="token punctuation">)</span> <span class="token comment">// 93</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span> <span class="token comment">// [90, 87, 85]</span>
+</code></pre><div class="toolbar"></div></div>
+<p>We’ll talk more about <a href="https://zellwk.com/blog/es6/#rest-and-spread-operators">rest operators in the following section</a>. But for now, let’s talk about a unique ability you get with destructured arrays – swapping variables.</p>
+<h3 id="swapping-variables-with-destructured-arrays">Swapping variables with destructured arrays</h3>
+<p>Let’s say you have two variables, <code>a</code> and <code>b</code>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">3</span>
+</code></pre><div class="toolbar"></div></div>
+<p>You wanted to swap these variables. So <code>a = 3</code>  and <code>b = 2</code>. In ES5, you need to use a temporary third variable to complete the swap:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">3</span>
+<span class="token keyword">let</span> temp
+
+<span class="token comment">// swapping</span>
+temp <span class="token operator">=</span> a <span class="token comment">// temp is now 2</span>
+a <span class="token operator">=</span> b <span class="token comment">// a is now 3</span>
+b <span class="token operator">=</span> temp <span class="token comment">// b is now 2</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Although this works, the logic can be fuzzy and confusing, especially with the introduction of a third variable.</p>
+<p>Now watch how you’ll do it the ES6 way with destructured arrays:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">// semicolon required because next line begins with a square bracket</span>
+
+<span class="token comment">// Swapping with destructured arrays</span>
+<span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>b<span class="token punctuation">,</span> a<span class="token punctuation">]</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token comment">// 3</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token comment">// 2</span>
+</code></pre><div class="toolbar"></div></div>
+<p>💥💥💥. So much simpler compared to the previous method of swapping variables! :)</p>
+<p>Next, let’s talk about destructuring arrays and objects in a function.</p>
+<h3 id="destructuring-arrays-and-objects-while-declaring-functions">Destructuring arrays and objects while declaring functions</h3>
+<p>The coolest thing about destructuring is that you can use them anywhere. Literally. You can even destructure objects and arrays in functions.</p>
+<p>Let’s say we have a function that takes in an array of scores and returns an object with the top three scores. This function is similar to what we’ve done while destructuring arrays.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// Note: You don't need arrow functions to use any other ES6 features</span>
+<span class="token keyword">function</span> <span class="token function">topThree</span> <span class="token punctuation">(</span><span class="token parameter">scores</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">,</span> third<span class="token punctuation">]</span> <span class="token operator">=</span> scores
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    first<span class="token operator">:</span> first<span class="token punctuation">,</span>
+    second<span class="token operator">:</span> second<span class="token punctuation">,</span>
+    third<span class="token operator">:</span> third
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>An alternate way to write this function is to destructure <code>scores</code> while declaring the function. In this case, there’s one less line of code to write. At the same time, we know we’re taking in an array.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">topThree</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">,</span> third<span class="token punctuation">]</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    first<span class="token operator">:</span> first<span class="token punctuation">,</span>
+    second<span class="token operator">:</span> second<span class="token punctuation">,</span>
+    third<span class="token operator">:</span> third
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Super cool, isn’t it? 😄.</p>
+<p><strong>Now, here’s a quick little quiz for you</strong>. Since we can combine default parameters and destructuring while declaring functions, what does the following say?</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">sayMyName</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  firstName <span class="token operator">=</span> <span class="token string">'Zell'</span><span class="token punctuation">,</span>
+  lastName <span class="token operator">=</span> <span class="token string">'Liew'</span>
+<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> lastName<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>This is a tricky one. We’re combining a few features together.</p>
+<p><strong>First</strong>, we can see that this function takes in <em>one argument</em>, an object. This object is <em>optional</em> and <em>defaults to</em> <code>{}</code> when undefined.</p>
+<p><strong>Second</strong>, we attempt to destructure <code>firstName</code> and <code>lastName</code> variables from the given object. If these properties are found, use them.</p>
+<p><strong>Finally</strong>, if <code>firstName</code> or <code>lastName</code> is undefined in the given object, we set it to <code>Zell</code> and <code>Liew</code> respectively.</p>
+<p>So, this function produces the following results:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token function">sayMyName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Zell Liew</span>
+<span class="token function">sayMyName</span><span class="token punctuation">(</span><span class="token punctuation">{</span>firstName<span class="token operator">:</span> <span class="token string">'Zell'</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment">// Zell Liew</span>
+<span class="token function">sayMyName</span><span class="token punctuation">(</span><span class="token punctuation">{</span>firstName<span class="token operator">:</span> <span class="token string">'Vincy'</span><span class="token punctuation">,</span> lastName<span class="token operator">:</span> <span class="token string">'Zhang'</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment">// Vincy Zhang</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Pretty cool to combine destructuring and default parameters in a function declaration eh? 😄. I love this.</p>
+<p>Next, let’s take a look at rest and spread.</p>
+<h2 id="the-rest-parameter-and-spread-operator">The rest parameter and spread operator</h2>
+<p>The rest parameter and spread operator look the same. They’re both signified with three dots (<code>...</code>).</p>
+<p>What they do is different depending on what they’re used for. That’s why they’re named differently. So, let’s take a look at the rest parameter and spread operator separately.</p>
+<h3 id="the-rest-parameter">The rest parameter</h3>
+<p>Loosely translated, the <strong>rest parameter</strong> means <strong>take the rest of the stuff and pack it into an array</strong>. It <em>converts a comma separated list of arguments into an array</em>.</p>
+<p>Let’s take a look at the rest parameter in action. Imagine we have a function, <code>add</code>, that sums up its arguments:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token function">sum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token comment">// 55</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In ES5, we depended on the <code>arguments</code> variable whenever we had to deal with a function that takes in an unknown number of variables. This <code>arguments</code> variable is an array-like <code>Symbol</code>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">sum</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">sum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/arguments.png" alt="Arguments is a Symbol, not an array">
+  <figcaption>Arguments is a Symbol, not an array</figcaption>
+</figure>
+<p>One way to calculate this sum of arguments is to convert it into an Array with <code>Array.prototype.slice.call(arguments)</code>, then, loop through each number with an array method like <code>forEach</code> or <code>reduce</code>.</p>
+<p>I’m sure you can do <code>forEach</code> on your own, so here’s the <code>reduce</code> example:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// ES5 way</span>
+<span class="token keyword">function</span> <span class="token function">sum</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> argsArray <span class="token operator">=</span> <span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> argsArray<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">sum<span class="token punctuation">,</span> current</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> sum <span class="token operator">+</span> current
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>With the ES6 rest parameter, we could <strong>pack all comma separated arguments straight into an array</strong>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// ES6 way</span>
+<span class="token keyword">const</span> <span class="token function-variable function">sum</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> args<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">sum<span class="token punctuation">,</span> current</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> sum <span class="token operator">+</span> current<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment">// ES6 way if we didn't shortcut it with so many arrow functions</span>
+<span class="token keyword">function</span> <span class="token function">sum</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> args<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">sum<span class="token punctuation">,</span> current</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> sum <span class="token operator">+</span> current<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Much cleaner? 🙂.</p>
+<p>Now, we briefly encountered the rest parameter earlier in the <a href="https://zellwk.com/blog/es6/#destructuring">destructuring</a> section. There, we tried to destructure an array of scores into the top three scores:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> scores <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'98'</span><span class="token punctuation">,</span> <span class="token string">'95'</span><span class="token punctuation">,</span> <span class="token string">'93'</span><span class="token punctuation">,</span> <span class="token string">'90'</span><span class="token punctuation">,</span> <span class="token string">'87'</span><span class="token punctuation">,</span> <span class="token string">'85'</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">,</span> third<span class="token punctuation">]</span> <span class="token operator">=</span> scores
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span> <span class="token comment">// 98</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>second<span class="token punctuation">)</span> <span class="token comment">// 95</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>third<span class="token punctuation">)</span> <span class="token comment">// 93</span>
+</code></pre><div class="toolbar"></div></div>
+<p>If we wanted the rest of the scores, we could do so by <strong>packing the rest of the scores into an array</strong> with the rest parameter.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> scores <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'98'</span><span class="token punctuation">,</span> <span class="token string">'95'</span><span class="token punctuation">,</span> <span class="token string">'93'</span><span class="token punctuation">,</span> <span class="token string">'90'</span><span class="token punctuation">,</span> <span class="token string">'87'</span><span class="token punctuation">,</span> <span class="token string">'85'</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">,</span> third<span class="token punctuation">,</span> <span class="token operator">...</span>restOfScores<span class="token punctuation">]</span> <span class="token operator">=</span> scores
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>restOfScores<span class="token punctuation">)</span> <span class="token comment">// [90, 87, 85]</span>
+</code></pre><div class="toolbar"></div></div>
+<p>If you’re ever confused, just remember this — the <strong>rest parameter packs everything into an array</strong>. It appears in function parameters and while destructuring arrays.</p>
+<p>Next, let’s move on to spread.</p>
+<h3 id="the-spread-operator">The spread operator</h3>
+<p>The spread operator behaves in the opposite way compared to the rest parameter. Loosely put, it <strong>takes an array and spreads it</strong> (like jam) <strong>into a comma separated list of arguments</strong>.</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'one'</span><span class="token punctuation">,</span> <span class="token string">'two'</span><span class="token punctuation">,</span> <span class="token string">'three'</span><span class="token punctuation">]</span>
+
+<span class="token comment">// These two are exactly the same</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">...</span>array<span class="token punctuation">)</span> <span class="token comment">// one two three</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'one'</span><span class="token punctuation">,</span> <span class="token string">'two'</span><span class="token punctuation">,</span> <span class="token string">'three'</span><span class="token punctuation">)</span> <span class="token comment">// one two three</span>
+</code></pre><div class="toolbar"></div></div>
+<p>The spread operator is often used to help concatenate arrays in a way that’s easier to read and understand.</p>
+<p>Say for example, you wanted to concatenate the following arrays:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">let</span> array1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'one'</span><span class="token punctuation">,</span> <span class="token string">'two'</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> array2 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'three'</span><span class="token punctuation">,</span> <span class="token string">'four'</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> array3 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'five'</span><span class="token punctuation">,</span> <span class="token string">'six'</span><span class="token punctuation">]</span>
+</code></pre><div class="toolbar"></div></div>
+<p>The ES5 way of concatenating these two arrays is to use the <code>Array.concat</code> method. You can chain multiple <code>Array.concat</code> to concatenate any number of arrays, like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// ES5 way</span>
+<span class="token keyword">let</span> combinedArray <span class="token operator">=</span> array1<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>array2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>array3<span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>combinedArray<span class="token punctuation">)</span> <span class="token comment">// ['one', 'two', 'three', 'four', 'five', 'six']</span>
+</code></pre><div class="toolbar"></div></div>
+<p>With ES6 spread operator, you could spread the arrays into a new array, like this, which is slightly easier to read once you get used to it:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// ES6 way</span>
+<span class="token keyword">let</span> combinedArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>array1<span class="token punctuation">,</span> <span class="token operator">...</span>array2<span class="token punctuation">,</span> <span class="token operator">...</span>array3<span class="token punctuation">]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>combinedArray<span class="token punctuation">)</span> <span class="token comment">// ['one', 'two', 'three', 'four', 'five', 'six']</span>
+</code></pre><div class="toolbar"></div></div>
+<p>The spread operator can also be used to remove an item from an array without mutating the array. This method is commonly used in Redux. I highly recommend you watch <a href="https://egghead.io/lessons/javascript-redux-avoiding-array-mutations-with-concat-slice-and-spread">this video by Dan Abramov</a> if you’re interested in seeing how it works out.</p>
+<p>That’s it for spread :)</p>
+<h2 id="enhanced-object-literals">Enhanced object literals</h2>
+<p>Objects should be a familiar thing to you since you’re writing JavaScript. Just in case you don’t know about them, they look something like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> anObject <span class="token operator">=</span> <span class="token punctuation">{</span>
+  property1<span class="token operator">:</span> <span class="token string">'value1'</span><span class="token punctuation">,</span>
+  property2<span class="token operator">:</span> <span class="token string">'value2'</span><span class="token punctuation">,</span>
+  property3<span class="token operator">:</span> <span class="token string">'value3'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>ES6 enhanced object literals brings three sweet upgrades to the objects you know and love. They are:</p>
+<ol>
+<li>Property value shorthands</li>
+<li>Method shorthands</li>
+<li>The ability to use computed property names</li>
+</ol>
+<p>Let’s look at each one of them. I promise this will be quick :)</p>
+<h3 id="property-value-shorthands">Property value shorthands</h3>
+<p>Have you noticed that you sometimes assign a variable that has the same name as an object property? You know, something like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> fullName <span class="token operator">=</span> <span class="token string">'Zell Liew'</span>
+
+<span class="token keyword">const</span> Zell <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fullName<span class="token operator">:</span> fullName
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Well, wouldn’t you wish you could write this in a shorter way, since the property (<code>fullName</code>) and value (<code>fullName</code>)?</p>
+<p>(Oh you spoilt brat 😝).</p>
+<p>Here’s the good news. You can! :)</p>
+<p>ES6 enhances objects with <strong>property value shorthands</strong>. This means: you can write only the variable if your variable name matches your property name. ES6 takes care of the rest.</p>
+<p>Here’s what it looks like:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> fullName <span class="token operator">=</span> <span class="token string">'Zell Liew'</span>
+
+<span class="token comment">// ES6 way</span>
+<span class="token keyword">const</span> Zell <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fullName
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Underneath the hood, ES6 does this:</span>
+<span class="token keyword">const</span> Zell <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fullName<span class="token operator">:</span> fullName
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Pretty neat, eh? Now, we have less words to write, and we all go home happy.</p>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/dancing.gif" alt="Happy, dancing star wars figure">
+  <figcaption>Wheeeee! Happy! :)</figcaption>
+</figure>
+<p>While I dance, please go on and move to more shorthand goodness. I’ll join you shortly.</p>
+<h3 id="method-shorthands">Method shorthands</h3>
+<p>Methods are functions that are associated with a property. They’re just named specially because they’re functions :)</p>
+<p>This is an example of a method:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> anObject <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">aMethod</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"I'm a method!~~"</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>With ES6, we get to write methods with a shorthand. We can remove <code>: function</code> from a method declaration and it will work like it used to:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> anObject <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ES6 way</span>
+  <span class="token function">aShorthandMethod</span> <span class="token punctuation">(</span><span class="token parameter">arg1<span class="token punctuation">,</span> arg2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// ES5 way</span>
+  <span class="token function-variable function">aLonghandMethod</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">arg1<span class="token punctuation">,</span> arg2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>With this upgrade, objects already get a shorthand method, so please please don’t use arrow functions when you define objects. You’ll break the <code>this</code> context (see <a href="https://zellwk.com/blog/es6/#arrow-functions">arrow functions</a> if you can’t remember why).</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> dontDoThis <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Noooo. Don't do this</span>
+  <span class="token function-variable function">arrowFunction</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>That’s it with object method shorthands. Let’s move on to the final upgrade we get for objects.</p>
+<h3 id="computed-object-property-names">Computed object property names</h3>
+<p>Sometimes you need a dynamic property name when you create objects. In the old JavaScript way, you’d have to create the object, then assign your property to in, like this:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token comment">// ES5</span>
+<span class="token keyword">const</span> newPropertyName <span class="token operator">=</span> <span class="token string">'smile'</span>
+
+<span class="token comment">// Create an object first</span>
+<span class="token keyword">const</span> anObject <span class="token operator">=</span> <span class="token punctuation">{</span> aProperty<span class="token operator">:</span> <span class="token string">'a value'</span> <span class="token punctuation">}</span>
+
+<span class="token comment">// Then assign the property</span>
+anObject<span class="token punctuation">[</span>newPropertyName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">':D'</span>
+
+<span class="token comment">// Adding a slightly different property and assigning it</span>
+anObject<span class="token punctuation">[</span><span class="token string">'bigger '</span> <span class="token operator">+</span> newPropertyName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'XD'</span>
+
+<span class="token comment">// Result</span>
+<span class="token comment">// {</span>
+<span class="token comment">//   aProperty: 'a value',</span>
+<span class="token comment">//   'bigger smile': 'XD'</span>
+<span class="token comment">//   smile: ':D',</span>
+<span class="token comment">// }</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In ES6, you no longer need to do this roundabout way. You can assign dynamic property names directly when creating your object. The key is to enclose the dynamic property with square brackets:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> newPropertyName <span class="token operator">=</span> <span class="token string">'smile'</span>
+
+<span class="token comment">// ES6 way.</span>
+<span class="token keyword">const</span> anObject <span class="token operator">=</span> <span class="token punctuation">{</span>
+  aProperty<span class="token operator">:</span> <span class="token string">'a value'</span><span class="token punctuation">,</span>
+  <span class="token comment">// Dynamic property names!</span>
+  <span class="token punctuation">[</span>newPropertyName<span class="token punctuation">]</span><span class="token operator">:</span> <span class="token string">':D'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token string">'bigger '</span> <span class="token operator">+</span> newPropertyName<span class="token punctuation">]</span><span class="token operator">:</span> <span class="token string">'XD'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Result</span>
+<span class="token comment">// {</span>
+<span class="token comment">//   aProperty: 'a value',</span>
+<span class="token comment">//   'bigger smile': 'XD'</span>
+<span class="token comment">//   smile: ':D',</span>
+<span class="token comment">// }</span>
+</code></pre><div class="toolbar"></div></div>
+<p>Schweeet! Isn’t it? :)</p>
+<p>And that’s it for enhanced object literals. Didn’t I say it’ll be quick? :)</p>
+<p>Let’s move on to another awesome feature I absolutely love: template literals.</p>
+<h2 id="template-literals">Template literals</h2>
+<p>Handling strings in JavaScript is an extremely clunky experience. You’ve experienced it yourself when we created the <code>announcePlayer</code> function previously in <a href="https://zellwk.com/blog/es6/#default-parameters">default parameters</a>. There, we created spaces with empty strings and joined them with pluses:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">announcePlayer</span> <span class="token punctuation">(</span><span class="token parameter">firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">,</span> teamName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstName <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> lastName <span class="token operator">+</span> <span class="token string">', '</span> <span class="token operator">+</span> teamName<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="toolbar"></div></div>
+<p>In ES6, this problem goes away thanks to template literals! (In the specification, they were previously called template strings).</p>
+<p>To create a template literal in ES6, you <strong>enclose strings with backticks</strong> (<code>`</code>). Within backticks, you gain access to a special placeholder (<code>${}</code>) where you can use JavaScript normally.</p>
+<p>Here’s what it looks like in action:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> firstName <span class="token operator">=</span> <span class="token string">'Zell'</span>
+<span class="token keyword">const</span> lastName <span class="token operator">=</span> <span class="token string">'Liew'</span>
+<span class="token keyword">const</span> teamName <span class="token operator">=</span> <span class="token string">'unaffiliated'</span>
+
+<span class="token keyword">const</span> theString <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">, </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>teamName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>theString<span class="token punctuation">)</span>
+<span class="token comment">// Zell Liew, unaffiliated</span>
+</code></pre><div class="toolbar"></div></div>
+<p>See that? We can group everything with template literals! Within template literals, it’s English as normal. Almost as if we’re using a <a href="https://zellwk.com/blog/nunjucks-with-gulp/">template engine</a> :)</p>
+<p>The best part about template literals is that you can create multi-line strings easily. This works out of the box:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> multi <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">One upon a time,
+In a land far far away,
+there lived a witich,
+who could change night into day</span><span class="token template-punctuation string">`</span></span>
+</code></pre><div class="toolbar"></div></div>
+<figure><img src="./Introduction to commonly used ES6 features _ Zell Liew_files/multiline.png" alt="Multi-line strings!">
+  <figcaption>Multi-line strings works! Woot!</figcaption>
+</figure>
+<p>One neat trick is to use these strings to create HTML elements in JavaScript if you need them. (Note: This may not be best way to make HTML elements, but its still way better than creating them one by one!).</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> aListOfItems <span class="token operator">=</span>
+  <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;ul&gt;
+    &lt;li&gt;Point number one&lt;/li&gt;
+    &lt;li&gt;Point number two&lt;/li&gt;
+    &lt;li&gt;Point number three&lt;/li&gt;
+    &lt;li&gt;Point number four&lt;/li&gt;
+  &lt;/ul&gt;</span><span class="token template-punctuation string">`</span></span>
+
+container<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> aListOfItems
+
+document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>container<span class="token punctuation">)</span>
+</code></pre><div class="toolbar"></div></div>
+<div class="cp_embed_wrapper"><iframe allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="cp_embed_iframe " frameborder="0" height="300" width="100%" name="cp_embed_1" scrolling="no" src="./Introduction to commonly used ES6 features _ Zell Liew_files/JNzMdb(1).html" style="width: 100%; overflow:hidden; display:block;" title="Using multi-line strings to create more complicated HTML elements" loading="lazy" id="cp_embed_JNzMdb"></iframe></div>
+<script async="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/ei.js.download"></script>
+<p>Another feature of template literals is called <strong>tags</strong>. Tags are functions that allow you manipulate the template literal, if you wanted to substitute any string.</p>
+<p>Here’s what it looks like:</p>
+<div class="code-toolbar"><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> animal <span class="token operator">=</span> <span class="token string">'lamb'</span>
+
+<span class="token comment">// This a tag</span>
+<span class="token keyword">const</span> <span class="token function-variable function">tagFunction</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something here</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This tagFunction allows you to manipulate the template literal.</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> tagFunction <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Mary had a little </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>animal<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+</code></pre><div class="toolbar"></div></div>
+<p>To be honest, even though template tags looks cool, I haven’t had a use case for them yet. If you want to learn more about template tags, I suggest you read <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals">this reference</a> on MDN.</p>
+<p>That’s it for template literals.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>Woo! That’s almost all the awesome ES6 features I use on a regular basis. ES6 is awesome. It’s definitely worth it to take a bit of your time and learn about them, so you can understand what everyone else is writing about.</p>
+<p>Was this article helpful for you? Let me know in the comments below if you have any questions or thoughts! I’d love to hear them :)</p>
+<p>If you enjoyed this article, please tell a friend about it! Share it on <a href="https://twitter.com/share?text=Introduction%20to%20commonly%20used%20ES6%20features%20by%20@zellwk%20%F0%9F%91%87%20&amp;url=https://zellwk.com/blog/es6/" target="_blank" rel="noopener">Twitter</a>. If you spot a typo, I’d appreciate if you can correct <a href="https://github.com/zellwk/zellwk.com/blob/master/src/posts/2017-05-10-es6.md">it on GitHub</a>. Thank you!</p>
+
+  </article>
+
+  <div class="post-layout">
+    <section id="convertkit" class="o-content c-ck ck-layout jsCkForm">
+
+
+<div><div class="ck_form_container ck_inline" data-ck-version="6">
+  
+<div class="ck_form ck_vertical_subscription_form ck_horizontal">
+  <div class="ck_form_content">
+    <h3 class="ck_form_title">Become a JavaScript expert with this free email course</h3>
+    <div class="ck_description">
+      <span class="ck_image">
+        <img src="./Introduction to commonly used ES6 features _ Zell Liew_files/jsr.png">
+      </span>
+      <p>Don't be afraid if you're stuck, overwhelmed or confused with JavaScript. Break your top 3 learning barriers and learn JavaScript quickly through an email course I built specifically for you – JavaScript Roadmap. </p>
+    </div>
+  </div>
+
+  <div class="ck_form_fields">
+    <div id="ck_success_msg" style="display:none;">
+      <p>Success! Now check your email to confirm your subscription.</p>
+    </div>
+
+    <!--  Form starts here  -->
+    <form id="ck_subscribe_form" class="ck_subscribe_form" action="https://forms.convertkit.com/landing_pages/275679/subscribe" data-remote="true">
+      <input type="hidden" value="{&quot;form_style&quot;:&quot;full&quot;,&quot;embed_style&quot;:&quot;inline&quot;,&quot;embed_trigger&quot;:&quot;scroll_percentage&quot;,&quot;scroll_percentage&quot;:&quot;70&quot;,&quot;delay_seconds&quot;:&quot;10&quot;,&quot;display_position&quot;:&quot;br&quot;,&quot;display_devices&quot;:&quot;all&quot;,&quot;days_no_show&quot;:&quot;15&quot;,&quot;converted_behavior&quot;:&quot;show&quot;}" id="ck_form_options">
+      <input type="hidden" name="id" value="275679" id="landing_page_id">
+      <input type="hidden" name="ck_form_recaptcha" value="" id="ck_form_recaptcha">
+      <div class="ck_errorArea">
+        <div id="ck_error_msg" style="display:none">
+          <p>There was an error submitting your subscription. Please try again.</p>
+        </div>
+      </div>
+      <div class="ck_control_group ck_first_name_field_group">
+        <label class="ck_label" for="ck_firstNameField">First Name</label>
+        <input type="text" name="first_name" class="ck_first_name" id="ck_firstNameField">
+      </div>
+      <div class="ck_control_group ck_email_field_group">
+        <label class="ck_label" for="ck_emailField">Email Address</label>
+        <input type="email" name="email" class="ck_email_address" id="ck_emailField" required="">
+      </div>
+      <div class="ck_control_group ck_captcha2_h_field_group ck-captcha2-h" style="position: absolute !important;left: -999em !important;">
+        <label class="ck_label" for="ck_captcha2_h">We use this field to detect spam bots. If you fill this in, you will be marked as a spammer.</label>
+        <input type="text" name="captcha2_h" class="ck-captcha2-h" id="ck_captcha2_h">
+      </div>
+
+
+      <button class="subscribe_button ck_subscribe_button btn fields" id="ck_subscribe_button">
+        Get your Javascript roadmap for free
+      </button>
+      <span class="ck_guarantee">
+        We won't send you spam. Unsubscribe at any time.
+          <a class="ck_powered_by" href="http://mbsy.co/clb2r">Powered by ConvertKit</a>
+      </span>
+    </form>
+  </div>
+
+</div>
+
+</div>
+
+
+<style type="text/css">/* Layout */
+  .ck_form {
+  /* divider image */
+	background: #fff url(data:image/gif;base64,R0lGODlhAQADAIABAMzMzP///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMTQgNzkuMTUxNDgxLCAyMDEzLzAzLzEzLTEyOjA5OjE1ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUQ5NjM5RjgxQUVEMTFFNEJBQTdGNTQwMjc5MTZDOTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUQ5NjM5RjkxQUVEMTFFNEJBQTdGNTQwMjc5MTZDOTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxRDk2MzlGNjFBRUQxMUU0QkFBN0Y1NDAyNzkxNkM5NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxRDk2MzlGNzFBRUQxMUU0QkFBN0Y1NDAyNzkxNkM5NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgH//v38+/r5+Pf29fTz8vHw7+7t7Ovq6ejn5uXk4+Lh4N/e3dzb2tnY19bV1NPS0dDPzs3My8rJyMfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxLSklIR0ZFRENCQUA/Pj08Ozo5ODc2NTQzMjEwLy4tLCsqKSgnJiUkIyIhIB8eHRwbGhkYFxYVFBMSERAPDg0MCwoJCAcGBQQDAgEAACH5BAEAAAEALAAAAAABAAMAAAICRFIAOw==) repeat-y center top;
+	font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	line-height: 1.5em;
+	overflow: hidden;
+	color: #666;
+	font-size: 16px;
+	border-top: solid 20px #3071b0;
+  border-top-color: #3071b0;
+	border-bottom: solid 10px #3d3d3d;
+  border-bottom-color: #1d446a;
+	-webkit-box-shadow: 0px 0px 5px rgba(0,0,0,.3);
+	-moz-box-shadow: 0px 0px 5px rgba(0,0,0,.3);
+	box-shadow: 0px 0px 5px rgba(0,0,0,.3);
+	clear: both;
+	margin: 20px 0px;
+}
+
+.ck_form, .ck_form * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#ck_subscribe_form {
+  clear: both;
+}
+
+/* Element Queries — uses JS */
+
+.ck_form_content, .ck_form_fields {
+	width: 50%;
+	float: left;
+	padding: 5%;
+}
+
+.ck_form.ck_horizontal {
+}
+
+.ck_form_content {
+	border-bottom: none;
+}
+
+.ck_form.ck_vertical {
+	background: #fff;
+}
+
+.ck_vertical .ck_form_content, .ck_vertical .ck_form_fields {
+	padding: 10%;
+	width: 100%;
+	float: none;
+}
+
+.ck_vertical .ck_form_content {
+	border-bottom: 1px dotted #aaa;
+	overflow: hidden;
+}
+
+/* Trigger the vertical layout with media queries as well */
+
+@media all and (max-width: 499px) {
+
+	.ck_form {
+		background: #fff;
+	}
+
+	.ck_form_content, .ck_form_fields {
+		padding: 10%;
+		width: 100%;
+		float: none;
+	}
+
+	.ck_form_content {
+		border-bottom: 1px dotted #aaa;
+	}
+
+}
+
+/* Content */
+
+.ck_form_content h3 {
+	margin: 0px 0px 15px;
+	font-size: 24px;
+	padding: 0px;
+}
+
+
+.ck_form_content p {
+	font-size: 14px;
+}
+
+.ck_image {
+	float: left;
+	margin-right: 5px;
+}
+
+/* Form fields */
+
+.ck_errorArea {
+	display: none;
+}
+
+#ck_success_msg {
+	padding: 10px 10px 0px;
+	border: solid 1px #ddd;
+	background: #eee;
+}
+
+.ck_label {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.ck_form input[type="text"], .ck_form input[type="email"] {
+	font-size: 14px;
+	padding: 10px 8px;
+	width: 100%;
+	border: 1px solid #d6d6d6; /* stroke */
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; /* border radius */
+	background-color: #f8f7f7; /* layer fill content */
+	margin-bottom: 5px;
+	height: auto;
+}
+
+.ck_form input[type="text"]:focus, .ck_form input[type="email"]:focus {
+	outline: none;
+	border-color: #aaa;
+}
+
+.ck_checkbox {
+  padding: 10px 0px 10px 20px;
+  display: block;
+  clear: both;
+}
+
+.ck_checkbox input.optIn {
+  margin-left: -20px;
+  margin-top: 0;
+}
+.ck_form .ck_opt_in_prompt {
+  margin-left: 4px;
+}
+.ck_form .ck_opt_in_prompt p {
+  display: inline;
+}
+
+.ck_form .ck_subscribe_button {
+    width: 100%;
+    color: #fff;
+    margin: 10px 0px 0px;
+    padding:  10px 0px;
+    font-size: 18px;
+    background: #0d6db8;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px; /* border radius */
+    cursor: pointer;
+    border: none;
+    text-shadow: none;
+  }
+
+
+.ck_form .ck_guarantee {
+	color: #626262;
+	font-size: 12px;
+	text-align: center;
+	padding: 5px 0px;
+	display: block;
+}
+
+.ck_form .ck_powered_by {
+	display: block;
+	color: #aaa;
+}
+
+.ck_form .ck_powered_by:hover {
+	display: block;
+	color: #444;
+}
+
+.ck_converted_content {
+  display: none;
+	padding: 5%;
+	background: #fff;
+}
+
+
+/* v6 */
+
+.ck_form_v6 #ck_success_msg {
+	padding: 0px 10px;
+}
+
+@media all and (max-width: 403px) {
+  .ck_form_v6.ck_modal .ck_close_link {
+    top: 30px;
+  }
+}
+
+@media all and (min-width: 404px) and (max-width: 499px) {
+  .ck_form_v6.ck_modal .ck_close_link {
+    top: 57px;
+  }
+}
+
+
+
+
+
+</style>
+</div><script defer="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/275679" id="_ck_275679"></script></section>
+  </div>
+
+  
+  
+</div>
+
+<div class="l-wrap">
+  <div class="post-layout">
+    <nav class="post-nav">
+      
+
+          <a class="button" data-type="outline" href="https://zellwk.com/blog/https:/css-tricks.com/using-fetch/" data-link-to="previous-post">
+              <svg height="1em" viewBox="0 0 22 38">
+                <path fill="currentColor" d="M18.9 38l3.1-3.1L6.1 19 22 3.1 18.9 0 0 19z"></path>
+              </svg>
+              <span>Using Fetch</span>
+            </a>
+          <a class="button" data-type="outline" href="https://zellwk.com/blog/https:/www.creativebloq.com/how-to/the-rules-of-responsive-web-typography/" data-link-to="next-post">
+              <span>The rules of responsive web typography</span>
+              <svg height="1em" viewBox="0 0 22 38">
+                <path fill="currentColor" d="M3.1 0L0 3.1 15.9 19 0 34.9 3.1 38 22 19z"></path>
+              </svg>
+            </a>
+          </nav>
+  </div>
+</div>
+</main><footer class="c-footer" role="contentinfo">
+  <div class="l-wrap">
+    <div class="l-wrap__full l-footer__wrap">
+      <div class="c-footer__cta">
+        <ul class="c-footer__nav">
+          <li>
+            <span>About Zell</span>
+            <ul>
+              <li>
+                <a href="https://zellwk.com/">Home</a>
+              </li>
+              <li>
+                <a href="https://zellwk.com/about">About</a>
+              </li>
+              <li>
+                <a href="https://zellwk.com/contact">Contact</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <span>Things I made</span>
+            <ul>
+              <li>
+                <a href="https://zellwk.com/products#course-section">Courses</a>
+              </li>
+              <li>
+                <a href="https://zellwk.com/products#library-section">Libraries</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <span>Newsletter</span>
+            <ul>
+              <li>
+                <a href="https://zellwk.com/newsletter">Email</a>
+              </li>
+              <li>
+                <a href="https://zellwk.com/rss">RSS</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="c-footer__info">
+        <p>
+          <span>
+            © 2020 <a href="https://zellwk.com/blog">Zell Liew</a>
+            · <a href="https://zellwk.com/terms">Terms</a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="c-offsite-container jsOffsiteContainer">
+  <div class="c-offsite">
+    <div class="c-offsite__header">
+      <a class="c-main-nav__logo" href="https://zellwk.com/about">
+        <div class="o-zell--white"><svg id="zell" viewBox="0 0 90 30">
+  <title> Zell </title>
+  <g>
+    <g class="z">
+      <path class="o-zell__bar" d="M0 0v6.332h24.336L24.384 0z"></path>
+      <path class="o-zell__text" d="M24.336 6.332h-8.154L0 23.425v6.332h24.336v-6.38H9.562z"></path>
+    </g>
+    <path class="e o-zell__text" d="M45.706 29.757v-5.34H34.657v-3.614h9.194v-4.941h-9.194V12.28h11.05V6.956H27.893v22.801z"></path>
+    <path class="l1 o-zell__text" d="M68.124 29.757v-5.9H57.938V6.956h-7.275v22.801z"></path>
+    <path class="l2 o-zell__text" d="M89.646 29.757v-5.9H79.461V6.956h-7.276v22.801z"></path>
+  </g>
+</svg>
+</div>
+      </a>
+      <a href="https://zellwk.com/blog/es6/#" class="c-offsite__close jsOffsiteClose">×</a>
+    </div>
+    <div class="c-offsite__content"><nav class="c-offsite__nav">
+    <a href="https://zellwk.com/about" class="o-navlink--offsite">About</a>
+    <a href="https://zellwk.com/blog" class="o-navlink--offsite">Articles</a>
+    <a href="https://zellwk.com/newsletter" class="o-navlink--offsite">Newsletter</a>
+    <a href="https://zellwk.com/contact" class="o-navlink--offsite">Contact</a>
+  </nav></div>
+  </div>
+</div>
+<div class="c-modal-container jsModalContainer">
+  <div class="l-wrap">
+    <div class="c-modal jsModal jsLoader">
+      <h3 class="c-modal__title jsModalTitle jsLoaderTitle">Hold on while i sign you up…</h3>
+
+      <div class="c-modal__content c-post">
+        <div class="c-loader">
+          <div class="c-loader__spinner-container">
+            <div class="c-loader__spinner o-spinner jsSpinner">
+              <div class="o-spinner__item--pink"></div>
+              <div class="o-spinner__item"></div>
+              <div class="o-spinner__item"></div>
+            </div>
+            <div class="c-loader__success-icon jsSuccessIcon">🤗</div>
+          </div>
+
+          <div class="c-loader__messages jsLoaderMessages jsModalMessages">
+            <div class="jsModalSuccessText">Woohoo! You’re in!</div>
+            <div>Now, hold on while I redirect you.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+    
+      <script module="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/main-cf71261c20.mjs"></script>
+      <script nomodule="" src="./Introduction to commonly used ES6 features _ Zell Liew_files/main-legacy-a26fcd3fc8.js.download"></script>
+
+      <script defer="">
+        (function (i, s, o, g, r, a, m) {
+          i['GoogleAnalyticsObject'] = r;
+          i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+          },
+          i[r].l = 1 * new Date();
+          a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+          a.async = 1;
+          a.src = g;
+          m
+            .parentNode
+            .insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-34947087-3', 'auto');
+        ga('send', 'pageview');
+      </script>
+
+      <!-- Hotjar Tracking Code for https://zellwk.com -->
+      <script defer="">
+        (function (h, o, t, j, a, r) {
+          h.hj = h.hj || function () {
+            (h.hj.q = h.hj.q || []).push(arguments)
+          };
+          h._hjSettings = {
+            hjid: 500360,
+            hjsv: 6
+          };
+          a = o.getElementsByTagName('head')[0];
+          r = o.createElement('script');
+          r.async = 1;
+          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+      </script>
+  
+
+</body></html>
